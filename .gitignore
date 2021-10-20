@@ -105,7 +105,7 @@ fabric.properties
 ### JetBrains Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-# *.iml
+ *.iml
 # modules.xml
 # .idea/misc.xml
 # *.ipr
@@ -146,3 +146,5 @@ fabric.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains,java,kotlin
+
+.idea
