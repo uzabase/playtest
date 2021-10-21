@@ -6,7 +6,7 @@
 
     <groupId>com.uzabase</groupId>
     <artifactId>playtest-json</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>playtest-json</name>
@@ -26,6 +26,12 @@
             <organizationUrl>https://www.uzabase.com/jp/</organizationUrl>
         </developer>
     </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/uzabase/playtest.git</connection>
+        <developerConnection>scm:git:ssh://github.com:uzabase/playtest.git</developerConnection>
+        <url>http://github.com/uzabase/playtest/tree/main</url>
+    </scm>
 
     <distributionManagement>
         <snapshotRepository>
