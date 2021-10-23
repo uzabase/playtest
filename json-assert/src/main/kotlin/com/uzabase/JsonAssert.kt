@@ -9,7 +9,12 @@ interface JsonAssert {
     }
 
     fun String.assertByJsonPath(expected: String, jsonPath: String) {
-        val value = reader.getByJsonPath(this, jsonPath)
+        val value = reader.getStringByJsonPath(this, jsonPath)
+        expected shouldBeEqualTo value
+    }
+
+    fun String.assertByJsonPath(expected: Boolean, jsonPath: String) {
+        val value = reader.getBooleanByJsonPath(this, jsonPath)
         expected shouldBeEqualTo value
     }
 }
