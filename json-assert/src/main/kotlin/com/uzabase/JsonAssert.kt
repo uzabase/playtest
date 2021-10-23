@@ -1,5 +1,6 @@
 package com.uzabase
 
+import org.amshove.kluent.shouldBeEqualTo
 import org.kodein.di.instance
 
 interface JsonAssert {
@@ -8,6 +9,7 @@ interface JsonAssert {
     }
 
     fun String.assertByJsonPath(expected: String, jsonPath: String) {
-        TODO()
+        val value = reader.getByJsonPath(this, jsonPath)
+        expected shouldBeEqualTo value
     }
 }
