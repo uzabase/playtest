@@ -22,4 +22,9 @@ interface JsonAssert {
         val value = reader.getIntByJsonPath(this, jsonPath)
         expected shouldBeEqualTo value
     }
+
+    fun String.assertByJsonPath(expected: Double, jsonPath: String) {
+        val value = reader.getDoubleByJsonPath(this, jsonPath)
+        expected shouldBeEqualTo value
+    }
 }

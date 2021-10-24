@@ -43,4 +43,16 @@ internal class JsonAssertTest : JsonAssert {
         val json = """{ "test": 1 }"""
         assertThrows<ComparisonFailedException> { json.assertByJsonPath(2, "$.test") }
     }
+
+    @Test
+    fun 指定したJSONPathの値が期待した小数値の場合アサートの例外をスローしない() {
+        val json = """{ "test": 1.0 }"""
+        invoking { json.assertByJsonPath(1.0, "$.test") } shouldNotThrow AnyException
+    }
+
+    @Test
+    fun 指定したJSONPathの値が期待していない小数値の場合アサートの例外をスローする() {
+        val json = """{ "test": 1.0 }"""
+        assertThrows<ComparisonFailedException> { json.assertByJsonPath(2.0, "$.test") }
+    }
 }

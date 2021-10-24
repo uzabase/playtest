@@ -11,3 +11,7 @@ tags: unimplmented
 ## JsonPathで整数値をAssertする
 tags: unimplmented
 * "$.key1.key2"が整数値の"1"であることをアサー卜できる
+
+## JsonPathで小数値をAssertする
+tags: unimplmented
+* "$.key1.key2"が小数値の"1.0"であることをアサー卜できる

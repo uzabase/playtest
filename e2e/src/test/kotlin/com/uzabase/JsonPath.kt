@@ -22,9 +22,17 @@ class JsonPath : JsonAssert {
     }
 
     @Step("<jsonPath>が整数値の<value>であることをアサー卜できる")
-    fun assertJsonPathInt(jsonPath: String, value: Boolean) {
+    fun assertJsonPathInt(jsonPath: String, value: Int) {
         val json = """"
             {"key1": {"key2": 1}}
+            """".trimMargin()
+        invoking { json.assertByJsonPath(value, jsonPath) } `should not throw` AssertionError::class
+    }
+
+    @Step("<jsonPath>が小数値の<value>であることをアサー卜できる")
+    fun assertJsonPathDouble(jsonPath: String, value: Double) {
+        val json = """"
+            {"key1": {"key2": 1.0}}
             """".trimMargin()
         invoking { json.assertByJsonPath(value, jsonPath) } `should not throw` AssertionError::class
     }

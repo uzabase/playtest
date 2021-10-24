@@ -30,4 +30,10 @@ internal class JsonReaderImplTest {
         val actual = jsonReader.getIntByJsonPath("""{"test": 1}""", "$.test")
         1 shouldBeEqualTo actual
     }
+
+    @Test
+    fun JSONPathで指定したKeyの小数値を取得する() {
+        val actual = jsonReader.getDoubleByJsonPath("""{"test": 1.0}""", "$.test")
+        1.0 shouldBeEqualTo actual
+    }
 }
