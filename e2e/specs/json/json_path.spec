@@ -7,3 +7,7 @@ tags: unimplemented
 ## JsonPathで真偽値をAssertする
 tags: unimplmented
 * "$.key1.key2"が真偽値の"true"であることをアサー卜できる
+
+## JsonPathで整数値をAssertする
+tags: unimplmented
+* "$.key1.key2"が整数値の"1"であることをアサー卜できる
