@@ -19,6 +19,18 @@ internal class JsonReaderImplTest {
     }
 
     @Test
+    fun JSONPathで指定したKeyで取得する値の型変換が失敗したら例外をスローする() {
+        invoking {
+            val jsonString = """
+                {"key1": "value1"}
+            """.trimIndent()
+
+            val jsonNode = JsonNode.of(jsonString)
+            jsonNode.get<Int>("$.key1")
+        } shouldThrow NotFoundJsonValueException::class
+    }
+
+    @Test
     fun JSONPathで指定したKeyの文字列を取得する() {
         val jsonString = """
             {"key1": "value1"}
