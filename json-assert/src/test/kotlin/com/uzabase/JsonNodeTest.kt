@@ -5,7 +5,7 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
-internal class JsonReaderImplTest {
+internal class JsonNodeTest {
     @Test
     fun JSONPathで指定したKeyの値が存在しないとき例外をスローする() {
         invoking {
