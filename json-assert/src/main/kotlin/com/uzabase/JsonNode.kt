@@ -12,7 +12,7 @@ data class JsonNode(val json: JN) {
     inline fun <reified T : Any> get(path: String): T =
         json.read(path) ?: throw NotFoundJsonValueException(json.toString(), path)
 
-    fun getFilteredList(arrayJsonPath: String, filterKey: String, filterValue: String): List<Map<Any, Any>> =
-        json.read<List<Map<Any, Any>>>(arrayJsonPath)?.filter { it[filterKey] == filterValue }
-            ?: throw NotFoundJsonValueException(json.toString(), arrayJsonPath)
+    fun getFilteredList(arrayKeyJsonPath: String, filterKey: String, filterValue: String): List<Map<Any, Any>> =
+        json.read<List<Map<Any, Any>>>(arrayKeyJsonPath)?.filter { it[filterKey] == filterValue }
+            ?: throw NotFoundJsonValueException(json.toString(), arrayKeyJsonPath)
 }

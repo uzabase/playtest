@@ -1,27 +1,61 @@
 package com.uzabase
 
 import com.thoughtworks.gauge.Step
+import com.uzabase.DataStore.loadJsonFromScenario
 import org.amshove.kluent.shouldBeEqualTo
 
 class JsonStep {
 
     @Step("レスポンスのJSONの<jsonPath>が文字列の<expected>となっていること")
     fun assertJson(jsonPath: String, expected: String) {
-        JsonNode.of(DataStore.loadJsonFromScenario()).get<String>(jsonPath) shouldBeEqualTo expected
+        JsonNode.of(loadJsonFromScenario()).get<String>(jsonPath) shouldBeEqualTo expected
     }
 
     @Step("レスポンスのJSONの<jsonPath>が整数の<expected>となっていること")
     fun assertJson(jsonPath: String, expected: Int) {
-        JsonNode.of(DataStore.loadJsonFromScenario()).get<Int>(jsonPath) shouldBeEqualTo expected
+        JsonNode.of(loadJsonFromScenario()).get<Int>(jsonPath) shouldBeEqualTo expected
     }
 
     @Step("レスポンスのJSONの<jsonPath>が小数の<expected>となっていること")
     fun assertJson(jsonPath: String, expected: Double) {
-        JsonNode.of(DataStore.loadJsonFromScenario()).get<Double>(jsonPath) shouldBeEqualTo expected
+        JsonNode.of(loadJsonFromScenario()).get<Double>(jsonPath) shouldBeEqualTo expected
     }
 
     @Step("レスポンスのJSONの<jsonPath>が真偽値の<expected>となっていること")
     fun assertJson(jsonPath: String, expected: Boolean) {
-        JsonNode.of(DataStore.loadJsonFromScenario()).get<Boolean>(jsonPath) shouldBeEqualTo expected
+        JsonNode.of(loadJsonFromScenario()).get<Boolean>(jsonPath) shouldBeEqualTo expected
     }
+
+    @Step("レスポンスのJSONの<jsonPath>の配列の<filterKey>が<filterValue>である一意な要素の<key>が文字列の<expected>となっていること")
+    fun assertJson(jsonPath: String, filterKey: String, filterValue: String, key: String, expected: String) {
+        val element = JsonNode.of(loadJsonFromScenario()).getUniqElementInArray(jsonPath, filterKey, filterValue)
+        element[key] shouldBeEqualTo expected
+    }
+
+    @Step("レスポンスのJSONの<jsonPath>の配列の<filterKey>が<filterValue>である一意な要素の<key>が整数値の<expected>となっていること")
+    fun assertJson(jsonPath: String, filterKey: String, filterValue: String, key: String, expected: Int) {
+        val element = JsonNode.of(loadJsonFromScenario()).getUniqElementInArray(jsonPath, filterKey, filterValue)
+        element[key] shouldBeEqualTo expected
+    }
+
+    @Step("レスポンスのJSONの<jsonPath>の配列の<filterKey>が<filterValue>である一意な要素の<key>が小数値の<expected>となっていること")
+    fun assertJson(jsonPath: String, filterKey: String, filterValue: String, key: String, expected: Double) {
+        val element = JsonNode.of(loadJsonFromScenario()).getUniqElementInArray(jsonPath, filterKey, filterValue)
+        element[key] shouldBeEqualTo expected
+    }
+
+    @Step("レスポンスのJSONの<jsonPath>の配列の<filterKey>が<filterValue>である一意な要素の<key>が真偽値の<expected>となっていること")
+    fun assertJson(jsonPath: String, filterKey: String, filterValue: String, key: String, expected: Boolean) {
+        val element = JsonNode.of(loadJsonFromScenario()).getUniqElementInArray(jsonPath, filterKey, filterValue)
+        element[key] shouldBeEqualTo expected
+    }
+
+    private fun JsonNode.getUniqElementInArray(
+        arrayKeyJsonPath: String,
+        filterKey: String,
+        filterValue: String
+    ) = this.getFilteredList(arrayKeyJsonPath, filterKey, filterValue)
+        .takeIf { it.size == 1 }
+        ?.first()
+        ?: throw IllegalArgumentException("filter: $filterKey == $filterValue can not specify element in $arrayKeyJsonPath")
 }
