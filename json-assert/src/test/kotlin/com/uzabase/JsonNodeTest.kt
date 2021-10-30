@@ -69,4 +69,42 @@ internal class JsonNodeTest {
         val jsonNode = JsonNode.of(jsonString)
         1.2 shouldBeEqualTo jsonNode.get<Double>("$.key1")
     }
+
+    @Test
+    fun JSONPathで指定したKeyの配列を特定のkeyと値でフィルターしその配列を返す() {
+        val jsonString = """
+            {
+              "key1": [
+                { "key2": "a", "key3": "1" },
+                { "key2": "b", "key3": "2" },
+                { "key2": "b", "key3": "3" },
+                { "key2": "d", "key3": "4" }
+              ]
+            }
+        """.trimIndent()
+
+        val jsonNode = JsonNode.of(jsonString)
+        val expected = listOf(
+            mapOf("key2" to "b", "key3" to "2"),
+            mapOf("key2" to "b", "key3" to "3")
+        )
+        jsonNode.getFilteredList("$.key1", "key2", "b") shouldBeEqualTo expected
+    }
+
+    @Test
+    fun JSONPathで指定したKeyの配列を存在しないkeyでフィルターすると空の配列を返す() {
+        val jsonString = """
+            {
+              "key1": [
+                { "key2": "a", "key3": "1" },
+                { "key2": "b", "key3": "2" },
+                { "key2": "b", "key3": "3" },
+                { "key2": "d", "key3": "4" }
+              ]
+            }
+        """.trimIndent()
+
+        val jsonNode = JsonNode.of(jsonString)
+        jsonNode.getFilteredList("$.key1", "xxx", "b") shouldBeEqualTo listOf()
+    }
 }

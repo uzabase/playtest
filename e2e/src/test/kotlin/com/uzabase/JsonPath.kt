@@ -40,6 +40,21 @@ class JsonPath {
         val jsonNode = JsonNode.of(jsonString)
         value.toDouble() shouldBeEqualTo jsonNode.get<Double>(jsonPath)
     }
+
+    @Step("<jsonPath>の配列をキー<filterKey>の値が<filterValue>でフィルターした結果が<value>である")
+    fun getJsonPath(jsonPath: String, filterKey: String, filterValue: String, value: String) {
+        val jsonString = """
+            {
+              "arrayKey": [
+                { "filterKey": "b", "key3": "1" },
+                { "filterKey": "b", "key3": "2" },
+                { "filterKey": "c", "key3": "3" }
+              ]
+            }
+        """.trimIndent()
+        val list = JsonNode.of(jsonString).getFilteredList(jsonPath, filterKey, filterValue)
+        list shouldBeEqualTo JsonNode.of(value).get("$.*")
+    }
 }
 
 
