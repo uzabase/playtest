@@ -107,4 +107,20 @@ internal class JsonNodeTest {
         val jsonNode = JsonNode.of(jsonString)
         jsonNode.getFilteredList("$.key1", "xxx", "b") shouldBeEqualTo listOf()
     }
+
+    @Test
+    fun JSONPathで指定したKeyの配列の長さを取得する() {
+        val jsonString = """
+            {
+              "key1": [
+                { "key2": "a", "key3": "1" },
+                { "key2": "b", "key3": "2" },
+                { "key2": "b", "key3": "3" },
+                { "key2": "d", "key3": "4" }
+              ]
+            }
+        """.trimIndent()
+        val jsonNode = JsonNode.of(jsonString)
+        jsonNode.getArrayLength("$.key1") shouldBeEqualTo 4
+    }
 }

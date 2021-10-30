@@ -51,11 +51,11 @@ class JsonStep {
     }
 
     private fun JsonNode.getUniqElementInArray(
-        arrayKeyJsonPath: String,
+        arrayJsonPath: String,
         filterKey: String,
         filterValue: String
-    ) = this.getFilteredList(arrayKeyJsonPath, filterKey, filterValue)
+    ) = this.getFilteredList(arrayJsonPath, filterKey, filterValue)
         .takeIf { it.size == 1 }
         ?.first()
-        ?: throw IllegalArgumentException("filter: $filterKey == $filterValue can not specify element in $arrayKeyJsonPath")
+        ?: throw IllegalArgumentException("filter: $filterKey == $filterValue can not specify element in $arrayJsonPath")
 }

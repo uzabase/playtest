@@ -41,6 +41,15 @@ class JsonPath {
         value.toDouble() shouldBeEqualTo jsonNode.get<Double>(jsonPath)
     }
 
+    @Step("<jsonPath>の配列の長さを取得した結果が<length>である")
+    fun getArrayLength(jsonPath: String, length: Int) {
+        val jsonString = """
+                { "arrayKey": [ { "key2": "a" }, { "key2": "b" }, { "key2": "c" } ] }
+        """.trimIndent()
+        val jsonNode = JsonNode.of(jsonString)
+        jsonNode.getArrayLength(jsonPath) shouldBeEqualTo length
+    }
+
     @Step("<jsonPath>の配列をキー<filterKey>の値が<filterValue>でフィルターした結果が<value>である")
     fun getJsonPath(jsonPath: String, filterKey: String, filterValue: String, value: String) {
         val jsonString = """
