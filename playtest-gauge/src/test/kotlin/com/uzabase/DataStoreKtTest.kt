@@ -1,8 +1,10 @@
-import DataStore.loadFromScenario
-import DataStore.loadJsonFromScenario
-import DataStore.storeJsonToScenario
-import DataStore.storeToScenario
+package com.uzabase
+
 import com.thoughtworks.gauge.datastore.ScenarioDataStore
+import com.uzabase.DataStore.loadFromScenario
+import com.uzabase.DataStore.loadJsonFromScenario
+import com.uzabase.DataStore.storeJsonToScenario
+import com.uzabase.DataStore.storeToScenario
 import io.mockk.*
 import org.amshove.kluent.`should be equal to`
 import org.junit.jupiter.api.AfterEach

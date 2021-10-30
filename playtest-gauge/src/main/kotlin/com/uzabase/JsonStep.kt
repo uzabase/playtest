@@ -1,5 +1,6 @@
+package com.uzabase
+
 import com.thoughtworks.gauge.Step
-import com.uzabase.JsonNode
 import org.amshove.kluent.shouldBeEqualTo
 
 class JsonStep {

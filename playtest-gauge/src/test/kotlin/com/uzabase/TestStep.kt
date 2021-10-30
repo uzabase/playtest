@@ -1,3 +1,5 @@
+package com.uzabase
+
 import com.thoughtworks.gauge.Step
 
 class TestStep {
