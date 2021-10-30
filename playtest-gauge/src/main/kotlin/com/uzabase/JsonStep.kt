@@ -10,12 +10,12 @@ class JsonStep {
         JsonNode.of(DataStore.loadJsonFromScenario()).get<String>(jsonPath) shouldBeEqualTo expected
     }
 
-    @Step("レスポンスのJSONの<jsonPath>が整数値の<expected>となっていること")
+    @Step("レスポンスのJSONの<jsonPath>が整数の<expected>となっていること")
     fun assertJson(jsonPath: String, expected: Int) {
         JsonNode.of(DataStore.loadJsonFromScenario()).get<Int>(jsonPath) shouldBeEqualTo expected
     }
 
-    @Step("レスポンスのJSONの<jsonPath>が小数値の<expected>となっていること")
+    @Step("レスポンスのJSONの<jsonPath>が小数の<expected>となっていること")
     fun assertJson(jsonPath: String, expected: Double) {
         JsonNode.of(DataStore.loadJsonFromScenario()).get<Double>(jsonPath) shouldBeEqualTo expected
     }
