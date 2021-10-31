@@ -65,7 +65,7 @@ class JsonStep {
         uniqueKey: String,
         filterValue: String
     ) = this.getFilteredList(arrayJsonPath, uniqueKey, filterValue)
-        .takeIf { it.size == 1 }
+        .takeIf { it?.size == 1 }
         ?.first()
         ?: throw IllegalArgumentException("filter: $uniqueKey == $filterValue can not specify element in $arrayJsonPath")
 }

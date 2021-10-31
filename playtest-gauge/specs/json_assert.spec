@@ -37,7 +37,5 @@
 * レスポンスのJSONの"$.key1"の配列の長さが"2"である
 
 ## Keyが存在しない
-tags: unimplmented
 * シナリオデータストアに"{\"test\": true}"を保存する
 * レスポンスのJSONの"$.nonexist"が存在しない
-
