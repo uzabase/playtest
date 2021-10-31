@@ -53,8 +53,9 @@
         <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
         <maven_assembly_plugin.version>3.3.0</maven_assembly_plugin.version>
         <maven_gpg_plugin.version>3.0.1</maven_gpg_plugin.version>
-        <!-- dokkaはkotlinと同じバージョンにしたいがdokkaの1.6.0-RCはないので個別に指定してる -->
+        <!-- dokkaとkotlin_as_java_pluginはkotlinと同じバージョンにしたいが1.6.0-RCがないので個別に指定した -->
         <dokka.version>1.5.31</dokka.version>
+        <kotlin_as_java_plugin.version>1.5.31</kotlin_as_java_plugin.version>
     </properties>
 
     <dependencies>
@@ -161,7 +162,7 @@
                         <plugin>
                             <groupId>org.jetbrains.dokka</groupId>
                             <artifactId>kotlin-as-java-plugin</artifactId>
-                            <version>${kotlin.version}</version>
+                            <version>${kotlin_as_java_plugin.version}</version>
                         </plugin>
                     </dokkaPlugins>
                 </configuration>
