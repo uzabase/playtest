@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.uzabase</groupId>
     <artifactId>playtest-json</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>playtest-json</name>
@@ -15,7 +13,7 @@
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <url>https://opensource.org/licenses/mit-license.php</url>
         </license>
     </licenses>
     <developers>
@@ -26,11 +24,10 @@
             <organizationUrl>https://www.uzabase.com/jp/</organizationUrl>
         </developer>
     </developers>
-
     <scm>
         <connection>scm:git:git://github.com/uzabase/playtest.git</connection>
         <developerConnection>scm:git:ssh://github.com:uzabase/playtest.git</developerConnection>
-        <url>http://github.com/uzabase/playtest/tree/main</url>
+        <url>https://github.com/uzabase/playtest/tree/main</url>
     </scm>
 
     <distributionManagement>
@@ -45,18 +42,20 @@
     </distributionManagement>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <kotlin.version>1.6.0-RC</kotlin.version>
+        <jsonpathkt.version>2.0.0</jsonpathkt.version>
+        <junit_jupiter.version>5.8.1</junit_jupiter.version>
         <kluent.version>1.68</kluent.version>
+        <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
+        <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
+        <maven_assembly_plugin.version>3.3.0</maven_assembly_plugin.version>
+        <maven_gpg_plugin.version>3.0.1</maven_gpg_plugin.version>
+        <!-- dokkaはkotlinと同じバージョンにしたいがdokkaの1.6.0-RCはないので個別に指定してる -->
+        <dokka.version>1.5.31</dokka.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>jcenter</id>
-            <url>https://jcenter.bintray.com/</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>
@@ -65,33 +64,30 @@
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.amshove.kluent</groupId>
-            <artifactId>kluent</artifactId>
-            <version>${kluent.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
+            <artifactId>kotlin-test-junit</artifactId>
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.nfeld.jsonpathkt</groupId>
+            <artifactId>jsonpathkt</artifactId>
+            <version>${jsonpathkt.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>${junit_jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.kodein.di</groupId>
-            <artifactId>kodein-di-jvm</artifactId>
-            <version>7.8.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.nfeld.jsonpathkt</groupId>
-            <artifactId>jsonpathkt</artifactId>
-            <version>2.0.0</version>
+            <groupId>org.amshove.kluent</groupId>
+            <artifactId>kluent</artifactId>
+            <version>${kluent.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
@@ -100,7 +96,6 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
-
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -108,7 +103,6 @@
                             <goal>compile</goal>
                         </goals>
                     </execution>
-
                     <execution>
                         <id>test-compile</id>
                         <goals>
@@ -120,12 +114,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
+                <version>${maven_surefire_plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven_source_plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
+                <version>${maven_gpg_plugin.version}</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -137,16 +145,51 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>dokka-maven-plugin</artifactId>
+                <version>${dokka.version}</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>dokka</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <dokkaPlugins>
+                        <plugin>
+                            <groupId>org.jetbrains.dokka</groupId>
+                            <artifactId>kotlin-as-java-plugin</artifactId>
+                            <version>${kotlin.version}</version>
+                        </plugin>
+                    </dokkaPlugins>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven_assembly_plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                    <descriptors>
+                        <descriptor>src/assembly/dokka.xml</descriptor>
+                    </descriptors>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
