@@ -1,33 +1,26 @@
 package com.uzabase
 
-import org.amshove.kluent.invoking
 import org.amshove.kluent.shouldBeEqualTo
-import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
 internal class JsonNodeTest {
     @Test
-    fun JSONPathで指定したKeyの値が存在しないとき例外をスローする() {
-        invoking {
-            val jsonString = """
+    fun JSONPathで指定したKeyの値が存在しないときnullを返す() {
+        val jsonString = """
                 {"key1": "value1"}
             """.trimIndent()
-
-            val jsonNode = JsonNode.of(jsonString)
-            jsonNode.get("$.key999")
-        } shouldThrow NotFoundJsonValueException::class
+        val jsonNode = JsonNode.of(jsonString)
+        jsonNode.get<String>("$.key999") shouldBeEqualTo null
     }
 
     @Test
-    fun JSONPathで指定したKeyで取得する値の型変換が失敗したら例外をスローする() {
-        invoking {
-            val jsonString = """
+    fun JSONPathで指定したKeyで取得する値の型変換が失敗したときnullを返す() {
+        val jsonString = """
                 {"key1": "value1"}
             """.trimIndent()
 
-            val jsonNode = JsonNode.of(jsonString)
-            jsonNode.get<Int>("$.key1")
-        } shouldThrow NotFoundJsonValueException::class
+        val jsonNode = JsonNode.of(jsonString)
+        jsonNode.get<Int>("$.key1") shouldBeEqualTo null
     }
 
     @Test
@@ -37,7 +30,7 @@ internal class JsonNodeTest {
         """.trimIndent()
 
         val jsonNode = JsonNode.of(jsonString)
-        "value1" shouldBeEqualTo jsonNode.get<String>("$.key1")
+        jsonNode.get<String>("$.key1") shouldBeEqualTo "value1"
     }
 
     @Test
@@ -57,7 +50,7 @@ internal class JsonNodeTest {
         """.trimIndent()
 
         val jsonNode = JsonNode.of(jsonString)
-        1 shouldBeEqualTo jsonNode.get<Int>("$.key1")
+        jsonNode.get<Int>("$.key1") shouldBeEqualTo 1
     }
 
     @Test
@@ -67,7 +60,7 @@ internal class JsonNodeTest {
         """.trimIndent()
 
         val jsonNode = JsonNode.of(jsonString)
-        1.2 shouldBeEqualTo jsonNode.get<Double>("$.key1")
+        jsonNode.get<Double>("$.key1") shouldBeEqualTo 1.2
     }
 
     @Test
@@ -109,7 +102,24 @@ internal class JsonNodeTest {
     }
 
     @Test
-    fun JSONPathで指定したKeyの配列の長さを取得する() {
+    fun JSONPathで指定したKeyの配列が存在しないときnullを返す() {
+        val jsonString = """
+            {
+              "key1": [
+                { "key2": "a", "key3": "1" },
+                { "key2": "b", "key3": "2" },
+                { "key2": "b", "key3": "3" },
+                { "key2": "d", "key3": "4" }
+              ]
+            }
+        """.trimIndent()
+
+        val jsonNode = JsonNode.of(jsonString)
+        jsonNode.getFilteredList("$.key3", "xxx", "b") shouldBeEqualTo null
+    }
+
+    @Test
+    fun JSONPathで指定したKeyの配列の長さを返す() {
         val jsonString = """
             {
               "key1": [
@@ -122,5 +132,21 @@ internal class JsonNodeTest {
         """.trimIndent()
         val jsonNode = JsonNode.of(jsonString)
         jsonNode.getArrayLength("$.key1") shouldBeEqualTo 4
+    }
+
+    @Test
+    fun `配列の長さを取得しようとしたとき、JSONPathで指定したKeyの配列が存在しないときnullを返す`() {
+        val jsonString = """
+            {
+              "key1": [
+                { "key2": "a", "key3": "1" },
+                { "key2": "b", "key3": "2" },
+                { "key2": "b", "key3": "3" },
+                { "key2": "d", "key3": "4" }
+              ]
+            }
+        """.trimIndent()
+        val jsonNode = JsonNode.of(jsonString)
+        jsonNode.getArrayLength("$.key3") shouldBeEqualTo null
     }
 }

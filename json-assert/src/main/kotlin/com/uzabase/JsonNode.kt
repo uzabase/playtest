@@ -9,13 +9,11 @@ data class JsonNode(val json: JN) {
         fun of(json: String) = JsonPath.parse(json)?.let(::JsonNode) ?: throw RuntimeException()
     }
 
-    inline fun <reified T : Any> get(path: String): T =
-        json.read(path) ?: throw NotFoundJsonValueException(json.toString(), path)
+    inline fun <reified T : Any> get(path: String): T? = json.read(path)
 
-    fun getArrayLength(arrayJsonPath: String): Int =
-        json.read<List<Any>>(arrayJsonPath)?.size ?: throw NotFoundJsonValueException(json.toString(), arrayJsonPath)
+    fun getArrayLength(arrayJsonPath: String): Int? =
+        json.read<List<Any>>(arrayJsonPath)?.size
 
-    fun getFilteredList(arrayJsonPath: String, filterKey: String, filterValue: String): List<Map<Any, Any>> =
+    fun getFilteredList(arrayJsonPath: String, filterKey: String, filterValue: String): List<Map<Any, Any>>? =
         json.read<List<Map<Any, Any>>>(arrayJsonPath)?.filter { it[filterKey] == filterValue }
-            ?: throw NotFoundJsonValueException(json.toString(), arrayJsonPath)
 }
