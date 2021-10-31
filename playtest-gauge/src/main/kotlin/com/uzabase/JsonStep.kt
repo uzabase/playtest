@@ -50,6 +50,16 @@ class JsonStep {
         element[key] shouldBeEqualTo expected
     }
 
+    @Step("レスポンスのJSONの<jsonPath>の配列の長さが<length>である")
+    fun assertJsonLength(jsonPath: String, length: Int) {
+        JsonNode.of(loadJsonFromScenario()).getArrayLength(jsonPath) shouldBeEqualTo length
+    }
+
+    @Step("レスポンスのJSONの<jsonPath>が存在しない")
+    fun nonExist(jsonPath: String) {
+        JsonNode.of(loadJsonFromScenario()).get<Any>(jsonPath) shouldBeEqualTo null
+    }
+
     private fun JsonNode.getUniqElementInArray(
         arrayJsonPath: String,
         filterKey: String,
