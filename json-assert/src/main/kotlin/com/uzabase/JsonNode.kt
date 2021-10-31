@@ -11,8 +11,7 @@ data class JsonNode(val json: JN) {
 
     inline fun <reified T : Any> get(path: String): T? = json.read(path)
 
-    fun getArrayLength(arrayJsonPath: String): Int? =
-        json.read<List<Any>>(arrayJsonPath)?.size
+    fun getArrayLength(arrayJsonPath: String): Int? = json.read<List<Any>>(arrayJsonPath)?.size
 
     fun getFilteredList(arrayJsonPath: String, filterKey: String, filterValue: String): List<Map<Any, Any>>? =
         json.read<List<Map<Any, Any>>>(arrayJsonPath)?.filter { it[filterKey] == filterValue }
