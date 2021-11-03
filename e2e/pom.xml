@@ -46,8 +46,8 @@
         </dependency>
         <dependency>
             <groupId>com.uzabase</groupId>
-            <artifactId>playtest-json</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>playtest-gauge</artifactId>
+            <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
