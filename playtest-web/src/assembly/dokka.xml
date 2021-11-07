@@ -9,7 +9,7 @@
     <baseDirectory>/</baseDirectory>
     <fileSets>
         <fileSet>
-            <directory>target/dokka/playtest-json</directory>
+            <directory>target/dokka/playtest-web</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>
     </fileSets>
