@@ -3,6 +3,7 @@ package com.uzabase
 import com.thoughtworks.gauge.Step
 import com.uzabase.DataStore.loadJsonFromScenario
 import org.amshove.kluent.shouldBeEqualTo
+import org.amshove.kluent.shouldBeGreaterThan
 
 class JsonStep {
 
@@ -45,7 +46,13 @@ class JsonStep {
     }
 
     @Step("レスポンスのJSONの<jsonPath>の配列の、UniqueKey<uniqueKey>の値が<filterValue>である要素の<key>が、真偽値の<expected>である")
-    fun assertJsonByUniqueKey(jsonPath: String, uniqueKey: String, filterValue: String, key: String, expected: Boolean) {
+    fun assertJsonByUniqueKey(
+        jsonPath: String,
+        uniqueKey: String,
+        filterValue: String,
+        key: String,
+        expected: Boolean
+    ) {
         val element = JsonNode.of(loadJsonFromScenario()).getUniqElementInArray(jsonPath, uniqueKey, filterValue)
         element[key] shouldBeEqualTo expected
     }
@@ -53,6 +60,11 @@ class JsonStep {
     @Step("レスポンスのJSONの<jsonPath>の配列の長さが<length>である")
     fun assertJsonLength(jsonPath: String, length: Int) {
         JsonNode.of(loadJsonFromScenario()).getArrayLength(jsonPath) shouldBeEqualTo length
+    }
+
+    @Step("レスポンスのJSONの<jsonPath>の配列に、Key<key>の値が<value>である要素が存在する")
+    fun assertJsonExistElement(jsonPath: String, key: String, value: String) {
+        (JsonNode.of(loadJsonFromScenario()).getFilteredList(jsonPath, key, value)?.size ?: 0) shouldBeGreaterThan 0
     }
 
     @Step("レスポンスのJSONの<jsonPath>が存在しない")
