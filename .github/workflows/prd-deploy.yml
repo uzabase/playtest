@@ -1,11 +1,11 @@
-name: playtest-json deploy to sonatype
+name: deploy to sonatype prd
 on:
   workflow_dispatch:
     inputs:
-      version:
+      module:
         required: true
-        description: デプロイするバージョン
-        default: 1.0-SNAPSHOT
+        description: デプロイするモジュール
+        options: ['playtest-json', 'playtest-gauge', 'playtest-web', 'playtest-db']
 
 jobs:
   deploy:
@@ -23,11 +23,9 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-   #   - name: Unit test
-   #     run: cd playtest-json && mvn test
-      - name: Deploy
+      - name: Build & Unit Test & Deploy
         run: |
-          cd playtest-json && mvn clean deploy --batch-mode --no-transfer-progress -DperformRelease=true -Dproject.version=${{ github.event.inputs.version }}
+          cd ${{ github.event.inputs.module }} && mvn clean deploy --batch-mode --no-transfer-progress -DperformRelease=true
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
