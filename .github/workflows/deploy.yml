@@ -27,8 +27,7 @@ jobs:
    #     run: cd playtest-json && mvn test
       - name: Deploy
         run: |
-          echo "${{ github.event.inputs.version  }}"
-          mvn clean deploy --batch-mode --no-transfer-progress -DperformRelease=true -Dproject.version=${{ github.event.inputs.version }}
+          cd playtest-json && mvn clean deploy --batch-mode --no-transfer-progress -DperformRelease=true -Dproject.version=${{ github.event.inputs.version }}
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
