@@ -1,4 +1,4 @@
-name: deploy to sonatype
+name: playtest-json deploy to sonatype
 on:
   workflow_dispatch:
     inputs:
@@ -18,7 +18,5 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: cd
-        run: cd playtest-json && pwd
       - name: Unit test
-        run: mvn test
+        run: cd playtest-json && mvn test
