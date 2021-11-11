@@ -1,11 +1,16 @@
-name: playtest-json deploy to sonatype
+name: deploy to sonatype dev
 on:
   workflow_dispatch:
     inputs:
       module:
+        type: choice
         required: true
         description: デプロイするモジュール
-        options: ['playtest-json', 'playtest-gauge', 'playtest-web', 'playtest-db']
+        options:
+        - playtest-json
+        - playtest-gauge
+        - playtest-web
+        - playtest-db
 
 jobs:
   deploy:
