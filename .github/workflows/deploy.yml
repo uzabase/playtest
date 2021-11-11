@@ -18,5 +18,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - run: java --version
-
+      - name: cd
+        run: cd playtest-json && pwd
+      - name: Unit test
+        run: mvn test
