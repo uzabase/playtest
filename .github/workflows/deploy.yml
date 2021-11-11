@@ -8,7 +8,7 @@ on:
         default: 1.0-SNAPSHOT
 
 jobs:
-  java-version-test:
+  deploy:
     runs-on: ubuntu-20.04
 
     steps:
@@ -18,5 +18,18 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Unit test
-        run: cd playtest-json && mvn test
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+   #   - name: Unit test
+   #     run: cd playtest-json && mvn test
+      - name: Deploy
+        run: |
+          echo "${{ github.event.inputs.version  }}"
+          mvn clean deploy --batch-mode --no-transfer-progress -DperformRelease=true -Dproject.version=${{ github.event.inputs.version }}
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
