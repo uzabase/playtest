@@ -4,7 +4,7 @@
 
     <groupId>com.uzabase</groupId>
     <artifactId>playtest-web</artifactId>
-    <version>1.0.0</version>
+    <version>${project.version}</version>
     <packaging>jar</packaging>
 
     <name>playtest-web</name>
@@ -42,6 +42,7 @@
     </distributionManagement>
 
     <properties>
+        <project.version>1.0.0</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -148,6 +149,12 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

@@ -4,7 +4,7 @@
 
     <groupId>com.uzabase</groupId>
     <artifactId>playtest-db</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${project.version}</version>
     <packaging>jar</packaging>
     <name>playtest-db</name>
     <description>DB support library for playing test.</description>
@@ -41,6 +41,7 @@
     </distributionManagement>
 
     <properties>
+        <project.version>1.0-SNAPSHOT</project.version>
         <kotlin.version>1.5.0</kotlin.version>
         <kluent.version>1.68</kluent.version>
         <gauge.version>0.7.15</gauge.version>
@@ -174,6 +175,12 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
