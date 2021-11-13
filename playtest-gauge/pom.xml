@@ -43,16 +43,16 @@
     <properties>
         <project.version>1.1.0</project.version>
         <kotlin.version>1.5.31</kotlin.version>
-        <kluent.version>1.68</kluent.version>
-        <gauge.version>0.7.15</gauge.version>
-        <mockk.version>1.12.0</mockk.version>
         <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
         <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
         <maven_assembly_plugin.version>3.3.0</maven_assembly_plugin.version>
         <maven_gpg_plugin.version>3.0.1</maven_gpg_plugin.version>
         <dokka.version>1.5.31</dokka.version>
         <kotlin_as_java_plugin.version>1.5.31</kotlin_as_java_plugin.version>
-        <javadoc.version>2.9.1</javadoc.version>
+        <fuel.version>2.3.1</fuel.version>
+        <gauge.version>0.7.15</gauge.version>
+        <kluent.version>1.68</kluent.version>
+        <mockk.version>1.12.0</mockk.version>
     </properties>
     <repositories>
         <repository>
@@ -96,6 +96,11 @@
             <groupId>org.amshove.kluent</groupId>
             <artifactId>kluent</artifactId>
             <version>${kluent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.kittinunf.fuel</groupId>
+            <artifactId>fuel</artifactId>
+            <version>${fuel.version}</version>
         </dependency>
         <dependency>
             <groupId>io.mockk</groupId>

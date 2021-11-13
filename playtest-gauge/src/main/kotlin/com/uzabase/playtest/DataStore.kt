@@ -1,4 +1,4 @@
-package com.uzabase
+package com.uzabase.playtest
 
 import com.thoughtworks.gauge.datastore.ScenarioDataStore
 
@@ -16,4 +16,8 @@ object DataStore {
     }
 
     fun loadJsonFromScenario(): String = loadFromScenario(jsonKey)
+}
+
+object DataKey {
+    const val statusCode = "statusCode"
 }
