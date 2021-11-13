@@ -1,12 +1,12 @@
-package com.uzabase
+package com.uzabase.playtest
 
 import com.thoughtworks.gauge.Step
-import com.uzabase.DataStore.loadJsonFromScenario
+import com.uzabase.JsonNode
+import com.uzabase.playtest.DataStore.loadJsonFromScenario
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeGreaterThan
 
 class JsonStep {
-
     @Step("レスポンスのJSONの<jsonPath>が文字列の<expected>である")
     fun assertJson(jsonPath: String, expected: String) {
         JsonNode.of(loadJsonFromScenario()).get<String>(jsonPath) shouldBeEqualTo expected

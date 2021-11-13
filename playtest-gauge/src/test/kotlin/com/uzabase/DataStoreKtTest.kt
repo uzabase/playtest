@@ -1,10 +1,11 @@
 package com.uzabase
 
 import com.thoughtworks.gauge.datastore.ScenarioDataStore
-import com.uzabase.DataStore.loadFromScenario
-import com.uzabase.DataStore.loadJsonFromScenario
-import com.uzabase.DataStore.storeJsonToScenario
-import com.uzabase.DataStore.storeToScenario
+import com.uzabase.playtest.DataStore
+import com.uzabase.playtest.DataStore.loadFromScenario
+import com.uzabase.playtest.DataStore.loadJsonFromScenario
+import com.uzabase.playtest.DataStore.storeJsonToScenario
+import com.uzabase.playtest.DataStore.storeToScenario
 import io.mockk.*
 import org.amshove.kluent.`should be equal to`
 import org.junit.jupiter.api.AfterEach
