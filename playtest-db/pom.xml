@@ -104,6 +104,17 @@
             <artifactId>kotlin-test-junit5</artifactId>
             <version>${kotlin-juni5.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-db</artifactId>
+            <version>2.0.2</version>
+        </dependency>
     </dependencies>
 
     <build>
