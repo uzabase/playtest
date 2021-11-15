@@ -4,7 +4,7 @@
 
     <groupId>com.uzabase</groupId>
     <artifactId>playtest-json</artifactId>
-    <version>${project.version}</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>playtest-json</name>

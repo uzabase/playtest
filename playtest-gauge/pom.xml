@@ -53,6 +53,7 @@
         <gauge.version>0.7.15</gauge.version>
         <kluent.version>1.68</kluent.version>
         <mockk.version>1.12.0</mockk.version>
+        <wiremock.version>2.31.0</wiremock.version>
     </properties>
     <repositories>
         <repository>
@@ -70,7 +71,7 @@
         <dependency>
             <groupId>com.uzabase</groupId>
             <artifactId>playtest-json</artifactId>
-            <version>1.0.0</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -106,6 +107,12 @@
             <groupId>io.mockk</groupId>
             <artifactId>mockk</artifactId>
             <version>${mockk.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
+            <version>${wiremock.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

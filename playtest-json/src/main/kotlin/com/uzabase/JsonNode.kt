@@ -15,4 +15,6 @@ data class JsonNode(val json: JN) {
 
     fun getFilteredList(arrayJsonPath: String, filterKey: String, filterValue: String): List<Map<Any, Any>>? =
         json.read<List<Map<Any, Any>>>(arrayJsonPath)?.filter { it[filterKey] == filterValue }
+
+    fun toJsonString() = json.toString()
 }
