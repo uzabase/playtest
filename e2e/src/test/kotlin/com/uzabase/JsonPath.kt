@@ -1,6 +1,7 @@
 package com.uzabase
 
 import com.thoughtworks.gauge.Step
+import com.uzabase.playtest.json.JsonNode
 import org.amshove.kluent.shouldBeEqualTo
 
 class JsonPath {

@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>com.uzabase</groupId>
     <artifactId>gauge-test</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
@@ -46,7 +46,31 @@
         </dependency>
         <dependency>
             <groupId>com.uzabase</groupId>
-            <artifactId>playtest-gauge</artifactId>
+            <artifactId>playtest-db</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.uzabase</groupId>-->
+<!--            <artifactId>playtest-gauge-browser</artifactId>-->
+<!--            <version>1.0.0-SNAPSHOT</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.uzabase</groupId>-->
+<!--            <artifactId>playtest-gauge-db</artifactId>-->
+<!--            <version>1.0.0-SNAPSHOT</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>com.uzabase</groupId>
+            <artifactId>playtest-gauge-rest</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.uzabase</groupId>
+            <artifactId>playtest-json</artifactId>
             <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
