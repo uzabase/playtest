@@ -7,10 +7,11 @@ on:
         required: true
         description: デプロイするモジュール
         options:
-          - playtest-json
-          - playtest-gauge
-          - playtest-web
           - playtest-db
+          - playtest-gauge-browser
+          - playtest-gauge-db
+          - playtest-gauge-rest
+          - playtest-json
 
 jobs:
   deploy:
