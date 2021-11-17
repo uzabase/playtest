@@ -13,9 +13,24 @@ class HttpStep {
     fun executeGet(url: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executeGet(endpoint)
-        DataStore.storeStatusCodeToScenario(statusCode)
-        DataStore.storeResponseHeadersToScenario(headers)
-        DataStore.storeResponseBodyToScenario(body)
+        DataStore.storeResponseData(statusCode, headers, body)
+    }
+
+    @Step("URL<url>にPUTリクエストを送る")
+    fun executePut(url: String) {
+        val endpoint = getUrl() + url
+        val (statusCode, headers, body) = HttpClient().executePut(endpoint)
+        DataStore.storeResponseData(statusCode, headers, body)
+    }
+
+    @Step("URL<url>に、Body<requestBody>でPUTリクエストを送る")
+    fun executePut(url: String, requestBody: String) {
+        val endpoint = getUrl() + url
+        val (statusCode, headers, body) = HttpClient().executePut(
+            endpoint,
+            requestBody
+        )
+        DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("HTTPレスポンスステータスコードが<statusCode>である")

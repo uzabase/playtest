@@ -1,34 +1,47 @@
 package com.uzabase.playtest.gauge.rest
 
 import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
-import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import com.github.tomakehurst.wiremock.client.WireMock
+import com.github.tomakehurst.wiremock.client.WireMock.*
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
-import com.thoughtworks.gauge.AfterScenario
-import com.thoughtworks.gauge.BeforeScenario
-import com.thoughtworks.gauge.Step
+import com.thoughtworks.gauge.*
 import com.uzabase.playtest.gauge.rest.TestConfig.wiremockPort
 
 class Wiremock {
-    lateinit var wireMockServer: WireMockServer
+    private val path: String = javaClass.getResource("/com/uzabase/playtest/gauge/rest")!!.path
+    private val options = options()
+        .port(TestConfig.getInt(wiremockPort))
+        .usingFilesUnderDirectory(path)
+    private val wireMockServer: WireMockServer = WireMockServer(options)
+    private val client: WireMock = WireMock("localhost", TestConfig.getInt(wiremockPort))
 
-    @BeforeScenario(tags = ["http-request-test"])
-    fun beforeHttpRequestTestScenario() {
-        val path = javaClass.getResource("/com/uzabase/playtest/gauge/rest")!!.path
-        val options = options()
-            .port(TestConfig.getInt(wiremockPort))
-            .usingFilesUnderDirectory(path)
-        wireMockServer = WireMockServer(options)
+    @BeforeSuite()
+    fun before() {
         wireMockServer.start()
     }
 
-    @AfterScenario(tags = ["http-request-test"])
-    fun afterHttpRequestTestScenario() {
+    @AfterSuite()
+    fun after() {
         wireMockServer.stop()
+    }
+
+    @BeforeScenario(tags = ["http-request-test"])
+    fun afterHttpRequestTestScenario(context: ExecutionContext) {
+        client.resetRequests()
     }
 
     @Step("URL<url>にGETリクエストが送信された")
     fun assertGetRequestExecuted(url: String) {
-        wireMockServer.verify(getRequestedFor(urlEqualTo(url)))
+        client.verifyThat(getRequestedFor(urlEqualTo(url)))
+    }
+
+    @Step("URL<url>にPUTリクエストが送信された")
+    fun assertPutRequestExecuted(url: String) {
+        client.verifyThat(putRequestedFor(urlEqualTo(url)))
+    }
+
+    @Step("URL<url>に、Body<requestBody>でPUTリクエストが送信された")
+    fun assertPutRequestExecutedWithBody(url: String, body: String) {
+        client.verifyThat(putRequestedFor(urlEqualTo(url)).withRequestBody(equalTo(body)))
     }
 }
