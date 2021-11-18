@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "message": "OK"
+    },
+    "headers": {
+      "x-example-header": "example1"
+    }
+  }
+}
