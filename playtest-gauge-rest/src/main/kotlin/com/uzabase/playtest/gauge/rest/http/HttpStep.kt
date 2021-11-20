@@ -61,12 +61,6 @@ class HttpStep {
         headers shouldContain Pair(key, value)
     }
 
-    @Step("JSON形式のレスポンスボディが<jsonBody>と一致する")
-    fun assertJsonResponseBodyEquals(jsonBody: String) {
-        val expected = JsonNode.of(jsonBody).toJsonString()
-        val actual = DataStore.loadResponseBodyFromScenario().string.let { JsonNode.of(it) }.toJsonString()
-        actual shouldBeEqualTo expected
-    }
 
     private fun getUrl(): String {
         val protocol = GaugeRestConfig.get(ConfigKeys.URL_PROTOCOL)

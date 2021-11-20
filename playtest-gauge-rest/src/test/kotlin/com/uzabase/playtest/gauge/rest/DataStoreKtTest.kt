@@ -1,10 +1,7 @@
 package com.uzabase.playtest.gauge.rest
 
 import com.thoughtworks.gauge.datastore.ScenarioDataStore
-import com.uzabase.playtest.gauge.rest.DataStore
 import com.uzabase.playtest.gauge.rest.DataStore.loadFromScenario
-import com.uzabase.playtest.gauge.rest.DataStore.loadJsonFromScenario
-import com.uzabase.playtest.gauge.rest.DataStore.storeJsonToScenario
 import com.uzabase.playtest.gauge.rest.DataStore.storeToScenario
 import io.mockk.*
 import org.amshove.kluent.`should be equal to`
@@ -33,21 +30,5 @@ internal class DataStoreKtTest {
         val key = "test"
         storeToScenario(key, expected)
         loadFromScenario<String>(key) `should be equal to` ScenarioDataStore.get(key)
-    }
-
-    @Test
-    fun シナリオデータストアにkeyがJsonでJSONの文字列を保存する() {
-        val json = """{"test": "test"}""""
-        val target = spyk(DataStore)
-        every { target.storeToScenario(any(), any()) } just runs
-        target.storeJsonToScenario(json)
-        verify { target.storeToScenario("JSON", json) }
-    }
-
-    @Test
-    fun シナリオデータストアからJSONの文字列を取得する() {
-        val json = """{"test": "test"}""""
-        storeJsonToScenario(json)
-        loadJsonFromScenario() `should be equal to` json
     }
 }

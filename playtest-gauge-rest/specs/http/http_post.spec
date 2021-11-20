@@ -12,6 +12,6 @@ tags: http-request-test
 * レスポンスヘッダーに"x-example-header"が存在し、その値が"example1"である
 * JSON形式のレスポンスボディが<file:expected/post-response.json>と一致する
 
-## POSTにBodyを指定してリクエストを送信できる
+## POSTにリクエストボディを指定してリクエストを送信できる
 * URL"/"にリクエストボディ"{\"test\": \"post\"}"で、POSTリクエストを送る
 * URL"/"にリクエストボディ"{\"test\": \"post\"}"で、POSTリクエストが送信された

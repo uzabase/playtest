@@ -4,7 +4,6 @@ import com.thoughtworks.gauge.datastore.ScenarioDataStore
 import com.uzabase.playtest.gauge.rest.http.*
 
 object DataStore {
-    private const val jsonKey = "JSON"
     private const val statusCodeKey = "statusCode"
     private const val responseHeadersKey = "responseHeaders"
     private const val responseBodyKey = "responseBody"
@@ -14,12 +13,6 @@ object DataStore {
     }
 
     fun <T> loadFromScenario(key: String): T = ScenarioDataStore.get(key) as T
-
-    fun storeJsonToScenario(json: String) {
-        storeToScenario(jsonKey, json)
-    }
-
-    fun loadJsonFromScenario(): String = loadFromScenario(jsonKey)
 
     fun storeResponseData(
         statusCode: StatusCode,
