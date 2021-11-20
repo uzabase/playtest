@@ -4,7 +4,6 @@ import com.thoughtworks.gauge.Step
 import com.uzabase.playtest.gauge.rest.ConfigKeys
 import com.uzabase.playtest.gauge.rest.DataStore
 import com.uzabase.playtest.gauge.rest.GaugeRestConfig
-import com.uzabase.playtest.json.JsonNode
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldContain
 
@@ -16,6 +15,13 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
+    @Step("URL<url>にヘッダー<header>で、GETリクエストを送る")
+    fun executeGet(url: String, header: String) {
+        val endpoint = getUrl() + url
+        val (statusCode, headers, body) = HttpClient().executeGet(endpoint, toHeaderMap(header))
+        DataStore.storeResponseData(statusCode, headers, body)
+    }
+
     @Step("URL<url>にPUTリクエストを送る")
     fun executePut(url: String) {
         val endpoint = getUrl() + url
@@ -23,17 +29,17 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にPOSTリクエストを送る")
-    fun executePost(url: String) {
+    @Step("URL<url>にヘッダー<header>で、PUTリクエストを送る")
+    fun executePutWithHeader(url: String, header: String) {
         val endpoint = getUrl() + url
-        val (statusCode, headers, body) = HttpClient().executePost(endpoint)
+        val (statusCode, headers, body) = HttpClient().executePut(endpoint, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にDELETEリクエストを送る")
-    fun executeDelete(url: String) {
+    @Step("URL<url>にリクエストボディ<requestBody>、ヘッダー<header>で、PUTリクエストを送る")
+    fun executePut(url: String, requestBody: String, header: String) {
         val endpoint = getUrl() + url
-        val (statusCode, headers, body) = HttpClient().executeDelete(endpoint)
+        val (statusCode, headers, body) = HttpClient().executePut(endpoint, requestBody, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
@@ -47,6 +53,27 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
+    @Step("URL<url>にPOSTリクエストを送る")
+    fun executePost(url: String) {
+        val endpoint = getUrl() + url
+        val (statusCode, headers, body) = HttpClient().executePost(endpoint)
+        DataStore.storeResponseData(statusCode, headers, body)
+    }
+
+    @Step("URL<url>にヘッダー<header>で、POSTリクエストを送る")
+    fun executePostWithHeader(url: String, header: String) {
+        val endpoint = getUrl() + url
+        val (statusCode, headers, body) = HttpClient().executePost(endpoint, toHeaderMap(header))
+        DataStore.storeResponseData(statusCode, headers, body)
+    }
+
+    @Step("URL<url>にリクエストボディ<requestBody>、ヘッダー<header>で、POSTリクエストを送る")
+    fun executePost(url: String, requestBody: String, header: String) {
+        val endpoint = getUrl() + url
+        val (statusCode, headers, body) = HttpClient().executePost(endpoint, requestBody, toHeaderMap(header))
+        DataStore.storeResponseData(statusCode, headers, body)
+    }
+
     @Step("URL<url>にリクエストボディ<requestBody>で、POSTリクエストを送る")
     fun executePost(url: String, requestBody: String) {
         val endpoint = getUrl() + url
@@ -54,6 +81,20 @@ class HttpStep {
             endpoint,
             requestBody
         )
+        DataStore.storeResponseData(statusCode, headers, body)
+    }
+
+    @Step("URL<url>にDELETEリクエストを送る")
+    fun executeDelete(url: String) {
+        val endpoint = getUrl() + url
+        val (statusCode, headers, body) = HttpClient().executeDelete(endpoint)
+        DataStore.storeResponseData(statusCode, headers, body)
+    }
+
+    @Step("URL<url>にヘッダー<header>で、DELETEリクエストを送る")
+    fun executeDelete(url: String, header: String) {
+        val endpoint = getUrl() + url
+        val (statusCode, headers, body) = HttpClient().executeDelete(endpoint, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
@@ -68,6 +109,10 @@ class HttpStep {
         headers shouldContain Pair(key, value)
     }
 
+    fun toHeaderMap(header: String): Map<String, String> {
+        val list = header.split(":").map { it.trim() }
+        return mapOf(list[0] to list[1])
+    }
 
     private fun getUrl(): String {
         val protocol = GaugeRestConfig.get(ConfigKeys.URL_PROTOCOL)
