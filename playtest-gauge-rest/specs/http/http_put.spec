@@ -10,7 +10,7 @@ tags: http-request-test
 * URL"/"にPUTリクエストを送る
 * HTTPレスポンスステータスコードが"200"である
 * レスポンスヘッダーに"x-example-header"が存在し、その値が"example1"である
-* JSON形式のレスポンスボディが<file:expected/put-response.json>と一致する
+* レスポンスのJSONの"$.message"が文字列の"OK"である
 
 ## リクエストボディを指定してPUTリクエストを送信できる
 * URL"/"にリクエストボディ"{\"test\": \"test\"}"で、PUTリクエストを送る

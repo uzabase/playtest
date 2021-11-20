@@ -9,7 +9,7 @@ tags: http-request-test
 * URL"/"にGETリクエストを送る
 * HTTPレスポンスステータスコードが"200"である
 * レスポンスヘッダーに"x-example-header"が存在し、その値が"example1"である
-* JSON形式のレスポンスボディが<file:expected/get-response.json>と一致する
+* レスポンスのJSONの"$.message"が文字列の"Hello Playtest-Gauge-Rest!"である
 
 ## リクエストヘッダーを指定してGETリクエストを送信できる
 * URL"/"にリクエストヘッダー"content-type: application/json"で、GETリクエストを送る
