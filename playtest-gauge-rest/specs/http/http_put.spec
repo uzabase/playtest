@@ -13,5 +13,5 @@ tags: http-request-test
 * JSON形式のレスポンスボディが<file:expected/put-response.json>と一致する
 
 ## PUTにBodyを指定してリクエストを送信できる
-* URL"/"に、Body"{\"test\": \"test\"}"でPUTリクエストを送る
-* URL"/"に、Body"{\"test\": \"test\"}"でPUTリクエストが送信された
+* URL"/"にリクエストボディ"{\"test\": \"test\"}"で、PUTリクエストを送る
+* URL"/"にリクエストボディ"{\"test\": \"test\"}"で、PUTリクエストが送信された

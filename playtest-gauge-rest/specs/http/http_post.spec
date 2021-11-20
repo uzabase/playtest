@@ -13,5 +13,5 @@ tags: http-request-test
 * JSON形式のレスポンスボディが<file:expected/post-response.json>と一致する
 
 ## POSTにBodyを指定してリクエストを送信できる
-* URL"/"に、Body"{\"test\": \"post\"}"でPOSTリクエストを送る
-* URL"/"に、Body"{\"test\": \"post\"}"でPOSTリクエストが送信された
+* URL"/"にリクエストボディ"{\"test\": \"post\"}"で、POSTリクエストを送る
+* URL"/"にリクエストボディ"{\"test\": \"post\"}"で、POSTリクエストが送信された

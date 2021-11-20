@@ -45,12 +45,12 @@ class Wiremock {
         client.verifyThat(postRequestedFor(urlEqualTo(url)))
     }
 
-    @Step("URL<url>に、Body<requestBody>でPUTリクエストが送信された")
+    @Step("URL<url>にリクエストボディ<requestBody>で、PUTリクエストが送信された")
     fun assertPutRequestExecutedWithBody(url: String, body: String) {
         client.verifyThat(putRequestedFor(urlEqualTo(url)).withRequestBody(equalTo(body)))
     }
 
-    @Step("URL<url>に、Body<requestBody>でPOSTリクエストが送信された")
+    @Step("URL<url>にリクエストボディ<requestBody>で、POSTリクエストが送信された")
     fun assertPostRequestExecutedWithBody(url: String, body: String) {
         client.verifyThat(postRequestedFor(urlEqualTo(url)).withRequestBody(equalTo(body)))
     }

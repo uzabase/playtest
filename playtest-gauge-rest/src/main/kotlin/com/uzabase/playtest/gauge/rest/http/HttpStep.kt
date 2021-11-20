@@ -30,7 +30,7 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>に、Body<requestBody>でPUTリクエストを送る")
+    @Step("URL<url>にリクエストボディ<requestBody>で、PUTリクエストを送る")
     fun executePut(url: String, requestBody: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executePut(
@@ -40,7 +40,7 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>に、Body<requestBody>でPOSTリクエストを送る")
+    @Step("URL<url>にリクエストボディ<requestBody>で、POSTリクエストを送る")
     fun executePost(url: String, requestBody: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executePost(
