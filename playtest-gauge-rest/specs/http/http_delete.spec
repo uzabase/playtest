@@ -12,6 +12,6 @@ tags: http-request-test
 * レスポンスヘッダーに"x-example-header"が存在し、その値が"example1"である
 * JSON形式のレスポンスボディが<file:expected/put-response.json>と一致する
 
-## ヘッダーを指定してDELETEリクエストを送信できる
-* URL"/"にヘッダー"content-type: application/json"で、DELETEリクエストを送る
-* URL"/"にヘッダー"content-type: application/json"で、DELETEリクエストが送信された
+## リクエストヘッダーを指定してDELETEリクエストを送信できる
+* URL"/"にリクエストヘッダー"content-type: application/json"で、DELETEリクエストを送る
+* URL"/"にリクエストヘッダー"content-type: application/json"で、DELETEリクエストが送信された

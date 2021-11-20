@@ -37,7 +37,7 @@ class Wiremock {
         client.verifyThat(getRequestedFor(urlEqualTo(url)))
     }
 
-    @Step("URL<url>にヘッダー<header>で、GETリクエストが送信された")
+    @Step("URL<url>にリクエストヘッダー<header>で、GETリクエストが送信された")
     fun assertGetRequestExecuted(url: String, header: String) {
         val headerEntry = httpStep.toHeaderMap(header).entries.first()
         client.verifyThat(getRequestedFor(urlEqualTo(url)).withHeader(headerEntry.key, equalTo(headerEntry.value)))
@@ -53,13 +53,13 @@ class Wiremock {
         client.verifyThat(putRequestedFor(urlEqualTo(url)).withRequestBody(equalTo(body)))
     }
 
-    @Step("URL<url>にヘッダー<header>で、PUTリクエストが送信された")
+    @Step("URL<url>にリクエストヘッダー<header>で、PUTリクエストが送信された")
     fun assertPutRequestExecuted(url: String, header: String) {
         val headerEntry = httpStep.toHeaderMap(header).entries.first()
         client.verifyThat(putRequestedFor(urlEqualTo(url)).withHeader(headerEntry.key, equalTo(headerEntry.value)))
     }
 
-    @Step("URL<url>にリクエストボディ<requestBody>、ヘッダー<header>で、PUTリクエストが送信された")
+    @Step("URL<url>にリクエストボディ<requestBody>、リクエストヘッダー<header>で、PUTリクエストが送信された")
     fun assertPutRequestExecuted(url: String, body: String, header: String) {
         val headerEntry = httpStep.toHeaderMap(header).entries.first()
         client.verifyThat(
@@ -78,13 +78,13 @@ class Wiremock {
         client.verifyThat(postRequestedFor(urlEqualTo(url)).withRequestBody(equalTo(body)))
     }
 
-    @Step("URL<url>にヘッダー<header>で、POSTリクエストが送信された")
+    @Step("URL<url>にリクエストヘッダー<header>で、POSTリクエストが送信された")
     fun assertPostRequestExecuted(url: String, header: String) {
         val headerEntry = httpStep.toHeaderMap(header).entries.first()
         client.verifyThat(postRequestedFor(urlEqualTo(url)).withHeader(headerEntry.key, equalTo(headerEntry.value)))
     }
 
-    @Step("URL<url>にリクエストボディ<requestBody>、ヘッダー<header>で、POSTリクエストが送信された")
+    @Step("URL<url>にリクエストボディ<requestBody>、リクエストヘッダー<header>で、POSTリクエストが送信された")
     fun assertPostRequestExecuted(url: String, body: String, header: String) {
         val headerEntry = httpStep.toHeaderMap(header).entries.first()
         client.verifyThat(
@@ -98,7 +98,7 @@ class Wiremock {
         client.verifyThat(deleteRequestedFor(urlEqualTo(url)))
     }
 
-    @Step("URL<url>にヘッダー<header>で、DELETEリクエストが送信された")
+    @Step("URL<url>にリクエストヘッダー<header>で、DELETEリクエストが送信された")
     fun assertDeleteRequestExecuted(url: String, header: String) {
         val headerEntry = httpStep.toHeaderMap(header).entries.first()
         client.verifyThat(deleteRequestedFor(urlEqualTo(url)).withHeader(headerEntry.key, equalTo(headerEntry.value)))
