@@ -45,6 +45,11 @@ class Wiremock {
         client.verifyThat(postRequestedFor(urlEqualTo(url)))
     }
 
+    @Step("URL<url>にDELETEリクエストが送信された")
+    fun assertDeleteRequestExecuted(url: String) {
+        client.verifyThat(deleteRequestedFor(urlEqualTo(url)))
+    }
+
     @Step("URL<url>にリクエストボディ<requestBody>で、PUTリクエストが送信された")
     fun assertPutRequestExecutedWithBody(url: String, body: String) {
         client.verifyThat(putRequestedFor(urlEqualTo(url)).withRequestBody(equalTo(body)))

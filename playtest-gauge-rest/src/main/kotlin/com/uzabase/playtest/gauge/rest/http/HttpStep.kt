@@ -30,6 +30,13 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
+    @Step("URL<url>にDELETEリクエストを送る")
+    fun executeDelete(url: String) {
+        val endpoint = getUrl() + url
+        val (statusCode, headers, body) = HttpClient().executeDelete(endpoint)
+        DataStore.storeResponseData(statusCode, headers, body)
+    }
+
     @Step("URL<url>にリクエストボディ<requestBody>で、PUTリクエストを送る")
     fun executePut(url: String, requestBody: String) {
         val endpoint = getUrl() + url
