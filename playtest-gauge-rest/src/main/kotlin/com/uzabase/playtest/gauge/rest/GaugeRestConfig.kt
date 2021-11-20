@@ -1,6 +1,5 @@
 package com.uzabase.playtest.gauge.rest
 
-import java.io.BufferedInputStream
 import java.io.File
 import java.util.*
 
@@ -11,19 +10,28 @@ enum class ConfigKeys(val key: String) {
 }
 
 internal object GaugeRestConfig {
-    // TODO: .properties の絶対パスを受け取って、それを代わりに読み込めるようにする
-    // TODO: playtest-gauge-rest 外のリソースも取れるようにする
-    private val properties: Properties = File(getPropertiesFilePath())
-        .inputStream()
-        .use { it.let(::BufferedInputStream).let { Properties().apply { this.load(it) } } }
+    // TODO: システムプロパティから渡せるようにする
+    private val properties: Properties = javaClass.getResource("/playtest-gauge-rest.default.properties")!!
+        .let { Properties().from(it.path) }
+        .let { properties ->
+            kotlin.runCatching { System.getenv("GAUGE_REST_CONFIG") }
+                .getOrNull()?.let { properties.mergePropertyFile(Properties().from(it)) } ?: properties
+        }
+//        .let { properties ->
+//            kotlin.runCatching { System.getProperty("gauge.rest.config") }
+//                .getOrNull()?.let { properties.mergePropertyFile(Properties().from(it)) } ?: properties
+//        }
 
-    private fun getPropertiesFilePath(): String {
-        val first = "hoge"
-        val second = "env/playtest/rest.properties"
-        val third = javaClass.getResource("/playtest-gauge-rest.default.properties")!!.path
-        if (File(first).exists()) return first
-        if (File(second).exists()) return second
-        return third
+
+    private fun Properties.from(filePath: String): Properties {
+        return File(filePath).inputStream().let { Properties().apply { this.load(it) } }
+    }
+
+    private fun Properties.mergePropertyFile(properties: Properties): Properties {
+        properties.forEach {
+            this[it.key] = it.value
+        }
+        return this
     }
 
     fun get(key: ConfigKeys): String {
