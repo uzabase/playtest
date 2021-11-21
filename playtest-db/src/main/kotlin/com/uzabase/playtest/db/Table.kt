@@ -25,6 +25,19 @@ class Table(
         }
         return rows
     }
+    fun where(column: String, matchValue: Int): List<Row> {
+        val result = Request(source, "select * from $schemaName.$tableName where $column = $matchValue")
+
+        var rows = mutableListOf<Row>()
+        for (r in result.rowsList) {
+            var cols = mutableListOf<Column>()
+            for (c in r.valuesList) {
+                cols.add(Column(c.columnName, c.value))
+            }
+            rows.add(Row(cols))
+        }
+        return rows
+    }
 }
 
 data class Row(val columns: List<Column>) {

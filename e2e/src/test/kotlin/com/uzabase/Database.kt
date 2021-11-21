@@ -31,49 +31,51 @@ class Database(
         value shouldBeEqualTo result
     }
 
-    @Step("<schemaName>スキーマの<tableName>テーブルの、<columnName>を<whereString>で取得した一意の結果が整数の<vale>である")
+    @Step("<schemaName>スキーマの<tableName>テーブルの、<columnName>を<whereString>で取得した一意の<valueColumn>が整数の<vale>である")
     fun getIntParameterFromDatabase(
         schemaName: String,
         tableName: String,
         columnName: String,
         whereString: String,
+        valueColumn: String,
         value: Int
     ) {
         val query = """
                     select $columnName from $schemaName.$tableName where $whereString;
                 """.trimIndent()
-        val result = TODO() //いい感じにSQLを実行する
+        val result =
+            Table(url, username, password, schemaName, tableName).where(
+                columnName,
+                whereString
+            ).first().column(valueColumn).value
         value shouldBeEqualTo result
     }
 
     @Step("テスト用のスキーマ、テーブルを用意する")
     fun setupTable() {
-        val test = this.javaClass
+        val createAndInsertQuery = this.javaClass
             .classLoader
-            .getResourceAsStream("data.sql")
+            .getResourceAsStream("setup.sql")
             ?.bufferedReader()
             ?.use { it.readText() }
-
-        println(test)
 
         val conn: Connection =
             DriverManager.getConnection(url, username, password)
 
-        conn.createStatement().execute(test)
+        conn.createStatement().execute(createAndInsertQuery)
     }
 
     @Step("テスト用のスキーマ、テーブルを削除する")
     fun truncateTable() {
-        val test = this.javaClass
+        val truncateQuery = this.javaClass
             .classLoader
             .getResourceAsStream("truncate.sql")
             ?.bufferedReader()
             ?.use { it.readText() }
 
-        println(test)
         val conn: Connection =
             DriverManager.getConnection(url, username, password)
 
-        conn.createStatement().execute(test)
+        conn.createStatement().execute(truncateQuery)
     }
 }

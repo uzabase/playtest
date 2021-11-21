@@ -7,7 +7,7 @@
 
 ## クエリを指定して、一意の値(整数)を取得する
 tags: unimplemented
-* "schemaName"スキーマの"tableName"テーブルの、"columnName"を"whereString"で取得した一意の結果が整数の"test"である
+* "schemaName"スキーマの"intTable"テーブルの、"id"を"4d30aa18-ec51-439c-a98c-e5e2c3223509"で取得した一意の"int_column"が整数の"1"である
 
 ___
 * テスト用のスキーマ、テーブルを削除する
