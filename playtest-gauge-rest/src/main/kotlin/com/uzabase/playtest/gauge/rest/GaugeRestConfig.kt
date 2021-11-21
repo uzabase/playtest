@@ -21,13 +21,6 @@ internal object GaugeRestConfig {
 //                .getOrNull()?.let { properties.mergePropertyFile(Properties().from(it)) } ?: properties
 //        }
 
-    private fun Properties.mergePropertyFile(properties: Properties): Properties {
-        properties.forEach {
-            this[it.key] = it.value
-        }
-        return this
-    }
-
     fun get(key: ConfigKeys): String {
         return properties[key.key].toString()
     }
