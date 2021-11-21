@@ -1,6 +1,5 @@
 package com.uzabase.playtest.gauge.rest
 
-import java.io.File
 import java.util.*
 
 enum class ConfigKeys(val key: String) {
@@ -15,17 +14,12 @@ internal object GaugeRestConfig {
         .let { Properties().from(it.path) }
         .let { properties ->
             kotlin.runCatching { System.getenv("GAUGE_REST_CONFIG") }
-                .getOrNull()?.let { properties.mergePropertyFile(Properties().from(it)) } ?: properties
+                .getOrNull()?.let { properties.merge(Properties().from(it)) } ?: properties
         }
 //        .let { properties ->
 //            kotlin.runCatching { System.getProperty("gauge.rest.config") }
 //                .getOrNull()?.let { properties.mergePropertyFile(Properties().from(it)) } ?: properties
 //        }
-
-
-    private fun Properties.from(filePath: String): Properties {
-        return File(filePath).inputStream().let { Properties().apply { this.load(it) } }
-    }
 
     private fun Properties.mergePropertyFile(properties: Properties): Properties {
         properties.forEach {
@@ -38,3 +32,4 @@ internal object GaugeRestConfig {
         return properties[key.key].toString()
     }
 }
+
