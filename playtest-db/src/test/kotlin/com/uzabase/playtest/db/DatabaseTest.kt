@@ -1,9 +1,13 @@
 package com.uzabase.playtest.db
 
-import io.mockk.mockkStatic
-import io.mockk.unmockkAll
+import io.mockk.*
 import org.assertj.db.api.Assertions
 import org.assertj.db.type.Source
+import org.dbunit.database.DatabaseConfig
+import org.dbunit.database.IDatabaseConnection
+import org.dbunit.ext.mysql.MySqlDataTypeFactory
+import org.dbunit.ext.mysql.MySqlMetadataHandler
+import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory
 import org.dbunit.operation.DatabaseOperation
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
@@ -108,5 +112,47 @@ internal class DatabaseTest {
         )
         Assertions.assertThat(table).row(3)
             .value("memo").isEqualTo("after")
+    }
+
+
+    @Test
+    fun DriverがPostgresの場合Postgres用のデータタイプの設定を有効にする() {
+        val database =
+            Database(
+                driverClass = "org.postgresql.Driver",
+                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
+                username = "sa",
+                password = "",
+                schema = "test_schema"
+            )
+        val connection = mockk<IDatabaseConnection>()
+        val config = mockk<DatabaseConfig>()
+
+        every { connection.config } returns config
+        every { config.setProperty(any(), any()) } just runs
+        database.setConfig(connection)
+
+        verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<PostgresqlDataTypeFactory>()) }
+    }
+
+    @Test
+    fun DriverがMySQLの場合MySQL用の設定を有効にする() {
+        val database =
+            Database(
+                driverClass = "com.mysql.jdbc.Driver",
+                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
+                username = "sa",
+                password = "",
+                schema = "test_schema"
+            )
+        val connection = mockk<IDatabaseConnection>()
+        val config = mockk<DatabaseConfig>()
+
+        every { connection.config } returns config
+        every { config.setProperty(any(), any()) } just runs
+        database.setConfig(connection)
+
+        verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<MySqlDataTypeFactory>()) }
+        verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<MySqlMetadataHandler>()) }
     }
 }
