@@ -29,6 +29,11 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+      - name: Gauge install
+        run: |
+          curl -SsL https://downloads.gauge.org/stable | sh
+          gauge install java --version 0.7.15
+          gauge version
       - name: Build & Unit Test & Deploy
         run: |
           cd ${{ github.event.inputs.module }} && mvn clean deploy --batch-mode --no-transfer-progress -DperformRelease=true -Dproject.version=1.0-SNAPSHOT
