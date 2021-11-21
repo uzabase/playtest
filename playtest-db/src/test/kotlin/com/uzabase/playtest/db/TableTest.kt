@@ -39,7 +39,7 @@ internal class TableTest {
         // when
         val actual = table.where("string_column", "value1")
         // then
-        actual.first().column("STRING_COLUMN").value shouldBeEqualTo "value1"
+        actual.first().column("string_column").value shouldBeEqualTo "value1"
 
     }
 }

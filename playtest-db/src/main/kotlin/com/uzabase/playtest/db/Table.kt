@@ -28,7 +28,7 @@ class Table(
 }
 
 data class Row(val columns: List<Column>) {
-    fun column(name: String) = columns.first { c -> c.name == name }
+    fun column(name: String) = columns.first { c -> c.name.equals(name , ignoreCase = true) }
 }
 
 data class Column(val name: String, val value: Any?) {
