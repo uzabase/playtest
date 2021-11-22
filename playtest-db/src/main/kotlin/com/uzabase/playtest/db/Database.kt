@@ -11,7 +11,7 @@ import org.dbunit.operation.DatabaseOperation
 import java.io.File
 
 
-data class Database(
+open class Database(
     private val driverClass: String,
     private val url: String,
     private val username: String,
@@ -28,13 +28,12 @@ data class Database(
     private fun connection(function: (connection: IDatabaseConnection) -> Unit) {
         val con: IDatabaseConnection =
             JdbcDatabaseTester(driverClass, url, username, password, schema).connection
-
         kotlin.runCatching { function.invoke(setConfig(con)) }
             .onFailure { it.printStackTrace() }
             .also { con.close() }
     }
 
-    fun setConfig(connection: IDatabaseConnection): IDatabaseConnection {
+    open fun setConfig(connection: IDatabaseConnection): IDatabaseConnection {
         connection.config.setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true)
         if (this.driverClass == "org.postgresql.Driver") {
             connection.config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, PostgresqlDataTypeFactory())

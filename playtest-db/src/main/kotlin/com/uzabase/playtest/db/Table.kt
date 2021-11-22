@@ -17,9 +17,9 @@ class Table(
 
         return rows(result)
     }
+
     fun where(column: String, matchValue: Int): List<Row> {
         val result = Request(source, "select * from $schemaName.$tableName where $column = $matchValue")
-
         return rows(result)
     }
 
@@ -37,7 +37,7 @@ class Table(
 }
 
 data class Row(val columns: List<Column>) {
-    fun column(name: String) = columns.first { c -> c.name.equals(name , ignoreCase = true) }
+    fun column(name: String) = columns.first { c -> c.name.equals(name, ignoreCase = true) }
 }
 
 data class Column(val name: String, val value: Any?) {
