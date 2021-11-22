@@ -15,7 +15,7 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にリクエストヘッダー<header>で、GETリクエストを送る")
+    @Step("URL<url>にヘッダー<header>で、GETリクエストを送る")
     fun executeGet(url: String, header: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executeGet(endpoint, toHeaderMap(header))
@@ -29,21 +29,21 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にリクエストヘッダー<header>で、PUTリクエストを送る")
+    @Step("URL<url>にヘッダー<header>で、PUTリクエストを送る")
     fun executePutWithHeader(url: String, header: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executePut(endpoint, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にリクエストボディ<requestBody>、リクエストヘッダー<header>で、PUTリクエストを送る")
+    @Step("URL<url>にボディ<requestBody>、ヘッダー<header>で、PUTリクエストを送る")
     fun executePut(url: String, requestBody: String, header: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executePut(endpoint, requestBody, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にリクエストボディ<requestBody>で、PUTリクエストを送る")
+    @Step("URL<url>にボディ<requestBody>で、PUTリクエストを送る")
     fun executePut(url: String, requestBody: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executePut(
@@ -60,21 +60,21 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にリクエストヘッダー<header>で、POSTリクエストを送る")
+    @Step("URL<url>にヘッダー<header>で、POSTリクエストを送る")
     fun executePostWithHeader(url: String, header: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executePost(endpoint, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にリクエストボディ<requestBody>、リクエストヘッダー<header>で、POSTリクエストを送る")
+    @Step("URL<url>にボディ<requestBody>、ヘッダー<header>で、POSTリクエストを送る")
     fun executePost(url: String, requestBody: String, header: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executePost(endpoint, requestBody, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にリクエストボディ<requestBody>で、POSTリクエストを送る")
+    @Step("URL<url>にボディ<requestBody>で、POSTリクエストを送る")
     fun executePost(url: String, requestBody: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executePost(
@@ -91,14 +91,14 @@ class HttpStep {
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("URL<url>にリクエストヘッダー<header>で、DELETEリクエストを送る")
+    @Step("URL<url>にヘッダー<header>で、DELETEリクエストを送る")
     fun executeDelete(url: String, header: String) {
         val endpoint = getUrl() + url
         val (statusCode, headers, body) = HttpClient().executeDelete(endpoint, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
-    @Step("HTTPレスポンスステータスコードが<statusCode>である")
+    @Step("レスポンスステータスコードが<statusCode>である")
     fun assertStatusCodeEquals(statusCode: Int) {
         DataStore.loadStatusCodeFromScenario() shouldBeEqualTo statusCode
     }

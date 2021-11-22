@@ -8,10 +8,10 @@ tags: http-request-test
 
 ## DELETEリクエストに対するレスポンスをアサートできる
 * URL"/"にDELETEリクエストを送る
-* HTTPレスポンスステータスコードが"200"である
+* レスポンスステータスコードが"200"である
 * レスポンスヘッダーに"x-example-header"が存在し、その値が"example1"である
 * レスポンスのJSONの"$.message"が文字列の"OK"である
 
-## リクエストヘッダーを指定してDELETEリクエストを送信できる
-* URL"/"にリクエストヘッダー"content-type: application/json"で、DELETEリクエストを送る
-* URL"/"にリクエストヘッダー"content-type: application/json"で、DELETEリクエストが送信された
+## ヘッダーを指定してDELETEリクエストを送信できる
+* URL"/"にヘッダー"content-type: application/json"で、DELETEリクエストを送る
+* URL"/"にヘッダー"content-type: application/json"で、DELETEリクエストが送信された

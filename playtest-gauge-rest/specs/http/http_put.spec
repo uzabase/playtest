@@ -8,18 +8,18 @@ tags: http-request-test
 
 ## PUTリクエストに対するレスポンスをアサートできる
 * URL"/"にPUTリクエストを送る
-* HTTPレスポンスステータスコードが"200"である
+* レスポンスステータスコードが"200"である
 * レスポンスヘッダーに"x-example-header"が存在し、その値が"example1"である
 * レスポンスのJSONの"$.message"が文字列の"OK"である
 
-## リクエストボディを指定してPUTリクエストを送信できる
-* URL"/"にリクエストボディ"{\"test\": \"test\"}"で、PUTリクエストを送る
-* URL"/"にリクエストボディ"{\"test\": \"test\"}"で、PUTリクエストが送信された
+## ボディを指定してPUTリクエストを送信できる
+* URL"/"にボディ"{\"test\": \"test\"}"で、PUTリクエストを送る
+* URL"/"にボディ"{\"test\": \"test\"}"で、PUTリクエストが送信された
 
-## リクエストヘッダーを指定してPUTリクエストを送信できる
-* URL"/"にリクエストヘッダー"content-type: application/json"で、PUTリクエストを送る
-* URL"/"にリクエストヘッダー"content-type: application/json"で、PUTリクエストが送信された
+## ヘッダーを指定してPUTリクエストを送信できる
+* URL"/"にヘッダー"content-type: application/json"で、PUTリクエストを送る
+* URL"/"にヘッダー"content-type: application/json"で、PUTリクエストが送信された
 
-## リクエストボディとリクエストヘッダーを指定してPUTリクエストを送信できる
-* URL"/"にリクエストボディ"{\"test\": \"test\"}"、リクエストヘッダー"content-type: application/json"で、PUTリクエストを送る
-* URL"/"にリクエストボディ"{\"test\": \"test\"}"、リクエストヘッダー"content-type: application/json"で、PUTリクエストが送信された
+## ボディとヘッダーを指定してPUTリクエストを送信できる
+* URL"/"にボディ"{\"test\": \"test\"}"、ヘッダー"content-type: application/json"で、PUTリクエストを送る
+* URL"/"にボディ"{\"test\": \"test\"}"、ヘッダー"content-type: application/json"で、PUTリクエストが送信された
