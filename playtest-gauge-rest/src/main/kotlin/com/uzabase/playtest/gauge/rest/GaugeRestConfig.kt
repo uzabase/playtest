@@ -3,9 +3,7 @@ package com.uzabase.playtest.gauge.rest
 import java.util.*
 
 enum class ConfigKeys(val key: String) {
-    URL_PROTOCOL("rest.url.protocol"),
-    URL_DOMAIN("rest.url.domain"),
-    URL_PORT("rest.url.port"),
+    BASE_URL("rest.baseUrl")
 }
 
 internal object GaugeRestConfig {

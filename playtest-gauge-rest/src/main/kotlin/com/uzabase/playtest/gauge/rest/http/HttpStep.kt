@@ -10,42 +10,42 @@ import org.amshove.kluent.shouldContain
 class HttpStep {
     @Step("URL<url>にGETリクエストを送る")
     fun executeGet(url: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executeGet(endpoint)
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("URL<url>にヘッダー<header>で、GETリクエストを送る")
     fun executeGet(url: String, header: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executeGet(endpoint, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("URL<url>にPUTリクエストを送る")
     fun executePut(url: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executePut(endpoint)
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("URL<url>にヘッダー<header>で、PUTリクエストを送る")
     fun executePutWithHeader(url: String, header: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executePut(endpoint, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("URL<url>にボディ<requestBody>、ヘッダー<header>で、PUTリクエストを送る")
     fun executePut(url: String, requestBody: String, header: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executePut(endpoint, requestBody, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("URL<url>にボディ<requestBody>で、PUTリクエストを送る")
     fun executePut(url: String, requestBody: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executePut(
             endpoint,
             requestBody
@@ -55,28 +55,28 @@ class HttpStep {
 
     @Step("URL<url>にPOSTリクエストを送る")
     fun executePost(url: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executePost(endpoint)
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("URL<url>にヘッダー<header>で、POSTリクエストを送る")
     fun executePostWithHeader(url: String, header: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executePost(endpoint, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("URL<url>にボディ<requestBody>、ヘッダー<header>で、POSTリクエストを送る")
     fun executePost(url: String, requestBody: String, header: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executePost(endpoint, requestBody, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("URL<url>にボディ<requestBody>で、POSTリクエストを送る")
     fun executePost(url: String, requestBody: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executePost(
             endpoint,
             requestBody
@@ -86,14 +86,14 @@ class HttpStep {
 
     @Step("URL<url>にDELETEリクエストを送る")
     fun executeDelete(url: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executeDelete(endpoint)
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
     @Step("URL<url>にヘッダー<header>で、DELETEリクエストを送る")
     fun executeDelete(url: String, header: String) {
-        val endpoint = getUrl() + url
+        val endpoint = getBaseUrl() + url
         val (statusCode, headers, body) = HttpClient().executeDelete(endpoint, toHeaderMap(header))
         DataStore.storeResponseData(statusCode, headers, body)
     }
@@ -114,10 +114,7 @@ class HttpStep {
         return mapOf(list[0] to list[1])
     }
 
-    private fun getUrl(): String {
-        val protocol = GaugeRestConfig.get(ConfigKeys.URL_PROTOCOL)
-        val domain = GaugeRestConfig.get(ConfigKeys.URL_DOMAIN)
-        val port = GaugeRestConfig.get(ConfigKeys.URL_PORT)
-        return "$protocol://$domain:$port"
+    private fun getBaseUrl(): String {
+        return GaugeRestConfig.get(ConfigKeys.BASE_URL)
     }
 }
