@@ -18,9 +18,9 @@ open class Database(
     private val password: String,
     private val schema: String
 ) {
-    fun cleanInsert(csvFile: File, emptyToNull: Boolean = false, replaceWith: Map<String, String> = mapOf()) =
+    fun cleanInsert(csvDir: File, emptyToNull: Boolean = false, replaceWith: Map<String, String> = mapOf()) =
         connection { conn ->
-            val csvDataSet = CsvDataSet(csvFile)
+            val csvDataSet = CsvDataSet(csvDir)
             val dataSet = csvDataSet.takeIf { emptyToNull }?.emptyToNull() ?: csvDataSet
             DatabaseOperation.CLEAN_INSERT.execute(conn, dataSet.replace(replaceWith))
         }
