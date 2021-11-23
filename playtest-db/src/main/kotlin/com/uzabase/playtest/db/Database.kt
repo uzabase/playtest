@@ -44,4 +44,8 @@ open class Database(
         }
         return connection
     }
+
+    fun truncate(vararg tableNames: String) = connection { conn ->
+        DatabaseOperation.DELETE_ALL.execute(conn, conn.createDataSet(tableNames))
+    }
 }

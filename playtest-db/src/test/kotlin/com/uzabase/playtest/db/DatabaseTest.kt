@@ -39,7 +39,16 @@ internal class DatabaseTest {
             )
         """.trimIndent()
         )
+        TableTest.conn.createStatement().execute(
+            """
+            CREATE TABLE IF NOT EXISTS test_schema.user (
+            user_id INTEGER primary key,
+            name varchar
+            )
+        """.trimIndent()
+        )
         TableTest.conn.createStatement().execute("delete from test_schema.todo;")
+        TableTest.conn.createStatement().execute("delete from test_schema.user;")
     }
 
     @AfterEach
@@ -114,6 +123,40 @@ internal class DatabaseTest {
             .value("memo").isEqualTo("after")
     }
 
+    @Test
+    fun `指定したテーブルをtruncateする`() {
+        val database =
+            Database(
+                driverClass = org.h2.Driver::class.qualifiedName!!,
+                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
+                username = "sa",
+                password = "",
+                schema = "test_schema"
+            )
+        val todo = org.assertj.db.type.Table(
+            Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
+            "test_schema.todo"
+        )
+        val user = org.assertj.db.type.Table(
+            Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
+            "test_schema.user"
+        )
+        TableTest.conn.createStatement().execute(
+            """
+            INSERT INTO test_schema.todo VALUES (1, 'memo')
+        """.trimIndent()
+        )
+        TableTest.conn.createStatement().execute(
+            """
+            INSERT INTO test_schema.user VALUES (1, 'taro')
+        """.trimIndent()
+        )
+
+        database.truncate("todo", "user")
+
+        Assertions.assertThat(todo).isEmpty
+        Assertions.assertThat(user).isEmpty
+    }
 
     @Test
     fun DriverがPostgresの場合Postgres用のデータタイプの設定を有効にする() {
