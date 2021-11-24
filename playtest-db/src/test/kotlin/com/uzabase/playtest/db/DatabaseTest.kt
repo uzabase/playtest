@@ -124,6 +124,33 @@ internal class DatabaseTest {
     }
 
     @Test
+    fun `csvからテーブルにデータをinsertする`() {
+        val database =
+            Database(
+                driverClass = org.h2.Driver::class.qualifiedName!!,
+                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
+                username = "sa",
+                password = "",
+                schema = "test_schema"
+            )
+        TableTest.conn.createStatement().execute(
+            """
+            INSERT INTO test_schema.todo VALUES (0, 'memo')
+        """.trimIndent()
+        )
+        database.insert(File("src/test/resources/database"))
+
+        val table = org.assertj.db.type.Table(
+            Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
+            "test_schema.todo"
+        )
+        Assertions.assertThat(table)
+            .row(0).value("todo_id").isEqualTo(0)
+        Assertions.assertThat(table)
+            .row(1).value("todo_id").isEqualTo(1)
+    }
+
+    @Test
     fun `指定したテーブルをtruncateする`() {
         val database =
             Database(

@@ -3,6 +3,8 @@ package com.uzabase.playtest.db
 import org.dbunit.JdbcDatabaseTester
 import org.dbunit.database.DatabaseConfig
 import org.dbunit.database.IDatabaseConnection
+import org.dbunit.dataset.IDataSet
+import org.dbunit.dataset.ReplacementDataSet
 import org.dbunit.dataset.csv.CsvDataSet
 import org.dbunit.ext.mysql.MySqlDataTypeFactory
 import org.dbunit.ext.mysql.MySqlMetadataHandler
@@ -20,10 +22,21 @@ open class Database(
 ) {
     fun cleanInsert(csvDir: File, emptyToNull: Boolean = false, replaceWith: Map<String, String> = mapOf()) =
         connection { conn ->
-            val csvDataSet = CsvDataSet(csvDir)
-            val dataSet = csvDataSet.takeIf { emptyToNull }?.emptyToNull() ?: csvDataSet
-            DatabaseOperation.CLEAN_INSERT.execute(conn, dataSet.replace(replaceWith))
+            convertDataset(CsvDataSet(csvDir), emptyToNull, replaceWith)
+                .let { DatabaseOperation.CLEAN_INSERT.execute(conn, it) }
         }
+
+    fun insert(csvDir: File, emptyToNull: Boolean = false, replaceWith: Map<String, String> = mapOf()) =
+        connection { conn ->
+            convertDataset(CsvDataSet(csvDir), emptyToNull, replaceWith)
+                .let { DatabaseOperation.INSERT.execute(conn, it) }
+        }
+
+    private fun convertDataset(
+        dataset: IDataSet,
+        emptyToNull: Boolean,
+        replaceWith: Map<String, String>
+    ): ReplacementDataSet = (dataset.takeIf { emptyToNull }?.emptyToNull() ?: dataset).replace(replaceWith)
 
     private fun connection(function: (connection: IDatabaseConnection) -> Unit) {
         val con: IDatabaseConnection =
