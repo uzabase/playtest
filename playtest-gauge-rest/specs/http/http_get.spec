@@ -14,3 +14,8 @@ tags: http-request-test
 ## ヘッダーを指定してGETリクエストを送信できる
 * URL"/"にヘッダー"content-type: application/json"で、GETリクエストを送る
 * URL"/"にヘッダー"content-type: application/json"で、GETリクエストが送信された
+
+## ヘッダーを複数指定してGETリクエストを送信できる
+* URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、GETリクエストを送る
+* URL"/"にヘッダー"content-type: application/json"で、GETリクエストが送信された
+* URL"/"にヘッダー"options: 1111,2222"で、GETリクエストが送信された

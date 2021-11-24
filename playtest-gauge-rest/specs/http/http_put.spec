@@ -20,6 +20,11 @@ tags: http-request-test
 * URL"/"にヘッダー"content-type: application/json"で、PUTリクエストを送る
 * URL"/"にヘッダー"content-type: application/json"で、PUTリクエストが送信された
 
+## ヘッダーを複数指定してPUTリクエストを送信できる
+* URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、PUTリクエストを送る
+* URL"/"にヘッダー"content-type: application/json"で、PUTリクエストが送信された
+* URL"/"にヘッダー"options: 1111,2222"で、PUTリクエストが送信された
+
 ## ボディとヘッダーを指定してPUTリクエストを送信できる
 * URL"/"にボディ"{\"test\": \"test\"}"、ヘッダー"content-type: application/json"で、PUTリクエストを送る
 * URL"/"にボディ"{\"test\": \"test\"}"、ヘッダー"content-type: application/json"で、PUTリクエストが送信された

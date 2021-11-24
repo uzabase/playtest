@@ -110,8 +110,13 @@ class HttpStep {
     }
 
     fun toHeaderMap(header: String): Map<String, String> {
-        val list = header.split(":").map { it.trim() }
-        return mapOf(list[0] to list[1])
+        return header
+            .split("r\n")
+            .associate {
+                it.split(":")
+                    .map { v -> v.trim() }
+                    .let { h -> h[0] to h[1] }
+            }
     }
 
     private fun getBaseUrl(): String {
