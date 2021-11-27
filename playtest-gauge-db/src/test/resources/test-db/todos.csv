@@ -1,2 +1,2 @@
-id,memo,priority
-404e05a3-a34f-47d0-8997-968d90ba64ca,this is test,1
+id,memo,priority,progress_rate
+404e05a3-a34f-47d0-8997-968d90ba64ca,this is test,1,0.1
