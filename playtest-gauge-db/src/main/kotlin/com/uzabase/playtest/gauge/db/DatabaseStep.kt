@@ -10,9 +10,10 @@ import java.io.File
 
 class DatabaseStep {
 
-    @Step("<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>が整数の<value>である",
-        "<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>が文字列の<value>である")
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>が整数の<value>である",
+        "DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>が文字列の<value>である")
     fun assertUniqueRecordValue(
+        dbName: String,
         schemaName: String,
         tableName: String,
         whereColumn: String,
@@ -20,7 +21,7 @@ class DatabaseStep {
         valueColumn: String,
         value: String
     ) {
-        val config = GaugeDbConfig.get("test_db")
+        val config = GaugeDbConfig.get(dbName)
         val source = Source(config.url, config.user, config.password)
 
         val request = Request(source, "select * from $schemaName.$tableName where $whereColumn = '$whereValue'")
