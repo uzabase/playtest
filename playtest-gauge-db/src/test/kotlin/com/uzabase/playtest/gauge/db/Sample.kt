@@ -15,6 +15,6 @@ class Sample {
             password = databaseInfo.password,
             url = databaseInfo.url
         )
-        table.where("todo_id", 1).first().column("memo").value shouldBeEqualTo "this is test"
+        table.where("priority", 1).first().column("memo").value shouldBeEqualTo "this is test"
     }
 }

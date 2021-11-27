@@ -4,6 +4,7 @@ CREATE SCHEMA test;
 
 CREATE TABLE test.todos
 (
-    todo_id INTEGER PRIMARY KEY,
-    memo    VARCHAR(100)
+    id UUID PRIMARY KEY,
+    memo    VARCHAR(100),
+    priority INTEGER
 );
