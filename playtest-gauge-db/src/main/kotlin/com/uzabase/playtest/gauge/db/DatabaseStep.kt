@@ -10,7 +10,8 @@ import java.io.File
 
 class DatabaseStep {
 
-    @Step("<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>が文字列の<value>である")
+    @Step("<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>が整数の<value>である",
+        "<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>が文字列の<value>である")
     fun assertUniqueRecordValue(
         schemaName: String,
         tableName: String,
