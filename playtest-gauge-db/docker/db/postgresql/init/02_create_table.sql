@@ -7,5 +7,6 @@ CREATE TABLE test.todos
     id UUID PRIMARY KEY,
     memo    VARCHAR(100),
     priority INTEGER,
-    progress_rate numeric
+    progress_rate numeric,
+    registered_date date
 );
