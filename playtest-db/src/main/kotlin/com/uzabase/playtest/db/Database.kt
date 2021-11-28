@@ -58,8 +58,8 @@ open class Database(
         val con: IDatabaseConnection =
             JdbcDatabaseTester(driverClass, url, username, password, schema).connection
         kotlin.runCatching { function.invoke(setConfig(con)) }
-            .onFailure { it.printStackTrace() }
             .also { con.close() }
+            .onFailure { throw it }
     }
 
     open fun setConfig(connection: IDatabaseConnection): IDatabaseConnection {
