@@ -8,7 +8,6 @@ import org.dbunit.database.IDatabaseConnection
 import org.dbunit.ext.mysql.MySqlDataTypeFactory
 import org.dbunit.ext.mysql.MySqlMetadataHandler
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory
-import org.dbunit.operation.DatabaseOperation
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -16,6 +15,11 @@ import org.junit.jupiter.api.Test
 import java.io.File
 import java.sql.Connection
 import java.sql.DriverManager
+
+data class User(
+    val user_id: Int,
+    val name: String
+) : Entity("user")
 
 internal class DatabaseTest {
     companion object {
@@ -27,6 +31,14 @@ internal class DatabaseTest {
             conn.close()
         }
     }
+
+    val target = Database(
+        driverClass = org.h2.Driver::class.qualifiedName!!,
+        url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
+        username = "sa",
+        password = "",
+        schema = "test_schema"
+    )
 
     @BeforeEach
     fun setup() {
@@ -58,16 +70,7 @@ internal class DatabaseTest {
 
     @Test
     fun `csvからテーブルにデータをcleanInsertする`() {
-        val database =
-            Database(
-                driverClass = org.h2.Driver::class.qualifiedName!!,
-                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
-                username = "sa",
-                password = "",
-                schema = "test_schema"
-            )
-        database.cleanInsert(File("src/test/resources/database"))
-
+        target.cleanInsert(File("src/test/resources/database"))
         val table = org.assertj.db.type.Table(
             Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
             "test_schema.todo"
@@ -83,17 +86,7 @@ internal class DatabaseTest {
 
     @Test
     fun `オプションが指定されたとき、空文字を変換して、cleanInsertする`() {
-        mockkStatic(DatabaseOperation::class)
-        val database =
-            Database(
-                driverClass = org.h2.Driver::class.qualifiedName!!,
-                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
-                username = "sa",
-                password = "",
-                schema = "test_schema"
-            )
-        database.cleanInsert(File("src/test/resources/database"), true)
-
+        target.cleanInsert(File("src/test/resources/database"), true)
         val table = org.assertj.db.type.Table(
             Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
             "test_schema.todo"
@@ -104,16 +97,7 @@ internal class DatabaseTest {
 
     @Test
     fun `変換用のマップが指定されたとき、空文字を変換して、cleanInsertする`() {
-        mockkStatic(DatabaseOperation::class)
-        val database =
-            Database(
-                driverClass = org.h2.Driver::class.qualifiedName!!,
-                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
-                username = "sa",
-                password = "",
-                schema = "test_schema"
-            )
-        database.cleanInsert(File("src/test/resources/database"), false, mapOf("change" to "after"))
+        target.cleanInsert(File("src/test/resources/database"), false, mapOf("change" to "after"))
 
         val table = org.assertj.db.type.Table(
             Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
@@ -125,20 +109,12 @@ internal class DatabaseTest {
 
     @Test
     fun `csvからテーブルにデータをinsertする`() {
-        val database =
-            Database(
-                driverClass = org.h2.Driver::class.qualifiedName!!,
-                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
-                username = "sa",
-                password = "",
-                schema = "test_schema"
-            )
         TableTest.conn.createStatement().execute(
             """
             INSERT INTO test_schema.todo VALUES (0, 'memo')
         """.trimIndent()
         )
-        database.insert(File("src/test/resources/database"))
+        target.insert(File("src/test/resources/database"))
 
         val table = org.assertj.db.type.Table(
             Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
@@ -151,15 +127,36 @@ internal class DatabaseTest {
     }
 
     @Test
+    fun `テーブルの1レコードをinsertする`() {
+        val table = org.assertj.db.type.Table(
+            Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
+            "test_schema.user"
+        )
+        target.insert(User(1, "taro"))
+        Assertions.assertThat(table)
+            .row(0).value("user_id").isEqualTo(1)
+        Assertions.assertThat(table)
+            .row(0).value("name").isEqualTo("taro")
+    }
+
+    @Test
+    fun `テーブルの1レコードをdeleteする`() {
+        val table = org.assertj.db.type.Table(
+            Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
+            "test_schema.user"
+        )
+        TableTest.conn.createStatement().execute(
+            """
+            INSERT INTO test_schema.user VALUES (1, 'taro')
+        """.trimIndent()
+        )
+
+        target.delete(User(1, "taro"))
+        Assertions.assertThat(table).isEmpty
+    }
+
+    @Test
     fun `指定したテーブルをtruncateする`() {
-        val database =
-            Database(
-                driverClass = org.h2.Driver::class.qualifiedName!!,
-                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
-                username = "sa",
-                password = "",
-                schema = "test_schema"
-            )
         val todo = org.assertj.db.type.Table(
             Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
             "test_schema.todo"
@@ -179,7 +176,7 @@ internal class DatabaseTest {
         """.trimIndent()
         )
 
-        database.truncate("todo", "user")
+        target.truncate("todo", "user")
 
         Assertions.assertThat(todo).isEmpty
         Assertions.assertThat(user).isEmpty
@@ -187,40 +184,38 @@ internal class DatabaseTest {
 
     @Test
     fun DriverがPostgresの場合Postgres用のデータタイプの設定を有効にする() {
-        val database =
-            Database(
-                driverClass = "org.postgresql.Driver",
-                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
-                username = "sa",
-                password = "",
-                schema = "test_schema"
-            )
+        val postgresDb = Database(
+            driverClass = "org.postgresql.Driver",
+            url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
+            username = "sa",
+            password = "",
+            schema = "test_schema"
+        )
         val connection = mockk<IDatabaseConnection>()
         val config = mockk<DatabaseConfig>()
 
         every { connection.config } returns config
         every { config.setProperty(any(), any()) } just runs
-        database.setConfig(connection)
+        postgresDb.setConfig(connection)
 
         verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<PostgresqlDataTypeFactory>()) }
     }
 
     @Test
     fun DriverがMySQLの場合MySQL用の設定を有効にする() {
-        val database =
-            Database(
-                driverClass = "com.mysql.jdbc.Driver",
-                url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
-                username = "sa",
-                password = "",
-                schema = "test_schema"
-            )
+        val mysqlDb = Database(
+            driverClass = "com.mysql.jdbc.Driver",
+            url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
+            username = "sa",
+            password = "",
+            schema = "test_schema"
+        )
         val connection = mockk<IDatabaseConnection>()
         val config = mockk<DatabaseConfig>()
 
         every { connection.config } returns config
         every { config.setProperty(any(), any()) } just runs
-        database.setConfig(connection)
+        mysqlDb.setConfig(connection)
 
         verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<MySqlDataTypeFactory>()) }
         verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<MySqlMetadataHandler>()) }

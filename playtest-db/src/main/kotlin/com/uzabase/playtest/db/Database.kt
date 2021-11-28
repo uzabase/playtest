@@ -32,13 +32,29 @@ open class Database(
                 .let { DatabaseOperation.INSERT.execute(conn, it) }
         }
 
+    fun insert(entity: Entity) = connection { conn ->
+        DatabaseOperation.INSERT.execute(conn, entity.toDataSet())
+    }
+
+    fun insert(dataset: IDataSet) = connection { conn ->
+        DatabaseOperation.INSERT.execute(conn, dataset)
+    }
+
+    fun delete(entity: Entity) = connection { conn ->
+        DatabaseOperation.DELETE.execute(conn, entity.toDataSet())
+    }
+
+    fun delete(dataset: IDataSet) = connection { conn ->
+        DatabaseOperation.DELETE.execute(conn, dataset)
+    }
+
     private fun convertDataset(
         dataset: IDataSet,
         emptyToNull: Boolean,
         replaceWith: Map<String, String>
     ): ReplacementDataSet = (dataset.takeIf { emptyToNull }?.emptyToNull() ?: dataset).replace(replaceWith)
 
-    private fun connection(function: (connection: IDatabaseConnection) -> Unit) {
+    fun connection(function: (connection: IDatabaseConnection) -> Unit) {
         val con: IDatabaseConnection =
             JdbcDatabaseTester(driverClass, url, username, password, schema).connection
         kotlin.runCatching { function.invoke(setConfig(con)) }
