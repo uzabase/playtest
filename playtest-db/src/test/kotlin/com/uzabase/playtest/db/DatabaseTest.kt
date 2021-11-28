@@ -42,8 +42,8 @@ internal class DatabaseTest {
 
     @BeforeEach
     fun setup() {
-        TableTest.conn.createStatement().execute("CREATE SCHEMA IF NOT EXISTS test_schema")
-        TableTest.conn.createStatement().execute(
+        conn.createStatement().execute("CREATE SCHEMA IF NOT EXISTS test_schema")
+        conn.createStatement().execute(
             """
             CREATE TABLE IF NOT EXISTS test_schema.todo (
             todo_id INTEGER primary key,
@@ -51,7 +51,7 @@ internal class DatabaseTest {
             )
         """.trimIndent()
         )
-        TableTest.conn.createStatement().execute(
+        conn.createStatement().execute(
             """
             CREATE TABLE IF NOT EXISTS test_schema.user (
             user_id INTEGER primary key,
@@ -59,8 +59,8 @@ internal class DatabaseTest {
             )
         """.trimIndent()
         )
-        TableTest.conn.createStatement().execute("delete from test_schema.todo;")
-        TableTest.conn.createStatement().execute("delete from test_schema.user;")
+        conn.createStatement().execute("delete from test_schema.todo;")
+        conn.createStatement().execute("delete from test_schema.user;")
     }
 
     @AfterEach
@@ -109,7 +109,7 @@ internal class DatabaseTest {
 
     @Test
     fun `csvからテーブルにデータをinsertする`() {
-        TableTest.conn.createStatement().execute(
+        conn.createStatement().execute(
             """
             INSERT INTO test_schema.todo VALUES (0, 'memo')
         """.trimIndent()
@@ -145,7 +145,7 @@ internal class DatabaseTest {
             Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
             "test_schema.user"
         )
-        TableTest.conn.createStatement().execute(
+        conn.createStatement().execute(
             """
             INSERT INTO test_schema.user VALUES (1, 'taro')
         """.trimIndent()
@@ -165,12 +165,12 @@ internal class DatabaseTest {
             Source("jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1", "sa", ""),
             "test_schema.user"
         )
-        TableTest.conn.createStatement().execute(
+        conn.createStatement().execute(
             """
             INSERT INTO test_schema.todo VALUES (1, 'memo')
         """.trimIndent()
         )
-        TableTest.conn.createStatement().execute(
+        conn.createStatement().execute(
             """
             INSERT INTO test_schema.user VALUES (1, 'taro')
         """.trimIndent()
