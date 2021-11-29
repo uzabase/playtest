@@ -8,5 +8,6 @@ CREATE TABLE test.todos
     memo    VARCHAR(100),
     priority INTEGER,
     progress_rate numeric,
-    registered_date date
+    registered_date date,
+    updated_date timestamp
 );

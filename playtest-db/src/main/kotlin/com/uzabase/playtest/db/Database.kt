@@ -64,6 +64,7 @@ open class Database(
 
     open fun setConfig(connection: IDatabaseConnection): IDatabaseConnection {
         connection.config.setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true)
+
         if (this.driverClass == "org.postgresql.Driver") {
             connection.config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, PostgresqlDataTypeFactory())
         }
