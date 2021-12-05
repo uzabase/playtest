@@ -34,13 +34,33 @@ class DatabaseSetup {
 
     @Step("test_dbにレコードを挿入する")
     fun insert() {
-        val entity = Todo(UUID.fromString("bf486f2f-99f8-4f73-a1af-f7ca4506ea53"), "test memo", 10, 0.5, Date.valueOf("2020-01-01"))
+        val entity = Todo(
+            UUID.fromString("bf486f2f-99f8-4f73-a1af-f7ca4506ea53"),
+            "test memo",
+            10,
+            0.5,
+            Date.valueOf("2020-01-01")
+        )
         database.insert(entity)
     }
 
     @Step("test_dbからレコードを削除する")
     fun delete() {
-        val entity = Todo(UUID.fromString("bf486f2f-99f8-4f73-a1af-f7ca4506ea53"), "test memo", 10, 0.5, Date.valueOf("2020-01-01"))
+        val entity = Todo(
+            UUID.fromString("bf486f2f-99f8-4f73-a1af-f7ca4506ea53"),
+            "test memo",
+            10,
+            0.5,
+            Date.valueOf("2020-01-01")
+        )
         database.delete(entity)
+    }
+
+    @Step("test_dbの1レコードをアップデートする")
+    fun update() {
+        database.connection {
+            it.connection.createStatement()
+                .execute("update test.todos set memo = 'update memo' where id = '404e05a3-a34f-47d0-8997-968d90ba64ca';")
+        }
     }
 }

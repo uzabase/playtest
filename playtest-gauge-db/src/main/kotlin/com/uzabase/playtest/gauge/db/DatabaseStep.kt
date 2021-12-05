@@ -135,4 +135,26 @@ class DatabaseStep {
         val table = Table(source, "$schemaName.$tableName")
         assertThat(table).hasNumberOfRows(count)
     }
+
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルで変更されたレコード数が<count>である")
+    fun isModified(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        count: Int
+    ) {
+        val changes = DatabaseChanges(dbName).get()
+        assertThat(changes).onTable("$schemaName.$tableName").ofModification().hasNumberOfChanges(count)
+    }
+
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルで削除されたレコード数が<count>である")
+    fun isDeleted(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        count: Int
+    ) {
+        val changes = DatabaseChanges(dbName).get()
+        assertThat(changes).onTable("$schemaName.$tableName").ofDeletion().hasNumberOfChanges(count)
+    }
 }

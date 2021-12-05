@@ -1,6 +1,5 @@
 # フィールドをアサートする
-tags: truncate
-* test_dbにテストデータをセットアップする
+tags: setup
 
 ## カラムの値を指定して、文字列をアサートする
 * DB"test_db"の"test"スキーマの"todos"テーブルの、"id"を"'404e05a3-a34f-47d0-8997-968d90ba64ca'"で取得した一意の"memo"が文字列の"this is test"である
@@ -31,3 +30,8 @@ tags: truncate
 
 ## 条件文で取得したレコードの、日時のフィールドをアサートする
 * DB"test_db"の"test"スキーマの"todos"テーブルの、条件" id = '404e05a3-a34f-47d0-8997-968d90ba64ca' "で取得した一意の"updated_date"が日時の"2021-11-15T01:12:33"である
+
+## 指定したテーブルの変更されたレコード数をアサートする
+tags: record-changes
+* test_dbの1レコードをアップデートする
+* DB"test_db"の"test"スキーマの"todos"テーブルで変更されたレコード数が"1"である
