@@ -1,6 +1,7 @@
 package com.uzabase.playtest.gauge.db
 
 import com.thoughtworks.gauge.Step
+import javassist.NotFoundException
 import org.assertj.db.api.Assertions.assertThat
 import org.assertj.db.type.*
 
@@ -143,8 +144,7 @@ class DatabaseStep {
         tableName: String,
         count: Int
     ) {
-        val changes = DatabaseChanges(dbName).get()
-        assertThat(changes).onTable("$schemaName.$tableName").ofModification().hasNumberOfChanges(count)
+        assertThat(getChange(dbName)).onTable("$schemaName.$tableName").ofModification().hasNumberOfChanges(count)
     }
 
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルで削除されたレコード数が<count>である")
@@ -154,7 +154,20 @@ class DatabaseStep {
         tableName: String,
         count: Int
     ) {
-        val changes = DatabaseChanges(dbName).get()
-        assertThat(changes).onTable("$schemaName.$tableName").ofDeletion().hasNumberOfChanges(count)
+        assertThat(getChange(dbName)).onTable("$schemaName.$tableName").ofDeletion().hasNumberOfChanges(count)
+    }
+
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルで作成されたレコード数が<count>である")
+    fun isCreated(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        count: Int
+    ) {
+        assertThat(getChange(dbName)).onTable("$schemaName.$tableName").ofCreation().hasNumberOfChanges(count)
+    }
+
+    private fun getChange(dbName: String): Changes {
+        return dbChangesMap[dbName]?.get() ?: throw NotFoundException("$dbName changes don't record")
     }
 }

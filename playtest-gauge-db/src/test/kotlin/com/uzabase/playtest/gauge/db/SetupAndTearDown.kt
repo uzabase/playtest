@@ -1,6 +1,7 @@
 package com.uzabase.playtest.gauge.db
 
-import com.thoughtworks.gauge.*
+import com.thoughtworks.gauge.BeforeScenario
+import com.thoughtworks.gauge.BeforeSuite
 import com.uzabase.playtest.db.Database
 import javassist.NotFoundException
 import java.io.File
@@ -11,6 +12,10 @@ class SetupAndTearDown {
     private val database = Database(db.driverClass, db.url, db.user, db.password, db.schema)
     private val testDbChanges = DatabaseChanges("test_db")
 
+    @BeforeSuite()
+    fun truncate() {
+        database.truncate("todos")
+    }
 
     @BeforeScenario(tags = ["setup"])
     fun setupDb() {
@@ -19,23 +24,8 @@ class SetupAndTearDown {
         database.cleanInsert(data)
     }
 
-    @AfterScenario(tags = ["truncate"])
-    fun clean() {
-        database.truncate("todos")
-    }
-
     @BeforeScenario()
     fun setup() {
         testDbChanges.setup()
-    }
-
-    @BeforeStep(tags = ["record-changes"])
-    fun startRecord() {
-        testDbChanges.startRecordIfNot()
-    }
-
-    @AfterStep(tags = ["record-changes"])
-    fun endRecord() {
-        testDbChanges.endRecordIfNot()
     }
 }

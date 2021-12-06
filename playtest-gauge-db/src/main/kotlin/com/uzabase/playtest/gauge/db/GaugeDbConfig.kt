@@ -10,7 +10,8 @@ enum class ConfigKeys(val key: String) {
     URL("url"),
     USER("user"),
     PASSWORD("password"),
-    SCHEMA("schema")
+    SCHEMA("schema"),
+    RECORDS("records")
 }
 
 data class DatabaseInfo(
@@ -49,4 +50,12 @@ internal object GaugeDbConfig {
         get(databaseName, ConfigKeys.PASSWORD),
         get(databaseName, ConfigKeys.SCHEMA)
     )
+
+    fun getRecords(): List<String> {
+        val propertyKey = "db.${ConfigKeys.RECORDS.key}"
+        if (properties[propertyKey] == null) {
+            return listOf()
+        }
+        return properties[propertyKey].toString().split(",").map { it.trim() }
+    }
 }

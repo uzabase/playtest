@@ -13,11 +13,11 @@ tags: truncate
 * DB"test_db"の"test"スキーマの"todos"テーブルのレコード数が"0"である
 
 ## 1レコードを挿入する
-* test_dbにレコードを挿入する
+* test_dbのtodoテーブルにレコードを挿入する
 * DB"test_db"の"test"スキーマの"todos"テーブルのレコード数が"1"である
 
 ## 1レコードを削除する
-* test_dbにレコードを挿入する
+* test_dbのtodoテーブルにレコードを挿入する
 * DB"test_db"の"test"スキーマの"todos"テーブルのレコード数が"1"である
-* test_dbからレコードを削除する
+* test_dbのtodoテーブルからレコードを削除する
 * DB"test_db"の"test"スキーマの"todos"テーブルのレコード数が"0"である

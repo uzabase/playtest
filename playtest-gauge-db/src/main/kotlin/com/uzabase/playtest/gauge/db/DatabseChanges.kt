@@ -5,9 +5,9 @@ import org.assertj.db.type.Changes
 import org.assertj.db.type.Source
 
 data class DatabaseChanges(private val dbName: String) {
-    private val changesKey = "$dbName changes key"
-    private val isStartKey = "start $dbName record key"
-    private val isEndKey = "end $dbName record key"
+    private val changesKey = "$dbName: changes key"
+    private val isStartKey = "$dbName: start record key"
+    private val isEndKey = "$dbName: end record key"
 
     fun setup() {
         ScenarioDataStore.put(isStartKey, false)
