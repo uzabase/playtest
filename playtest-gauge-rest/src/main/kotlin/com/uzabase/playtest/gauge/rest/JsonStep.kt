@@ -78,7 +78,7 @@ class JsonStep {
     }
 
     @Step("レスポンスのJSONの配列<arrayJsonPath>が、数値<orderKey>の昇順に並んでいる")
-    fun assertOrderByAsc(arrayJsonPath: String, sortKey: String) {
+    fun assertOrderByNumberAsc(arrayJsonPath: String, sortKey: String) {
         val response =
             JsonNode.of(loadResponseBodyFromScenario().string).get<List<Map<String, Any>>>(arrayJsonPath)!!
         val sorted = JsonList(response).sortByNumber(sortKey, Order.Asc)
@@ -86,10 +86,26 @@ class JsonStep {
     }
 
     @Step("レスポンスのJSONの配列<arrayJsonPath>が、数値<orderKey>の降順に並んでいる")
-    fun assertOrderByDesc(arrayJsonPath: String, sortKey: String) {
+    fun assertOrderByNumberDesc(arrayJsonPath: String, sortKey: String) {
         val response =
             JsonNode.of(loadResponseBodyFromScenario().string).get<List<Map<String, Any>>>(arrayJsonPath)!!
         val sorted = JsonList(response).sortByNumber(sortKey, Order.Desc)
+        response shouldBeEqualTo sorted
+    }
+
+    @Step("レスポンスのJSONの配列<arrayJsonPath>が、タイムゾーン付きの日付/時間<orderKey>の昇順に並んでいる")
+    fun assertOrderByZonedDateTimeAsc(arrayJsonPath: String, sortKey: String) {
+        val response =
+            JsonNode.of(loadResponseBodyFromScenario().string).get<List<Map<String, Any>>>(arrayJsonPath)!!
+        val sorted = JsonList(response).sortByZonedDateTime(sortKey, Order.Asc)
+        response shouldBeEqualTo sorted
+    }
+
+    @Step("レスポンスのJSONの配列<arrayJsonPath>が、タイムゾーン付きの日付/時間<orderKey>の降順に並んでいる")
+    fun assertOrderByZonedDateTimeDesc(arrayJsonPath: String, sortKey: String) {
+        val response =
+            JsonNode.of(loadResponseBodyFromScenario().string).get<List<Map<String, Any>>>(arrayJsonPath)!!
+        val sorted = JsonList(response).sortByZonedDateTime(sortKey, Order.Desc)
         response shouldBeEqualTo sorted
     }
 
