@@ -1,5 +1,5 @@
 # テーブルのアサートをする
-tags: setup
+tags: _setup
 
 ## カラムの値を指定して、文字列をアサートする
 * DB"test_db"の"test"スキーマの"todos"テーブルの、"id"を"'404e05a3-a34f-47d0-8997-968d90ba64ca'"で取得した一意の"memo"が文字列の"this is test"である
@@ -31,6 +31,7 @@ tags: setup
 ## 条件文で取得したレコードの、日時のフィールドをアサートする
 * DB"test_db"の"test"スキーマの"todos"テーブルの、条件" id = '404e05a3-a34f-47d0-8997-968d90ba64ca' "で取得した一意の"updated_date"が日時の"2021-11-15T01:12:33"である
 
+record-changesタグが付与されたシナリオは、シナリオが始まったタイミングから、1つ目の変化数のアサートのタイミングまでのDBの変化を記録する
 ## 指定したテーブルで変更されたレコード数をアサートする
 tags: record-changes
 * [not-provide] test_dbのtodoテーブルのレコードをアップデートする

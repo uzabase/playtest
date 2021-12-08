@@ -17,14 +17,14 @@ class SetupAndTearDown {
         database.truncate("todos")
     }
 
-    @BeforeScenario(tags = ["setup"])
+    @BeforeScenario(tags = ["_setup"])
     fun setupDb() {
         val data = javaClass.getResource("/test-db")?.toURI()?.let { File(it) }
             ?: throw NotFoundException("/test-db not found")
         database.cleanInsert(data)
     }
 
-    @BeforeScenario(tags = ["truncate"])
+    @BeforeScenario(tags = ["_truncate"])
     fun setup() {
         database.truncate("todos")
     }

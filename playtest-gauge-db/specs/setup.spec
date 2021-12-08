@@ -1,5 +1,5 @@
 # playtest-dbのセットアップ関連のテスト
-tags: truncate
+tags: _truncate
 
 ## CSVファイルからセットアップする
 * [not-provide] test_dbにテストデータをセットアップする
