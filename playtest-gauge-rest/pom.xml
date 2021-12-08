@@ -41,7 +41,7 @@
     </distributionManagement>
 
     <properties>
-        <project.version>0.1.0</project.version>
+        <project.version>0.1.1</project.version>
         <kotlin.version>1.5.31</kotlin.version>
         <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
         <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
