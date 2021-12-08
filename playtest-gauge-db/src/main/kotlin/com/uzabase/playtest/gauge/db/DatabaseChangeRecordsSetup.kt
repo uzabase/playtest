@@ -14,7 +14,6 @@ class DatabaseChangeRecordsSetup {
 
     @BeforeScenario(tags = ["record-changes"])
     fun startRecord() {
-        println(dbChangesMap)
         dbChangesMap.forEach {
             println(it.key)
             it.value.setup()
