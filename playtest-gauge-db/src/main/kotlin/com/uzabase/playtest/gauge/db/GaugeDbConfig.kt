@@ -21,7 +21,7 @@ data class DatabaseInfo(
     val schema: String
 )
 
-internal object GaugeDbConfig {
+object GaugeDbConfig {
     // TODO: システムプロパティから渡せるようにする
     private val properties: Properties = javaClass.getResource("/playtest-gauge-db.default.properties")!!
         .let { Properties().from(it.path) }
