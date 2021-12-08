@@ -6,7 +6,7 @@ enum class ConfigKeys(val key: String) {
     BASE_URL("rest.baseUrl")
 }
 
-internal object GaugeRestConfig {
+object GaugeRestConfig {
     // TODO: システムプロパティから渡せるようにする
     private val properties: Properties = javaClass.getResource("/playtest-gauge-rest.default.properties")!!
         .let { Properties().from(it.path) }
