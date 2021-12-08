@@ -1,39 +1,48 @@
 package com.uzabase.playtest.gauge.db
 
-import com.thoughtworks.gauge.datastore.ScenarioDataStore
 import org.assertj.db.type.Changes
 import org.assertj.db.type.Source
 
-data class DatabaseChanges(private val dbName: String) {
-    private val changesKey = "$dbName: changes key"
-    private val isStartKey = "$dbName: start record key"
-    private val isEndKey = "$dbName: end record key"
-
-    fun setup() {
-        ScenarioDataStore.put(isStartKey, false)
-        ScenarioDataStore.put(isEndKey, false)
+data class DatabaseChangesKeys(private val dbName: String) {
+    val changesKey = object : StoreKey<Changes> {
+        override val key = dbName to "change"
     }
-
-    fun startRecordIfNot() {
-        if (!(ScenarioDataStore.get(isStartKey) as Boolean)) {
-            val config = GaugeDbConfig.get(dbName)
-            val source = Source(config.url, config.user, config.password)
-            val changes = Changes(source)
-            changes.setStartPointNow()
-            ScenarioDataStore.put(changesKey, changes)
-            ScenarioDataStore.put(isStartKey, true)
-        }
+    val isStartKey = object : StoreKey<Boolean> {
+        override val key = dbName to "start"
     }
-
-    fun endRecordIfNot() {
-        if (!(ScenarioDataStore.get(isEndKey) as Boolean)) {
-            val changes = ScenarioDataStore.get(changesKey) as Changes
-            changes.setEndPointNow()
-            ScenarioDataStore.put(isEndKey, true)
-        }
-    }
-
-    fun get(): Changes {
-        return ScenarioDataStore.get(changesKey) as Changes
+    val isEndKey = object : StoreKey<Boolean> {
+        override val key = dbName to "end"
     }
 }
+
+data class DatabaseChanges(private val dbName: String) {
+    private val keys = DatabaseChangesKeys(dbName)
+
+    fun setup() {
+        DataStore.storeToScenario(keys.isStartKey, false)
+        DataStore.storeToScenario(keys.isEndKey, false)
+    }
+
+    fun startRecordOnce() {
+        if (isStarted()) return
+        val changes = GaugeDbConfig.get(dbName)
+            .let { Source(it.url, it.user, it.password) }
+            .let { Changes(it) }
+        changes.setStartPointNow()
+        DataStore.storeToScenario(keys.changesKey, changes)
+        DataStore.storeToScenario(keys.isStartKey, true)
+    }
+
+    fun endRecordOnce() {
+        if (isEnded()) return
+        DataStore.loadFromScenario(keys.changesKey).setEndPointNow()
+        DataStore.storeToScenario(keys.isEndKey, true)
+    }
+
+    fun get(): Changes = DataStore.loadFromScenario(keys.changesKey)
+
+    private fun isStarted() = DataStore.loadFromScenario(keys.isStartKey)
+
+    private fun isEnded() = DataStore.loadFromScenario(keys.isEndKey)
+}
+

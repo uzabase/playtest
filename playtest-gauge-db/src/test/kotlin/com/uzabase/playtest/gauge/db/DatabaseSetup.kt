@@ -22,19 +22,19 @@ class DatabaseSetup {
     private val db = GaugeDbConfig.get("test_db")
     private val database = Database(db.driverClass, db.url, db.user, db.password, db.schema)
 
-    @Step("test_dbにテストデータをセットアップする")
+    @Step("[not-provide] test_dbにテストデータをセットアップする")
     fun setupDatabase() {
         val data = javaClass.getResource("/test-db")?.toURI()?.let { File(it) }
             ?: throw NotFoundException("/test-db not found")
-        database.insert(data)
+        database.cleanInsert(data)
     }
 
-    @Step("test_dbのテーブルをtruncateする")
+    @Step("[not-provide] test_dbのテーブルをtruncateする")
     fun truncate() {
         database.truncate("todos")
     }
 
-    @Step("test_dbのtodoテーブルにレコードを挿入する")
+    @Step("[not-provide] test_dbのtodoテーブルにレコードを挿入する")
     fun insert() {
         val entity = Todo(
             UUID.fromString("bf486f2f-99f8-4f73-a1af-f7ca4506ea53"),
@@ -47,7 +47,7 @@ class DatabaseSetup {
         database.insert(entity)
     }
 
-    @Step("test_dbのtodoテーブルからレコードを削除する")
+    @Step("[not-provide] test_dbのtodoテーブルからレコードを削除する")
     fun delete() {
         val entity = Todo(
             UUID.fromString("bf486f2f-99f8-4f73-a1af-f7ca4506ea53"),
@@ -60,7 +60,7 @@ class DatabaseSetup {
         database.delete(entity)
     }
 
-    @Step("test_dbのtodoテーブルのレコードをアップデートする")
+    @Step("[not-provide] test_dbのtodoテーブルのレコードをアップデートする")
     fun update() {
         database.connection {
             it.connection.createStatement()
@@ -68,7 +68,7 @@ class DatabaseSetup {
         }
     }
 
-    @Step("test_dbのtodoテーブルのid<id>のレコードを削除する")
+    @Step("[not-provide] test_dbのtodoテーブルのid<id>のレコードを削除する")
     fun delete(id: String) {
         database.connection {
             it.connection.createStatement()

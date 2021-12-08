@@ -3,9 +3,8 @@ package com.uzabase.playtest.gauge.db
 import com.thoughtworks.gauge.datastore.ScenarioDataStore
 
 
-
 interface StoreKey<T> {
-    val key: String
+    val key: Any
 }
 
 object DataStore {
@@ -16,7 +15,7 @@ object DataStore {
     inline fun <reified T> loadFromScenario(key: StoreKey<T>): T {
         return when (val value = ScenarioDataStore.get(key.key)) {
             is T -> value
-            else -> throw Exception()
+            else -> throw TypeCastException("can't cast $value")
         }
     }
 }

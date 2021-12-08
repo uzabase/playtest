@@ -144,8 +144,10 @@ class DatabaseStep {
         tableName: String,
         count: Int
     ) {
+        stopRecords()
         assertThat(getChange(dbName)).onTable("$schemaName.$tableName").ofModification().hasNumberOfChanges(count)
     }
+
 
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルで削除されたレコード数が<count>である")
     fun isDeleted(
@@ -154,6 +156,7 @@ class DatabaseStep {
         tableName: String,
         count: Int
     ) {
+        stopRecords()
         assertThat(getChange(dbName)).onTable("$schemaName.$tableName").ofDeletion().hasNumberOfChanges(count)
     }
 
@@ -164,10 +167,17 @@ class DatabaseStep {
         tableName: String,
         count: Int
     ) {
+        stopRecords()
         assertThat(getChange(dbName)).onTable("$schemaName.$tableName").ofCreation().hasNumberOfChanges(count)
     }
 
+    private fun stopRecords() {
+        dbChangesMap.forEach {
+            it.value.endRecordOnce()
+        }
+    }
+
     private fun getChange(dbName: String): Changes {
-        return dbChangesMap[dbName]?.get() ?: throw NotFoundException("$dbName changes don't record")
+        return dbChangesMap[dbName]?.get() ?: throw NotFoundException("$dbName changes not found")
     }
 }

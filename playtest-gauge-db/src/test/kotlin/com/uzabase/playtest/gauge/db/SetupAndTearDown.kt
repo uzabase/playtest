@@ -24,8 +24,8 @@ class SetupAndTearDown {
         database.cleanInsert(data)
     }
 
-    @BeforeScenario()
+    @BeforeScenario(tags = ["truncate"])
     fun setup() {
-        testDbChanges.setup()
+        database.truncate("todos")
     }
 }
