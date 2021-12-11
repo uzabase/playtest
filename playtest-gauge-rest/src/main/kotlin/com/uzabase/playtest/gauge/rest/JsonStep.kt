@@ -5,6 +5,8 @@ import com.uzabase.playtest.gauge.rest.DataStore.loadResponseBodyFromScenario
 import com.uzabase.playtest.json.JsonNode
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeGreaterThan
+import org.amshove.kluent.shouldContain
+import org.amshove.kluent.shouldNotContain
 
 class JsonStep {
     @Step("レスポンスのJSONの<jsonPath>が文字列の<expected>である")
@@ -70,6 +72,42 @@ class JsonStep {
     fun assertJsonExistElement(jsonPath: String, key: String, value: String) {
         (JsonNode.of(loadResponseBodyFromScenario().string).getFilteredList(jsonPath, key, value)?.size
             ?: 0) shouldBeGreaterThan 0
+    }
+
+    @Step("レスポンスのJSONの配列<jsonPath>に、文字列<value>が存在する")
+    fun assertJsonExistValue(jsonPath: String, value: String) {
+        val list = JsonNode.of(loadResponseBodyFromScenario().string).get<List<String>>(jsonPath)!!
+        list shouldContain value
+    }
+
+    @Step("レスポンスのJSONの配列<jsonPath>に、文字列<value>が存在しない")
+    fun assertJsonNotExistValue(jsonPath: String, value: String) {
+        val list = JsonNode.of(loadResponseBodyFromScenario().string).get<List<String>>(jsonPath)!!
+        list shouldNotContain value
+    }
+
+    @Step("レスポンスのJSONの配列<jsonPath>に、整数値<value>が存在する")
+    fun assertJsonExistValue(jsonPath: String, value: Int) {
+        val list = JsonNode.of(loadResponseBodyFromScenario().string).get<List<Int>>(jsonPath)!!
+        list shouldContain value
+    }
+
+    @Step("レスポンスのJSONの配列<jsonPath>に、整数値<value>が存在しない")
+    fun assertJsonNotExistValue(jsonPath: String, value: Int) {
+        val list = JsonNode.of(loadResponseBodyFromScenario().string).get<List<Int>>(jsonPath)!!
+        list shouldNotContain value
+    }
+
+    @Step("レスポンスのJSONの配列<jsonPath>に、小数値<value>が存在する")
+    fun assertJsonExistValue(jsonPath: String, value: Double) {
+        val list = JsonNode.of(loadResponseBodyFromScenario().string).get<List<Double>>(jsonPath)!!
+        list shouldContain value
+    }
+
+    @Step("レスポンスのJSONの配列<jsonPath>に、小数値<value>が存在しない")
+    fun assertJsonNotExistValue(jsonPath: String, value: Double) {
+        val list = JsonNode.of(loadResponseBodyFromScenario().string).get<List<Double>>(jsonPath)!!
+        list shouldNotContain value
     }
 
     @Step("レスポンスのJSONの<jsonPath>が存在しない")
