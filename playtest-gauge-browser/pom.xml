@@ -54,6 +54,7 @@
         <kluent.version>1.68</kluent.version>
         <mockk.version>1.12.0</mockk.version>
         <wiremock.version>2.31.0</wiremock.version>
+        <selenide.version>6.1.1</selenide.version>
     </properties>
     <repositories>
         <repository>
@@ -114,6 +115,11 @@
             <artifactId>wiremock-jre8</artifactId>
             <version>${wiremock.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
         </dependency>
     </dependencies>
 
