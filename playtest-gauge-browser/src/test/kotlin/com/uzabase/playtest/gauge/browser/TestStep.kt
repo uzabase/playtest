@@ -1,8 +1,8 @@
 import com.codeborne.selenide.Selenide.`$`
 import com.thoughtworks.gauge.Step
-import com.uzabase.playtest.gauge.browser.attributeContains
-import com.uzabase.playtest.gauge.browser.attributeEndsWith
-import com.uzabase.playtest.gauge.browser.attributeStartsWith
+import com.uzabase.playtest.browser.attributeContains
+import com.uzabase.playtest.browser.attributeEndsWith
+import com.uzabase.playtest.browser.attributeStartsWith
 
 class TestStep {
     @Step("[not-prived] <selector>の属性<attribute>の値に<value>が含まれる")

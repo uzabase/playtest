@@ -1,4 +1,4 @@
-# HTMLの属性のアサート
+# HTMLの属性のアサート（playtest-browserの仕様）
 
 ## 指定した属性にある値が含まれる
 * [not-prived] ".test"の属性"title"の値に"attribute"が含まれる
