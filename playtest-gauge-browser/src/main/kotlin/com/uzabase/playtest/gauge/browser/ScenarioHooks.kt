@@ -12,7 +12,9 @@ class ScenarioHooks {
 
     @BeforeScenario
     fun beforeScenario(context: ExecutionContext) {
-        displayScenario(context.currentSpecification.name, context.currentScenario.name)
+        if (GaugeBrowserConfig.isDisplayScenario()) {
+            displayScenario(context.currentSpecification.name, context.currentScenario.name)
+        }
     }
 
     @AfterScenario
