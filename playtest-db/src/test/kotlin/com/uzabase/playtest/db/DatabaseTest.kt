@@ -218,6 +218,6 @@ internal class DatabaseTest {
         mysqlDb.setConfig(connection)
 
         verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<MySqlDataTypeFactory>()) }
-        verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<MySqlMetadataHandler>()) }
+        verify { config.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, any<MySqlMetadataHandler>()) }
     }
 }

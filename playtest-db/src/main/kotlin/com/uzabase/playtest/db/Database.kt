@@ -70,7 +70,7 @@ open class Database(
         }
         if (this.driverClass == "com.mysql.jdbc.Driver") {
             connection.config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, MySqlDataTypeFactory())
-            connection.config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, MySqlMetadataHandler())
+            connection.config.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, MySqlMetadataHandler())
         }
         return connection
     }

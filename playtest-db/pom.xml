@@ -41,7 +41,7 @@
     </distributionManagement>
 
     <properties>
-        <project.version>0.1.0</project.version>
+        <project.version>0.1.1</project.version>
         <kotlin.version>1.5.0</kotlin.version>
         <kluent.version>1.68</kluent.version>
         <gauge.version>0.7.15</gauge.version>
@@ -69,11 +69,6 @@
         </repository>
     </repositories>
     <dependencies>
-        <dependency>
-            <groupId>com.uzabase</groupId>
-            <artifactId>playtest-json</artifactId>
-            <version>1.0.0</version>
-        </dependency>
         <dependency>
             <groupId>com.thoughtworks.gauge</groupId>
             <artifactId>gauge-java</artifactId>
