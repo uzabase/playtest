@@ -34,7 +34,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <project.version>0.1.0</project.version>
+        <project.version>0.1.1</project.version>
         <kotlin.version>1.5.0</kotlin.version>
         <kotlin-juni5.version>1.3.61</kotlin-juni5.version>
         <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
