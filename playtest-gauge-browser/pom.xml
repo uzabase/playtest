@@ -53,7 +53,7 @@
         <gauge.version>0.7.15</gauge.version>
         <mockk.version>1.12.0</mockk.version>
         <wiremock.version>2.31.0</wiremock.version>
-        <playtest_browser.version>0.1.0</playtest_browser.version>
+        <playtest_browser.version>0.1.1</playtest_browser.version>
     </properties>
     <repositories>
         <repository>
