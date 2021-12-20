@@ -4,8 +4,7 @@ import com.thoughtworks.gauge.Step
 import com.uzabase.playtest.gauge.rest.ConfigKeys
 import com.uzabase.playtest.gauge.rest.DataStore
 import com.uzabase.playtest.gauge.rest.GaugeRestConfig
-import org.amshove.kluent.shouldBeEqualTo
-import org.amshove.kluent.shouldContain
+import org.junit.jupiter.api.Assertions
 
 class HttpStep {
     @Step("URL<url>にGETリクエストを送る")
@@ -100,13 +99,14 @@ class HttpStep {
 
     @Step("レスポンスステータスコードが<statusCode>である")
     fun assertStatusCodeEquals(statusCode: Int) {
-        DataStore.loadStatusCodeFromScenario() shouldBeEqualTo statusCode
+        Assertions.assertEquals(statusCode, DataStore.loadStatusCodeFromScenario())
     }
 
     @Step("レスポンスヘッダーに<key>が存在し、その値が<value>である")
     fun assertResponseHeadersContain(key: String, value: String) {
         val headers = DataStore.loadResponseHeadersFromScenario()
-        headers shouldContain Pair(key, value)
+        //headers shouldContain Pair(key, value)
+        Assertions.assertTrue(headers.getValue(key) == value)
     }
 
     fun toHeaderMap(header: String): Map<String, String> {

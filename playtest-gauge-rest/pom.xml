@@ -97,6 +97,7 @@
             <groupId>org.amshove.kluent</groupId>
             <artifactId>kluent</artifactId>
             <version>${kluent.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.github.kittinunf.fuel</groupId>
