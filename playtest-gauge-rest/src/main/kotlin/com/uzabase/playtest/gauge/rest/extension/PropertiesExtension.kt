@@ -1,4 +1,4 @@
-package com.uzabase.playtest.gauge.rest
+package com.uzabase.playtest.gauge.rest.extension
 
 import java.io.File
 import java.util.*

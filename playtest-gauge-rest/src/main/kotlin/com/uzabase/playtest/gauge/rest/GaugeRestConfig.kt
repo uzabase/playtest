@@ -1,5 +1,7 @@
 package com.uzabase.playtest.gauge.rest
 
+import com.uzabase.playtest.gauge.rest.extension.from
+import com.uzabase.playtest.gauge.rest.extension.merge
 import java.util.*
 
 enum class ConfigKeys(val key: String) {

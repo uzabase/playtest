@@ -1,8 +1,6 @@
 package com.uzabase.playtest.gauge.rest.extension
 
 
-import com.uzabase.playtest.gauge.rest.from
-import com.uzabase.playtest.gauge.rest.merge
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.*
