@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions
 
 class JsonStep {
     @Step("レスポンスのJSONの<jsonPath>が存在しない")
-    fun nonExist(jsonPath: String) {
+    fun assertNotExists(jsonPath: String) {
         Assertions.assertEquals(null, JsonNode.of(loadResponseBodyFromScenario().string).get<Any>(jsonPath))
     }
 }
