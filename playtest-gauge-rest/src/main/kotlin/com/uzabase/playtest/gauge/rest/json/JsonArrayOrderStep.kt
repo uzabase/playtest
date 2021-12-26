@@ -3,29 +3,28 @@ package com.uzabase.playtest.gauge.rest.json
 import com.thoughtworks.gauge.Step
 import com.uzabase.playtest.gauge.rest.DataStore
 import com.uzabase.playtest.gauge.rest.JsonList
-import com.uzabase.playtest.gauge.rest.Order
 import com.uzabase.playtest.json.JsonNode
 import org.junit.jupiter.api.Assertions
 
 class JsonArrayOrderStep {
     @Step("レスポンスのJSONの配列<arrayJsonPath>が、数値<orderKey>の昇順に並んでいる")
     fun assertOrderedByNumberAsc(arrayJsonPath: String, sortKey: String) = assertOrderedBy(arrayJsonPath) {
-        it.sortByNumber(sortKey, Order.Asc)
+        it.sortByNumberAsc(sortKey)
     }
 
     @Step("レスポンスのJSONの配列<arrayJsonPath>が、数値<orderKey>の降順に並んでいる")
     fun assertOrderedByNumberDesc(arrayJsonPath: String, sortKey: String) = assertOrderedBy(arrayJsonPath) {
-        it.sortByNumber(sortKey, Order.Desc)
+        it.sortByNumberDesc(sortKey)
     }
 
     @Step("レスポンスのJSONの配列<arrayJsonPath>が、タイムゾーン付きの日付/時間<orderKey>の昇順に並んでいる")
     fun assertOrderedByZonedDateTimeAsc(arrayJsonPath: String, sortKey: String) = assertOrderedBy(arrayJsonPath) {
-        it.sortByZonedDateTime(sortKey, Order.Asc)
+        it.sortByZonedDateTimeAsc(sortKey)
     }
 
     @Step("レスポンスのJSONの配列<arrayJsonPath>が、タイムゾーン付きの日付/時間<orderKey>の降順に並んでいる")
     fun assertOrderedByZonedDateTimeDesc(arrayJsonPath: String, sortKey: String) = assertOrderedBy(arrayJsonPath) {
-        it.sortByZonedDateTime(sortKey, Order.Desc)
+        it.sortByZonedDateTimeDesc(sortKey)
     }
 }
 
