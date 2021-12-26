@@ -3,6 +3,14 @@ package com.uzabase.playtest.gauge.rest
 import java.time.ZonedDateTime
 
 data class JsonList(private val value: List<Map<String, Any>>) {
+    fun sortByStringAsc(sortKey: String): List<Map<String, Any>> = this.value.sortedBy {
+        it[sortKey] as String
+    }
+
+    fun sortByStringDesc(sortKey: String): List<Map<String, Any>> = this.value.sortedByDescending {
+        it[sortKey] as String
+    }
+
     // TODO: Double だと常に誤差の問題がつきまとうので BigDecimal とか String でいいかも
     fun sortByNumberAsc(sortKey: String) = this.value.sortedBy {
         (it[sortKey] as Number).toDouble()

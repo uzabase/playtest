@@ -7,6 +7,16 @@ import com.uzabase.playtest.json.JsonNode
 import org.junit.jupiter.api.Assertions
 
 class JsonArrayOrderStep {
+    @Step("レスポンスのJSONの配列<arrayJsonPath>が、文字列<orderKey>の昇順に並んでいる")
+    fun assertOrderedByStringAsc(arrayJsonPath: String, sortKey: String) = assertOrderedBy(arrayJsonPath) {
+        it.sortByStringAsc(sortKey)
+    }
+
+    @Step("レスポンスのJSONの配列<arrayJsonPath>が、文字列<orderKey>の降順に並んでいる")
+    fun assertOrderedByStringDesc(arrayJsonPath: String, sortKey: String) = assertOrderedBy(arrayJsonPath) {
+        it.sortByStringDesc(sortKey)
+    }
+
     @Step("レスポンスのJSONの配列<arrayJsonPath>が、数値<orderKey>の昇順に並んでいる")
     fun assertOrderedByNumberAsc(arrayJsonPath: String, sortKey: String) = assertOrderedBy(arrayJsonPath) {
         it.sortByNumberAsc(sortKey)
