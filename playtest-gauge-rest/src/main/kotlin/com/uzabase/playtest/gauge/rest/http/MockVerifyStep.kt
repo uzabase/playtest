@@ -2,6 +2,7 @@ package com.uzabase.playtest.gauge.rest.http
 
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock.*
+import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder
 import com.thoughtworks.gauge.Step
 import com.uzabase.playtest.gauge.rest.ConfigKeys
 import com.uzabase.playtest.gauge.rest.GaugeRestConfig
@@ -14,24 +15,49 @@ class MockVerifyStep {
 
     @Step("URL<url>にボディ<jsonFilePath>JSONファイルの内容でPOSTリクエストされた")
     fun assertPostRequestExecutedWithBody(url: String, jsonFilePath: String) {
-
         client.verifyThat(1, postRequestedFor(urlEqualTo(url)).withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
     }
 
     @Step("URL<url>にボディ<jsonFilePath>JSONファイルの内容、ヘッダー<header>で、POSTリクエストされた")
     fun assertPostRequestExecuted(url: String, jsonFilePath: String, header: String) {
-        val headerEntity = HttpStep().toHeaderMap(header).entries.first()
-        client.verifyThat(
-            postRequestedFor(urlEqualTo(url)).withRequestBody(readJsonFileToValuePattern(jsonFilePath))
-                .withHeader(headerEntity.key, equalTo(headerEntity.value))
-        )
+        val requested = postRequestedFor(urlEqualTo(url))
+        headerBuilder(header, requested)
+        client.verifyThat(requested.withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
     }
 
     @Step("URL<url>にヘッダー<header>で、POSTリクエストされた")
     fun assertPostRequestExecuted(url: String, header: String){
-        val headerEntity = HttpStep().toHeaderMap(header).entries.first()
-        client.verifyThat(postRequestedFor(urlEqualTo(url)).withHeader(headerEntity.key, equalTo(headerEntity.value)))
+        val requested = postRequestedFor(urlEqualTo(url))
+        headerBuilder(header, requested)
+        client.verifyThat(requested)
+    }
 
+    @Step("URL<url>にボディ<jsonFilePath>JSONファイルの内容でPUTリクエストされた")
+    fun assertPutRequestExecutedWithBody(url: String, jsonFilePath: String) {
+        client.verifyThat(1, putRequestedFor(urlEqualTo(url)).withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
+    }
+
+    @Step("URL<url>にボディ<jsonFilePath>JSONファイルの内容、ヘッダー<header>で、PUTリクエストされた")
+    fun assertPutRequestExecuted(url: String, jsonFilePath: String, header: String){
+        val requested = putRequestedFor(urlEqualTo(url))
+        headerBuilder(header, requested)
+        client.verifyThat(requested.withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
+    }
+
+    @Step("URL<url>にヘッダー<header>で、PUTリクエストされた")
+    fun assertPutRequestExecuted(url: String, header: String) {
+        val requested = putRequestedFor(urlEqualTo(url))
+        headerBuilder(header, requested)
+        client.verifyThat(requested)
+    }
+
+    private fun headerBuilder(
+        header: String,
+        requested: RequestPatternBuilder
+    ) {
+        HttpStep().toHeaderMap(header).entries.forEach {
+            requested.withHeader(it.key, equalTo(it.value))
+        }
     }
 
     private fun readJsonFileToValuePattern(jsonFilePath: String) = equalToJson(
@@ -41,5 +67,4 @@ class MockVerifyStep {
             throw RuntimeException("Failed to read $jsonFilePath", e)
         }
     )
-
 }
