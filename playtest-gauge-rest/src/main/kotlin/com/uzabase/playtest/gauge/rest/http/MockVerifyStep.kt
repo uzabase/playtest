@@ -51,6 +51,18 @@ class MockVerifyStep {
         client.verifyThat(requested)
     }
 
+    @Step("URL<url>にDELETEリクエストされた")
+    fun assertDeleteRequestExecutedWithBody(url: String) {
+        client.verifyThat(1, deleteRequestedFor(urlEqualTo(url)))
+    }
+
+    @Step("URL<url>にヘッダー<header>で、DELETEリクエストされた")
+    fun assertDeleteRequestExecuted(url: String, header: String){
+        val requested = deleteRequestedFor(urlEqualTo(url))
+        headerBuilder(header, requested)
+        client.verifyThat(requested)
+    }
+
     private fun headerBuilder(
         header: String,
         requested: RequestPatternBuilder

@@ -4,7 +4,7 @@ tags: http-request-test
 
 ## DELETEリクエストを送信できる
 * URL"/"にDELETEリクエストを送る
-* URL"/"にDELETEリクエストが送信された
+* URL"/"にDELETEリクエストされた
 
 ## DELETEリクエストに対するレスポンスをアサートできる
 * URL"/"にDELETEリクエストを送る
@@ -14,9 +14,10 @@ tags: http-request-test
 
 ## ヘッダーを指定してDELETEリクエストを送信できる
 * URL"/"にヘッダー"content-type: application/json"で、DELETEリクエストを送る
-* URL"/"にヘッダー"content-type: application/json"で、DELETEリクエストが送信された
+* URL"/"にヘッダー"content-type: application/json"で、DELETEリクエストされた
 
 ## ヘッダーを複数指定してDELETEリクエストを送信できる
 * URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、DELETEリクエストを送る
-* URL"/"にヘッダー"content-type: application/json"で、DELETEリクエストが送信された
-* URL"/"にヘッダー"options: 1111,2222"で、DELETEリクエストが送信された
+* URL"/"にヘッダー"content-type: application/json"で、DELETEリクエストされた
+* URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、DELETEリクエストされた
+URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222 \r\n x-unnecessary: hoge"で、DELETEリクエストされた
