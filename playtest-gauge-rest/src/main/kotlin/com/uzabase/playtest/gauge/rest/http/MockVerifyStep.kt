@@ -25,9 +25,10 @@ class MockVerifyStep {
         client.verifyThat(requested)
     }
 
-    @Step("URL<url>にPOSTリクエストされた")
+    @Step("API<apiName>のURL<url>にPOSTリクエストされた")
     fun assertPostRequestExecutedWithBody(url: String) {
-        client.verifyThat(1, postRequestedFor(urlEqualTo(url)))
+        TODO()
+        //client.verifyThat(1, postRequestedFor(urlEqualTo(url)))
     }
 
     @Step("URL<url>にボディ<jsonFilePath>JSONファイルの内容でPOSTリクエストされた")

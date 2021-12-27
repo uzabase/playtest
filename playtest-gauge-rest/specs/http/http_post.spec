@@ -5,6 +5,7 @@ tags: http-request-test
 ## POSTリクエストを送信できる
 * URL"/"にPOSTリクエストを送る
 * URL"/"にPOSTリクエストが送信された
+API"localhost"のURL"/"にPOSTリクエストされた
 
 ## POSTリクエストに対するレスポンスをアサートできる
 * URL"/"にPOSTリクエストを送る
