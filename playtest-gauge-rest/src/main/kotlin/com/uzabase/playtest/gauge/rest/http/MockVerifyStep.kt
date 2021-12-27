@@ -13,6 +13,23 @@ class MockVerifyStep {
     private val port = GaugeRestConfig.get(ConfigKeys.BASE_URL).split(":")[2].toInt()
     private val client = WireMock(host, port)
 
+    @Step("URL<url>にGETリクエストされた")
+    fun assertGetRequestExecutedWithBody(url: String) {
+        client.verifyThat(1, getRequestedFor(urlEqualTo(url)))
+    }
+
+    @Step("URL<url>にヘッダー<header>で、GETリクエストされた")
+    fun assertGetRequestExecuted(url: String, header: String){
+        val requested = getRequestedFor(urlEqualTo(url))
+        headerBuilder(header, requested)
+        client.verifyThat(requested)
+    }
+
+    @Step("URL<url>にPOSTリクエストされた")
+    fun assertPostRequestExecutedWithBody(url: String) {
+        client.verifyThat(1, postRequestedFor(urlEqualTo(url)))
+    }
+
     @Step("URL<url>にボディ<jsonFilePath>JSONファイルの内容でPOSTリクエストされた")
     fun assertPostRequestExecutedWithBody(url: String, jsonFilePath: String) {
         client.verifyThat(1, postRequestedFor(urlEqualTo(url)).withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
@@ -30,6 +47,11 @@ class MockVerifyStep {
         val requested = postRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
         client.verifyThat(requested)
+    }
+
+    @Step("URL<url>にPUTリクエストされた")
+    fun assertPutRequestExecutedWithBody(url: String) {
+        client.verifyThat(1, putRequestedFor(urlEqualTo(url)))
     }
 
     @Step("URL<url>にボディ<jsonFilePath>JSONファイルの内容でPUTリクエストされた")

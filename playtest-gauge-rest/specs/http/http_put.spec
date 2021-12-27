@@ -4,7 +4,7 @@ tags: http-request-test
 
 ## PUTリクエストを送信できる
 * URL"/"にPUTリクエストを送る
-* URL"/"にPUTリクエストが送信された
+* URL"/"にPUTリクエストされた
 
 ## PUTリクエストに対するレスポンスをアサートできる
 * URL"/"にPUTリクエストを送る
@@ -24,7 +24,9 @@ tags: http-request-test
 * URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、PUTリクエストを送る
 * URL"/"にヘッダー"content-type: application/json"で、PUTリクエストが送信された
 * URL"/"にヘッダー"content-type: application/json "で、PUTリクエストされた
+* URL"/"にヘッダー"options: 1111,2222 "で、PUTリクエストされた
 * URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222 "で、PUTリクエストされた
+// 不要なヘッダーを付け加えたときには失敗する
 URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222 \r\n x-unnecessary: hoge"で、PUTリクエストされた
 
 ## ボディとヘッダーを指定してPUTリクエストを送信できる

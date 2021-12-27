@@ -3,7 +3,7 @@ tags: http-request-test
 
 ## GETリクエストを送信できる
 * URL"/"にGETリクエストを送る
-* URL"/"にGETリクエストが送信された
+* URL"/"にGETリクエストされた
 
 ## GETリクエストに対するレスポンスをアサートできる
 * URL"/"にGETリクエストを送る
@@ -13,9 +13,12 @@ tags: http-request-test
 
 ## ヘッダーを指定してGETリクエストを送信できる
 * URL"/"にヘッダー"content-type: application/json"で、GETリクエストを送る
-* URL"/"にヘッダー"content-type: application/json"で、GETリクエストが送信された
+* URL"/"にヘッダー"content-type: application/json"で、GETリクエストされた
 
 ## ヘッダーを複数指定してGETリクエストを送信できる
 * URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、GETリクエストを送る
-* URL"/"にヘッダー"content-type: application/json"で、GETリクエストが送信された
-* URL"/"にヘッダー"options: 1111,2222"で、GETリクエストが送信された
+* URL"/"にヘッダー"content-type: application/json"で、GETリクエストされた
+* URL"/"にヘッダー"options: 1111,2222"で、GETリクエストされた
+* URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、GETリクエストされた
+// 不要なヘッダーを付け加えたときには失敗する
+URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222 \r\n x-unnecessary: hoge"で、GETリクエストされた

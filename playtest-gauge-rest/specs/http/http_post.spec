@@ -4,7 +4,7 @@ tags: http-request-test
 
 ## POSTリクエストを送信できる
 * URL"/"にPOSTリクエストを送る
-* URL"/"にPOSTリクエストが送信された
+* URL"/"にPOSTリクエストされた
 
 ## POSTリクエストに対するレスポンスをアサートできる
 * URL"/"にPOSTリクエストを送る
@@ -19,7 +19,9 @@ tags: http-request-test
 ## ヘッダーを複数指定してPOSTリクエストを送信できる
 * URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、POSTリクエストを送る
 * URL"/"にヘッダー"content-type: application/json"で、POSTリクエストされた
+* URL"/"にヘッダー"options: 1111,2222"で、POSTリクエストされた
 * URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、POSTリクエストされた
+// 不要なヘッダーを付け加えたときには失敗する
 URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222 \r\n x-unnecessary: hoge"で、POSTリクエストされた
 
 ## ボディを指定してPOSTリクエストを送信できる
