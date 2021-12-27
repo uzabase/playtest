@@ -2,10 +2,11 @@ package com.uzabase.playtest.gauge.rest
 
 import com.uzabase.playtest.gauge.rest.extension.from
 import com.uzabase.playtest.gauge.rest.extension.merge
+import javassist.NotFoundException
 import java.util.*
 
 enum class ConfigKeys(val key: String) {
-    BASE_URL("rest.baseUrl")
+    BASE_URL("baseUrl")
 }
 
 object GaugeRestConfig {
@@ -22,7 +23,15 @@ object GaugeRestConfig {
 //        }
 
     fun get(key: ConfigKeys): String {
-        return properties[key.key].toString()
+        return properties["rest.${key.key}"].toString()
+    }
+
+    fun get(apiName: String, key: ConfigKeys): String {
+        val propertyKey = "rest.${apiName}.${key.key}"
+        if (properties[propertyKey] == null){
+            throw NotFoundException("$propertyKey is not found in properties.")
+        }
+        return properties[propertyKey].toString()
     }
 }
 

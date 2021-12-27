@@ -26,25 +26,28 @@ class MockVerifyStep {
     }
 
     @Step("API<apiName>のURL<url>にPOSTリクエストされた")
-    fun assertPostRequestExecutedWithBody(url: String) {
-        TODO()
-        //client.verifyThat(1, postRequestedFor(urlEqualTo(url)))
+    fun assertPostRequestExecutedWithBody(apiName: String, url: String) {
+        val client = getWireMock(apiName)
+        client.verifyThat(1, postRequestedFor(urlEqualTo(url)))
     }
 
-    @Step("URL<url>にボディ<jsonFilePath>JSONファイルの内容でPOSTリクエストされた")
-    fun assertPostRequestExecutedWithBody(url: String, jsonFilePath: String) {
+    @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容でPOSTリクエストされた")
+    fun assertPostRequestExecutedWithBody(apiName: String, url: String, jsonFilePath: String) {
+        val client = getWireMock(apiName)
         client.verifyThat(1, postRequestedFor(urlEqualTo(url)).withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
     }
 
-    @Step("URL<url>にボディ<jsonFilePath>JSONファイルの内容、ヘッダー<header>で、POSTリクエストされた")
-    fun assertPostRequestExecuted(url: String, jsonFilePath: String, header: String) {
+    @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容、ヘッダー<header>で、POSTリクエストされた")
+    fun assertPostRequestExecuted(apiName: String, url: String, jsonFilePath: String, header: String) {
+        val client = getWireMock(apiName)
         val requested = postRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
         client.verifyThat(requested.withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
     }
 
-    @Step("URL<url>にヘッダー<header>で、POSTリクエストされた")
-    fun assertPostRequestExecuted(url: String, header: String){
+    @Step("API<apiName>のURL<url>にヘッダー<header>で、POSTリクエストされた")
+    fun assertPostRequestExecuted(apiName: String, url: String, header: String){
+        val client = getWireMock(apiName)
         val requested = postRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
         client.verifyThat(requested)
@@ -102,4 +105,11 @@ class MockVerifyStep {
             throw RuntimeException("Failed to read $jsonFilePath", e)
         }
     )
+
+    private fun getWireMock(apiName: String): WireMock {
+        val config = GaugeRestConfig.get(apiName, ConfigKeys.BASE_URL)
+        val host = config.split(":")[1].removePrefix("//")
+        val port = config.split(":")[2].toInt()
+        return WireMock(host, port)
+    }
 }
