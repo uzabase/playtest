@@ -41,7 +41,7 @@
     </distributionManagement>
 
     <properties>
-        <project.version>0.1.1</project.version>
+        <project.version>0.1.2</project.version>
         <kotlin.version>1.5.31</kotlin.version>
         <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
         <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
@@ -51,7 +51,6 @@
         <kotlin_as_java_plugin.version>1.5.31</kotlin_as_java_plugin.version>
         <fuel.version>2.3.1</fuel.version>
         <gauge.version>0.7.15</gauge.version>
-        <kluent.version>1.68</kluent.version>
         <mockk.version>1.12.0</mockk.version>
         <wiremock.version>2.31.0</wiremock.version>
         <playtest_browser.version>0.1.0</playtest_browser.version>
@@ -93,11 +92,6 @@
             <groupId>com.thoughtworks.gauge</groupId>
             <artifactId>gauge-java</artifactId>
             <version>${gauge.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.amshove.kluent</groupId>
-            <artifactId>kluent</artifactId>
-            <version>${kluent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.kittinunf.fuel</groupId>
