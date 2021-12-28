@@ -11,6 +11,7 @@ class SetupAndTeardown {
     fun setup() {
         System.setProperty("selenide.baseUrl", "http://localhost:${TestConfig.getInt(TestConfig.wiremockPort)}")
         Configuration.browser = CHROME
+        Configuration.headless = true
     }
 
     @BeforeScenario()
