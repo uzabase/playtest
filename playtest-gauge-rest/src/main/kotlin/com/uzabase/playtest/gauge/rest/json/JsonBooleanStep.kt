@@ -13,6 +13,20 @@ class JsonBooleanStep {
         assertEquals(expected, actual)
     }
 
+    @Step("レスポンスのJSONの<jsonPath>が真偽値のtrueである")
+    fun assertTrue(jsonPath: String) {
+        val json = DataStore.loadResponseBodyFromScenario().string
+        val actual = JsonNode.of(json).get<Boolean>(jsonPath)
+        assertEquals(true, actual)
+    }
+
+    @Step("レスポンスのJSONの<jsonPath>が真偽値のfalseである")
+    fun assertFalse(jsonPath: String) {
+        val json = DataStore.loadResponseBodyFromScenario().string
+        val actual = JsonNode.of(json).get<Boolean>(jsonPath)
+        assertEquals(false, actual)
+    }
+
     @Step("レスポンスのJSONの<jsonPath>の配列の、UniqueKey<uniqueKey>の値が<filterValue>である要素の<key>が、真偽値の<expected>である")
     fun assertEqualsInUniqueObject(
         jsonPath: String,
