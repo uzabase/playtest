@@ -19,7 +19,7 @@ data class JsonNode(val json: JN) {
             return null
         }
 
-        if (existKey(path)) {
+        if (notExistKey(path)) {
             throw Exception()
         }
 
@@ -45,7 +45,7 @@ data class JsonNode(val json: JN) {
             throw Exception()
         }
 
-        if (existKey(path)) {
+        if (notExistKey(path)) {
             throw Exception()
         }
 
@@ -56,7 +56,7 @@ data class JsonNode(val json: JN) {
         return lastValue == null
     }
 
-    fun existKey(path: String): Boolean {
+    fun notExistKey(path: String): Boolean {
         val atPath = path.replace("$.", "/").replace(".", "/")
         return json.at(atPath).isMissingNode
     }
