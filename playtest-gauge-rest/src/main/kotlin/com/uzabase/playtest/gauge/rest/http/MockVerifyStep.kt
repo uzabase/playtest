@@ -13,13 +13,15 @@ class MockVerifyStep {
     private val port = GaugeRestConfig.get(ConfigKeys.BASE_URL).split(":")[2].toInt()
     private val client = WireMock(host, port)
 
-    @Step("URL<url>にGETリクエストされた")
-    fun assertGetRequestExecutedWithBody(url: String) {
+    @Step("API<apiName>のURL<url>にGETリクエストされた")
+    fun assertGetRequestExecutedWithBody(apiName: String, url: String) {
+        val client = getWireMock(apiName)
         client.verifyThat(1, getRequestedFor(urlEqualTo(url)))
     }
 
-    @Step("URL<url>にヘッダー<header>で、GETリクエストされた")
-    fun assertGetRequestExecuted(url: String, header: String){
+    @Step("API<apiName>のURL<url>にヘッダー<header>で、GETリクエストされた")
+    fun assertGetRequestExecuted(apiName: String, url: String, header: String){
+        val client = getWireMock(apiName)
         val requested = getRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
         client.verifyThat(requested)
