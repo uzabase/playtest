@@ -6,7 +6,9 @@ import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder
 import com.thoughtworks.gauge.Step
 import com.uzabase.playtest.gauge.rest.ConfigKeys
 import com.uzabase.playtest.gauge.rest.GaugeRestConfig
+import com.uzabase.playtest.json.JsonNode
 import java.lang.RuntimeException
+import kotlin.test.assertEquals
 
 class MockVerifyStep {
     private val host = GaugeRestConfig.get(ConfigKeys.BASE_URL).split(":")[1].removePrefix("//")
@@ -53,6 +55,31 @@ class MockVerifyStep {
         val requested = postRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
         client.verifyThat(requested)
+    }
+
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に文字列<value>を持つJSONでPOSTリクエストされた")
+    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: String){
+        val client = getWireMock(apiName)
+        client.verifyPostRequestWithJsonPath(url, jsonPath, value)
+    }
+
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に整数値<value>を持つJSONでPOSTリクエストされた")
+    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Int){
+        val client = getWireMock(apiName)
+        client.verifyPostRequestWithJsonInteger(url, jsonPath, value)
+    }
+
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に小数値<value>を持つJSONでPOSTリクエストされた")
+    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Double){
+        val client = getWireMock(apiName)
+        client.verifyPostRequestWithJsonDouble(url, jsonPath, value)
+    }
+
+
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に真偽値<value>を持つJSONでPOSTリクエストされた")
+    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Boolean){
+        val client = getWireMock(apiName)
+        client.verifyPostRequestWithJsonBoolean(url, jsonPath, value)
     }
 
     @Step("API<apiName>のURL<url>にPUTリクエストされた")
@@ -119,5 +146,32 @@ class MockVerifyStep {
         val host = config.split(":")[1].removePrefix("//")
         val port = config.split(":")[2].toInt()
         return WireMock(host, port)
+    }
+
+    private fun WireMock.verifyPostRequestWithJsonPath(path: String, jsonPath: String, value: String){
+        val pattern = matchingJsonPath(jsonPath, equalTo(value))
+        this.verifyThat(
+            postRequestedFor(urlEqualTo(path))
+                .withRequestBody(pattern)
+                .withHeader("content-type", containing("application/json"))
+        )
+    }
+
+    private fun WireMock.verifyPostRequestWithJsonInteger(endpoint: String, jsonPath: String, value: Int) {
+        val test = this.find(RequestPatternBuilder.newRequestPattern().withUrl(endpoint)).first().bodyAsString
+        val json = JsonNode.of(test)
+        assertEquals(json.get<Int>(jsonPath), value)
+    }
+
+    private fun WireMock.verifyPostRequestWithJsonDouble(endpoint: String, jsonPath: String, value: Double) {
+        val test = this.find(RequestPatternBuilder.newRequestPattern().withUrl(endpoint)).first().bodyAsString
+        val json = JsonNode.of(test)
+        assertEquals(json.get<Double>(jsonPath), value)
+    }
+
+    private fun WireMock.verifyPostRequestWithJsonBoolean(endpoint: String, jsonPath: String, value: Boolean) {
+        val test = this.find(RequestPatternBuilder.newRequestPattern().withUrl(endpoint)).first().bodyAsString
+        val json = JsonNode.of(test)
+        assertEquals(json.get<Boolean>(jsonPath), value)
     }
 }
