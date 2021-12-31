@@ -23,8 +23,8 @@ data class JsonNode(val json: JN) {
             throw Exception()
         }
 
-        val lastValue = JsonPath(path).tokens.fold(initial = json) {
-                valueAtPath: JN?, nextToken: Token -> valueAtPath?.let { nextToken.read(it) }
+        val lastValue = JsonPath(path).tokens.fold(initial = json) { valueAtPath: JN?, nextToken: Token ->
+            valueAtPath?.let { nextToken.read(it) }
         }
 
         return when {
@@ -38,6 +38,22 @@ data class JsonNode(val json: JN) {
                 }
             }
         }
+    }
+
+    fun isNull(path: String): Boolean {
+        if (json.isMissingNode || json.isNull) {
+            throw Exception()
+        }
+
+        if (existKey(path)) {
+            throw Exception()
+        }
+
+        val lastValue = JsonPath(path).tokens.fold(initial = json) { valueAtPath: JN?, nextToken: Token ->
+            valueAtPath?.let { nextToken.read(it) }
+        }
+
+        return lastValue == null
     }
 
     fun existKey(path: String): Boolean {

@@ -181,10 +181,24 @@ class JsonNodeTest {
     @DisplayName("getValue()でのテスト")
     inner class GetValueTest {
         @Test
-        fun `JSONPathで指定したKeyの値がnullだった場合をnullを返す`() {
+        fun `JSONPathで指定したKeyの値がnullだった場合、nullを返す`() {
             val jsonString = """ {"key1": null} """.trimIndent()
             val jsonNode = JsonNode.of(jsonString)
-            jsonNode.getValue<String>("$.key1") shouldBeEqualTo null
+            jsonNode.getValue<Int>("$.key1") shouldBeEqualTo null
+        }
+
+        @Test
+        fun `JSONPathで指定したKeyの値がnullだった場合、trueを返す`() {
+            val jsonString = """ {"key1": null} """.trimIndent()
+            val jsonNode = JsonNode.of(jsonString)
+            jsonNode.isNull("$.key1") shouldBeEqualTo true
+        }
+
+        @Test
+        fun `JSONPathで指定したKeyの値がnullではない場合、falseを返す`() {
+            val jsonString = """ {"key1": "value1"} """.trimIndent()
+            val jsonNode = JsonNode.of(jsonString)
+            jsonNode.isNull("$.key1") shouldBeEqualTo false
         }
 
         @Test
