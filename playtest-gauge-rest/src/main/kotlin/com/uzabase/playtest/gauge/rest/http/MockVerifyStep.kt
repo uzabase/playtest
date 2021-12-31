@@ -83,13 +83,15 @@ class MockVerifyStep {
         client.verifyThat(requested)
     }
 
-    @Step("URL<url>にDELETEリクエストされた")
-    fun assertDeleteRequestExecutedWithBody(url: String) {
+    @Step("API<apiName>のURL<url>にDELETEリクエストされた")
+    fun assertDeleteRequestExecutedWithBody(apiName: String, url: String) {
+        val client = getWireMock(apiName)
         client.verifyThat(1, deleteRequestedFor(urlEqualTo(url)))
     }
 
-    @Step("URL<url>にヘッダー<header>で、DELETEリクエストされた")
-    fun assertDeleteRequestExecuted(url: String, header: String){
+    @Step("API<apiName>のURL<url>にヘッダー<header>で、DELETEリクエストされた")
+    fun assertDeleteRequestExecuted(apiName: String, url: String, header: String){
+        val client = getWireMock(apiName)
         val requested = deleteRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
         client.verifyThat(requested)
