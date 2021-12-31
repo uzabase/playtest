@@ -15,7 +15,6 @@ tags: http-request-test
 
 ## ヘッダーを指定してPOSTリクエストを送信できる
 * URL"/"にヘッダー"content-type: application/json"で、POSTリクエストを送る
-URL"/"にヘッダー"content-type: application/json"で、POSTリクエストが送信された
 * API"mockApi"のURL"/"にヘッダー"content-type: application/json"で、POSTリクエストされた
 
 ## ヘッダーを複数指定してPOSTリクエストを送信できる

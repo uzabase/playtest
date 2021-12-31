@@ -30,7 +30,7 @@ tags: http-request-test
 * API"mockApi"のURL"/"にヘッダー"options: 1111,2222 "で、PUTリクエストされた
 * API"mockApi"のURL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222 "で、PUTリクエストされた
 // 不要なヘッダーを付け加えたときには失敗する
-URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222 \r\n x-unnecessary: hoge"で、PUTリクエストされた
+API"mockApi"のURL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222 \r\n x-unnecessary: hoge"で、PUTリクエストされた
 
 
 ## ボディとヘッダーを指定してPUTリクエストを送信できる
