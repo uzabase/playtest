@@ -11,10 +11,6 @@ import java.lang.RuntimeException
 import kotlin.test.assertEquals
 
 class MockVerifyStep {
-    private val host = GaugeRestConfig.get(ConfigKeys.BASE_URL).split(":")[1].removePrefix("//")
-    private val port = GaugeRestConfig.get(ConfigKeys.BASE_URL).split(":")[2].toInt()
-    private val client = WireMock(host, port)
-
     @Step("API<apiName>のURL<url>にGETリクエストされた")
     fun assertGetRequestExecutedWithBody(apiName: String, url: String) {
         val client = getWireMock(apiName)
@@ -22,7 +18,7 @@ class MockVerifyStep {
     }
 
     @Step("API<apiName>のURL<url>にヘッダー<header>で、GETリクエストされた")
-    fun assertGetRequestExecuted(apiName: String, url: String, header: String){
+    fun assertGetRequestExecuted(apiName: String, url: String, header: String) {
         val client = getWireMock(apiName)
         val requested = getRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
@@ -38,7 +34,10 @@ class MockVerifyStep {
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容でPOSTリクエストされた")
     fun assertPostRequestExecutedWithBody(apiName: String, url: String, jsonFilePath: String) {
         val client = getWireMock(apiName)
-        client.verifyThat(1, postRequestedFor(urlEqualTo(url)).withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
+        client.verifyThat(
+            1,
+            postRequestedFor(urlEqualTo(url)).withRequestBody(readJsonFileToValuePattern(jsonFilePath))
+        )
     }
 
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容、ヘッダー<header>で、POSTリクエストされた")
@@ -50,7 +49,7 @@ class MockVerifyStep {
     }
 
     @Step("API<apiName>のURL<url>にヘッダー<header>で、POSTリクエストされた")
-    fun assertPostRequestExecuted(apiName: String, url: String, header: String){
+    fun assertPostRequestExecuted(apiName: String, url: String, header: String) {
         val client = getWireMock(apiName)
         val requested = postRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
@@ -58,28 +57,28 @@ class MockVerifyStep {
     }
 
     @Step("API<apiName>のURL<url>にパス<jsonPath>に文字列<value>を持つJSONでPOSTリクエストされた")
-    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: String){
+    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: String) {
         val client = getWireMock(apiName)
-        client.verifyPostRequestWithJsonPath(url, jsonPath, value)
+        client.verifyRequestWithJson(url, jsonPath, value)
     }
 
     @Step("API<apiName>のURL<url>にパス<jsonPath>に整数値<value>を持つJSONでPOSTリクエストされた")
-    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Int){
+    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Int) {
         val client = getWireMock(apiName)
-        client.verifyPostRequestWithJsonInteger(url, jsonPath, value)
+        client.verifyRequestWithJson(url, jsonPath, value)
     }
 
     @Step("API<apiName>のURL<url>にパス<jsonPath>に小数値<value>を持つJSONでPOSTリクエストされた")
-    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Double){
+    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Double) {
         val client = getWireMock(apiName)
-        client.verifyPostRequestWithJsonDouble(url, jsonPath, value)
+        client.verifyRequestWithJson(url, jsonPath, value)
     }
 
 
     @Step("API<apiName>のURL<url>にパス<jsonPath>に真偽値<value>を持つJSONでPOSTリクエストされた")
-    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Boolean){
+    fun assertPostRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Boolean) {
         val client = getWireMock(apiName)
-        client.verifyPostRequestWithJsonBoolean(url, jsonPath, value)
+        client.verifyRequestWithJson(url, jsonPath, value)
     }
 
     @Step("API<apiName>のURL<url>にPUTリクエストされた")
@@ -95,7 +94,7 @@ class MockVerifyStep {
     }
 
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容、ヘッダー<header>で、PUTリクエストされた")
-    fun assertPutRequestExecuted(apiName: String, url: String, jsonFilePath: String, header: String){
+    fun assertPutRequestExecuted(apiName: String, url: String, jsonFilePath: String, header: String) {
         val client = getWireMock(apiName)
         val requested = putRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
@@ -110,6 +109,27 @@ class MockVerifyStep {
         client.verifyThat(requested)
     }
 
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に文字列<value>を持つJSONでPUTリクエストされた")
+    fun assertPutRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: String) {
+        val client = getWireMock(apiName)
+        client.verifyRequestWithJson(url, jsonPath, value)
+    }
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に整数値<value>を持つJSONでPUTリクエストされた")
+    fun assertPutRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Int) {
+        val client = getWireMock(apiName)
+        client.verifyRequestWithJson(url, jsonPath, value)
+    }
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に小数値<value>を持つJSONでPUTリクエストされた")
+    fun assertPutRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Double) {
+        val client = getWireMock(apiName)
+        client.verifyRequestWithJson(url, jsonPath, value)
+    }
+
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に真偽値<value>を持つJSONでPUTリクエストされた")
+    fun assertPutRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Boolean) {
+        val client = getWireMock(apiName)
+        client.verifyRequestWithJson(url, jsonPath, value)
+    }
     @Step("API<apiName>のURL<url>にDELETEリクエストされた")
     fun assertDeleteRequestExecutedWithBody(apiName: String, url: String) {
         val client = getWireMock(apiName)
@@ -117,7 +137,7 @@ class MockVerifyStep {
     }
 
     @Step("API<apiName>のURL<url>にヘッダー<header>で、DELETEリクエストされた")
-    fun assertDeleteRequestExecuted(apiName: String, url: String, header: String){
+    fun assertDeleteRequestExecuted(apiName: String, url: String, header: String) {
         val client = getWireMock(apiName)
         val requested = deleteRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
@@ -148,30 +168,10 @@ class MockVerifyStep {
         return WireMock(host, port)
     }
 
-    private fun WireMock.verifyPostRequestWithJsonPath(path: String, jsonPath: String, value: String){
-        val pattern = matchingJsonPath(jsonPath, equalTo(value))
-        this.verifyThat(
-            postRequestedFor(urlEqualTo(path))
-                .withRequestBody(pattern)
-                .withHeader("content-type", containing("application/json"))
-        )
-    }
-
-    private fun WireMock.verifyPostRequestWithJsonInteger(endpoint: String, jsonPath: String, value: Int) {
+    private inline fun <reified T> WireMock.verifyRequestWithJson(endpoint: String, jsonPath: String, value: T) {
         val test = this.find(RequestPatternBuilder.newRequestPattern().withUrl(endpoint)).first().bodyAsString
         val json = JsonNode.of(test)
-        assertEquals(json.get<Int>(jsonPath), value)
+        assertEquals(json.get(jsonPath), value)
     }
 
-    private fun WireMock.verifyPostRequestWithJsonDouble(endpoint: String, jsonPath: String, value: Double) {
-        val test = this.find(RequestPatternBuilder.newRequestPattern().withUrl(endpoint)).first().bodyAsString
-        val json = JsonNode.of(test)
-        assertEquals(json.get<Double>(jsonPath), value)
-    }
-
-    private fun WireMock.verifyPostRequestWithJsonBoolean(endpoint: String, jsonPath: String, value: Boolean) {
-        val test = this.find(RequestPatternBuilder.newRequestPattern().withUrl(endpoint)).first().bodyAsString
-        val json = JsonNode.of(test)
-        assertEquals(json.get<Boolean>(jsonPath), value)
-    }
 }
