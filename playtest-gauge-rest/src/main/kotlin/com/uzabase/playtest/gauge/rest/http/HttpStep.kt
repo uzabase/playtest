@@ -111,6 +111,11 @@ class HttpStep {
         Assertions.assertTrue(headers.getValue(key) == value)
     }
 
+    @Step("レスポンスボディが文字列<stringValue>である")
+    fun assertResponseBodyStringEquals(stringValue: String) {
+        Assertions.assertEquals(DataStore.loadResponseBodyFromScenario().string, stringValue)
+    }
+
     fun toHeaderMap(header: String): Map<String, String> {
         return header
                 .split("r\n")
