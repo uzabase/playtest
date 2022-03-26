@@ -1,0 +1,23 @@
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../../style.css"><h1>JSONの小数値を検証できる</h1>
+<h2>JSON Pathを指定して小数値を検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{ &quot;key1&quot;: 10.00, &quot;key2&quot;: [ 0.01 ] }&quot;を保存する</li>
+<li>レスポンスのJSONの&quot;$.key1&quot;が小数の&quot;10.00&quot;である</li>
+<li>レスポンスのJSONの&quot;$.key2[0]&quot;が小数の&quot;0.01&quot;である</li>
+</ul>
+<h2>JSON Pathを指定して配列を取得し、一意の値を持つオブジェクトを抽出し、そのオブジェクト内の小数値を検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;key1&quot;:[{&quot;id&quot;:&quot;a&quot;,&quot;key3&quot;:1.0}, {&quot;id&quot;:&quot;b&quot;,&quot;key3&quot;: 2.0 }, {&quot;id&quot;:&quot;c&quot;,&quot;key3&quot;:3.0}]}&quot;を保存する</li>
+<li>レスポンスのJSONの&quot;$.key1&quot;の配列の、UniqueKey&quot;id&quot;の値が&quot;b&quot;である要素の&quot;key3&quot;が、小数値の&quot;2.0&quot;である</li>
+</ul>
+<h2>JSON Pathを指定して配列を取得し、その配列内に指定した小数値が存在することを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [1.1, 2.1, 3.1]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;に、小数値&quot;3.1&quot;が存在する</li>
+</ul>
+<h2>JSON Pathを指定して配列を取得し、その配列内に指定した小数値が存在しないことを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [1.0, 3.3]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;に、小数値&quot;2.1&quot;が存在しない</li>
+</ul>
+<ul id="navigation"><center><li class="nav"><a href="./booleans.html"><</a></li><li class="nav"><a href="../../../index.html">=</a></li><li class="nav"><a href="./integers.html">></a></li></center></article>

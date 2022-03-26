@@ -1,6 +1,7 @@
 {
   "Language": "java",
   "Plugins": [
-    "html-report"
+    "html-report",
+    "spectacle"
   ]
 }

@@ -1,0 +1,42 @@
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../../../style.css"><h1>JSON Pathを指定して配列を取得し、その配列内の要素の順序を検証できる</h1>
+<h2>文字列の昇順であることを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [{&quot;id&quot;: &quot;value1&quot;}, {&quot;id&quot;: &quot;value10&quot;}, {&quot;id&quot;: &quot;value2&quot;}]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;が、文字列&quot;id&quot;の昇順に並んでいる</li>
+</ul>
+<h2>文字列の降順であることを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [{&quot;id&quot;: &quot;value2&quot;}, {&quot;id&quot;: &quot;value10&quot;}, {&quot;id&quot;: &quot;value1&quot;}]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;が、文字列&quot;id&quot;の降順に並んでいる</li>
+</ul>
+<h2>数値の昇順であることを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [{&quot;id&quot;: 1}, {&quot;id&quot;: 2}, {&quot;id&quot;: 3}]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;が、数値&quot;id&quot;の昇順に並んでいる</li>
+</ul>
+<h2>数値の降順であることを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [{&quot;id&quot;: 3}, {&quot;id&quot;: 2}, {&quot;id&quot;: 1}]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;が、数値&quot;id&quot;の降順に並んでいる</li>
+</ul>
+<h2>日付/時間の昇順であることを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [{&quot;createdAt&quot;: &quot;2007-12-03T10:15:30&quot;}, {&quot;createdAt&quot;: &quot;2007-12-03T11:15:30&quot;}, {&quot;createdAt&quot;: &quot;2007-12-05T10:15:30&quot;}]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;が、日付/時間&quot;createdAt&quot;の昇順に並んでいる</li>
+</ul>
+<h2>日付/時間の降順であることを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [{&quot;createdAt&quot;: &quot;2007-12-06T10:15:30&quot;}, {&quot;createdAt&quot;: &quot;2007-12-06T09:15:30&quot;}, {&quot;createdAt&quot;: &quot;2007-12-05T10:15:30&quot;}]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;が、日付/時間&quot;createdAt&quot;の降順に並んでいる</li>
+</ul>
+<h2>タイムゾーン付きの日付/時間の昇順であることを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [{&quot;createdAt&quot;: &quot;2007-12-03T10:15:30+01:00&quot;}, {&quot;createdAt&quot;: &quot;2007-12-03T11:15:30+01:00&quot;}, {&quot;createdAt&quot;: &quot;2007-12-05T10:15:30+01:00&quot;}]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;が、タイムゾーン付きの日付/時間&quot;createdAt&quot;の昇順に並んでいる</li>
+</ul>
+<h2>タイムゾーン付きの日付/時間の降順であることを検証できる</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;tests&quot;: [{&quot;createdAt&quot;: &quot;2007-12-06T10:15:30+01:00&quot;}, {&quot;createdAt&quot;: &quot;2007-12-06T09:15:30+01:00&quot;}, {&quot;createdAt&quot;: &quot;2007-12-05T10:15:30+01:00&quot;}]}&quot;を保存する</li>
+<li>レスポンスのJSONの配列&quot;$.tests&quot;が、タイムゾーン付きの日付/時間&quot;createdAt&quot;の降順に並んでいる</li>
+</ul>
+<ul id="navigation"><center><li class="nav"><a href="./length.html"><</a></li><li class="nav"><a href="../../../../index.html">=</a></li><li class="nav"><a href="../booleans.html">></a></li></center></article>
