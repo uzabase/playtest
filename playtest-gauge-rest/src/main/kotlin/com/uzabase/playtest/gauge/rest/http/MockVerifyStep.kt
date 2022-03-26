@@ -159,7 +159,25 @@ class MockVerifyStep {
     }
 
     @Step("API<apiName>のURL<url>にパス<jsonPath>に文字列<value>を持つJSONをリクエストされた")
-    fun assertBody(apiName: String, url: String, jsonPath: String, value: String) {
+    fun assertBodyString(apiName: String, url: String, jsonPath: String, value: String) {
+        val client = getWireMock(apiName)
+        client.verifyRequestWithJson(url, jsonPath, value)
+    }
+
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に整数値<value>を持つJSONをリクエストされた")
+    fun assertBodyInt(apiName: String, url: String, jsonPath: String, value: Int) {
+        val client = getWireMock(apiName)
+        client.verifyRequestWithJson(url, jsonPath, value)
+    }
+
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に小数値<value>を持つJSONをリクエストされた")
+    fun assertBodyDouble(apiName: String, url: String, jsonPath: String, value: Double) {
+        val client = getWireMock(apiName)
+        client.verifyRequestWithJson(url, jsonPath, value)
+    }
+
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に真偽値<value>を持つJSONをリクエストされた")
+    fun assertBodyDouble(apiName: String, url: String, jsonPath: String, value: Boolean) {
         val client = getWireMock(apiName)
         client.verifyRequestWithJson(url, jsonPath, value)
     }

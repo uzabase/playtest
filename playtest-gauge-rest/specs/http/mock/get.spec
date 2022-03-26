@@ -1,7 +1,7 @@
 # Mockに対するGETリクエストのテスト
 tags: http-request-test
 
-## MockされたAPIのGETリクエスト確認をする（整数値）
+## MockされたAPIのGETリクエスト確認をする
 * URL"/"にGETリクエストを送る
 * API"mockApi"のURL"/"にGETリクエストされた
 
