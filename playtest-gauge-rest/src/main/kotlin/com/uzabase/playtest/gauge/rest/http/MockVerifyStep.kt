@@ -147,6 +147,23 @@ class MockVerifyStep {
         client.verifyThat(requested)
     }
 
+    @Step("API<apiName>のURL<url>にヘッダー<header>:<value>を含むリクエストをされた")
+    fun assertHeader(apiName: String, url: String, headerKey: String, value: String) {
+        val client = getWireMock(apiName)
+        client.verifyThat(
+            RequestPatternBuilder
+                .newRequestPattern()
+                .withUrl(url)
+                .withHeader(headerKey, containing(value))
+        )
+    }
+
+    @Step("API<apiName>のURL<url>にパス<jsonPath>に文字列<value>を持つJSONをリクエストされた")
+    fun assertBody(apiName: String, url: String, jsonPath: String, value: String) {
+        val client = getWireMock(apiName)
+        client.verifyRequestWithJson(url, jsonPath, value)
+    }
+
     private fun headerBuilder(
         header: String,
         requested: RequestPatternBuilder

@@ -1,4 +1,4 @@
-# HTTP PUT リクエストを送信するステップのテスト
+# Mockに対するPUTリクエストのテスト
 
 tags: http-request-test
 
@@ -21,3 +21,7 @@ tags: http-request-test
 * URL"/"にボディ"{\"key1\": {\"key3\": false}, \"key2\": true}"で、PUTリクエストを送る
 * API"mockApi"のURL"/"にパス"key1.key3"に真偽値"false"を持つJSONでPUTリクエストされた
 * API"mockApi"のURL"/"にパス"key2"に真偽値"true"を持つJSONでPUTリクエストされた
+
+## MockされたAPIのPUTリクエストのヘッダー確認をする（一部）
+* URL"/"にヘッダー"options: 1111,2222 \r\n options2: aaa"で、PUTリクエストを送る
+* API"mockApi"のURL"/"にヘッダー"options2":"aaa"を含むリクエストをされた

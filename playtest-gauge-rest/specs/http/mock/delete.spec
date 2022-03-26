@@ -1,4 +1,4 @@
-# HTTP DELETE リクエストを送信するステップのテスト
+# Mockに対するDLETEリクエストのテスト
 
 tags: http-request-test
 
