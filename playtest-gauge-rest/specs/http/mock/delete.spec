@@ -7,5 +7,5 @@ tags: http-request-test
 * API"mockApi"のURL"/"にDELETEリクエストされた
 
 ## MockされたAPIのDELETEリクエストのヘッダー確認をする
-* URL"/"にヘッダー"options: 1111,2222"で、GETリクエストを送る
+* URL"/"にヘッダー"options: 1111,2222"で、DELETEリクエストを送る
 * API"mockApi"のURL"/"にヘッダー"options: 1111,2222"で、DELETEリクエストされた
