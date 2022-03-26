@@ -48,8 +48,8 @@ class HttpStep {
     fun executePut(url: String, requestBody: String) {
         val endpoint = generateEndpoint(url)
         val (statusCode, headers, body) = HttpClient().executePut(
-                endpoint.toString(),
-                requestBody
+            endpoint.toString(),
+            requestBody
         )
         DataStore.storeResponseData(statusCode, headers, body)
     }
@@ -71,7 +71,11 @@ class HttpStep {
     @Step("URL<url>にボディ<requestBody>、ヘッダー<header>で、POSTリクエストを送る")
     fun executePost(url: String, requestBody: String, header: String) {
         val endpoint = generateEndpoint(url)
-        val (statusCode, headers, body) = HttpClient().executePost(endpoint.toString(), requestBody, toHeaderMap(header))
+        val (statusCode, headers, body) = HttpClient().executePost(
+            endpoint.toString(),
+            requestBody,
+            toHeaderMap(header)
+        )
         DataStore.storeResponseData(statusCode, headers, body)
     }
 
@@ -79,8 +83,8 @@ class HttpStep {
     fun executePost(url: String, requestBody: String) {
         val endpoint = generateEndpoint(url)
         val (statusCode, headers, body) = HttpClient().executePost(
-                endpoint.toString(),
-                requestBody
+            endpoint.toString(),
+            requestBody
         )
         DataStore.storeResponseData(statusCode, headers, body)
     }
@@ -116,14 +120,20 @@ class HttpStep {
         Assertions.assertEquals(DataStore.loadResponseBodyFromScenario().string, stringValue)
     }
 
+    @Step("レスポンスボディがバイナリ<path>である")
+    fun assertResponseBodyBinaryEquals(path: String) {
+        val byteArray = this.javaClass.getResourceAsStream(path).readAllBytes()
+        Assertions.assertArrayEquals(DataStore.loadResponseBodyFromScenario().byteArray, byteArray)
+    }
+
     fun toHeaderMap(header: String): Map<String, String> {
         return header
-                .split("r\n")
-                .associate {
-                    it.split(":")
-                            .map { v -> v.trim() }
-                            .let { h -> h[0] to h[1] }
-                }
+            .split("r\n")
+            .associate {
+                it.split(":")
+                    .map { v -> v.trim() }
+                    .let { h -> h[0] to h[1] }
+            }
     }
 
     private fun generateEndpoint(url: String) = URL(URL(getBaseUrl()), url)
