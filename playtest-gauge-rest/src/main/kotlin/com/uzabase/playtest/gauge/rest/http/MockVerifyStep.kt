@@ -114,11 +114,13 @@ class MockVerifyStep {
         val client = getWireMock(apiName)
         client.verifyRequestWithJson(url, jsonPath, value)
     }
+
     @Step("API<apiName>のURL<url>にパス<jsonPath>に整数値<value>を持つJSONでPUTリクエストされた")
     fun assertPutRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Int) {
         val client = getWireMock(apiName)
         client.verifyRequestWithJson(url, jsonPath, value)
     }
+
     @Step("API<apiName>のURL<url>にパス<jsonPath>に小数値<value>を持つJSONでPUTリクエストされた")
     fun assertPutRequestExecutedWithJsonPath(apiName: String, url: String, jsonPath: String, value: Double) {
         val client = getWireMock(apiName)
@@ -130,6 +132,7 @@ class MockVerifyStep {
         val client = getWireMock(apiName)
         client.verifyRequestWithJson(url, jsonPath, value)
     }
+
     @Step("API<apiName>のURL<url>にDELETEリクエストされた")
     fun assertDeleteRequestExecutedWithBody(apiName: String, url: String) {
         val client = getWireMock(apiName)
