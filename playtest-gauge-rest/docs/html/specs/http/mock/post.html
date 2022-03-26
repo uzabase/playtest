@@ -1,4 +1,4 @@
-<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../../style.css"><h1>Mockに対するPOSTリクエストのテスト</h1>
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../../style.css"><h1>Mockに対するPOSTリクエストをアサートできる</h1>
 <p>tags: http-request-test</p>
 <h2>ボディ（文字列）</h2>
 <ul>
@@ -27,5 +27,16 @@
 <h2>ヘッダー（一部）</h2>
 <ul>
 <li>URL&quot;/&quot;にヘッダー&quot;options: 1111,2222 \r\n options2: aaa&quot;で、POSTリクエストを送る</li>
+<li>API&quot;mockApi&quot;のURL&quot;/&quot;にヘッダー&quot;options2&quot;:&quot;aaa&quot;を含むリクエストをされた</li>
+</ul>
+<h2>ボディ（ファイル一致）</h2>
+<ul>
+<li>URL&quot;/&quot;にボディ&quot;{&quot;test&quot;: &quot;post&quot;}&quot;で、POSTリクエストを送る</li>
+<li>API&quot;mockApi&quot;のURL&quot;/&quot;にボディ&quot;/verifications/post.json&quot;JSONファイルの内容でPOSTリクエストされた</li>
+</ul>
+<h2>ボディ（ファイル一致）とヘッダー</h2>
+<ul>
+<li>URL&quot;/&quot;にボディ&quot;{&quot;test&quot;: &quot;test&quot;}&quot;、ヘッダー&quot;content-type: application/json&quot;で、POSTリクエストを送る</li>
+<li>API&quot;mockApi&quot;のURL&quot;/&quot;にボディ&quot;/verifications/postWithHeader.json&quot;JSONファイルの内容、ヘッダー&quot;content-type: application/json&quot;で、POSTリクエストされた</li>
 </ul>
 <ul id="navigation"><center><li class="nav"><a href="./get.html"><</a></li><li class="nav"><a href="../../../index.html">=</a></li><li class="nav"><a href="./put.html">></a></li></center></article>

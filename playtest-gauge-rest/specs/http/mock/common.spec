@@ -1,4 +1,4 @@
-# Mockに対するリクエストのテスト
+# Mockに対するリクエストをアサートできる
 
 tags: http-request-test
 

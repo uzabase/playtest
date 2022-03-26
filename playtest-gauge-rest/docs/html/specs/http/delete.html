@@ -1,28 +1,20 @@
-<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../style.css"><h1>HTTP DELETE リクエストを送信するステップのテスト</h1>
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../style.css"><h1>DELETEリクエストを送信することができる</h1>
 <p>tags: http-request-test</p>
-<h2>DELETEリクエストを送信できる</h2>
+<h2>URLのみを指定</h2>
 <ul>
 <li>URL&quot;/&quot;にDELETEリクエストを送る</li>
 <li>API&quot;mockApi&quot;のURL&quot;/&quot;にDELETEリクエストされた</li>
 </ul>
-<h2>DELETEリクエストに対するレスポンスをアサートできる</h2>
-<ul>
-<li>URL&quot;/&quot;にDELETEリクエストを送る</li>
-<li>レスポンスステータスコードが&quot;200&quot;である</li>
-<li>レスポンスヘッダーに&quot;x-example-header&quot;が存在し、その値が&quot;example1&quot;である</li>
-<li>レスポンスのJSONの&quot;$.message&quot;が文字列の&quot;OK&quot;である</li>
-</ul>
-<h2>ヘッダーを指定してDELETEリクエストを送信できる</h2>
+<h2>ヘッダーを指定</h2>
 <ul>
 <li>URL&quot;/&quot;にヘッダー&quot;content-type: application/json&quot;で、DELETEリクエストを送る</li>
 <li>API&quot;mockApi&quot;のURL&quot;/&quot;にヘッダー&quot;content-type: application/json&quot;で、DELETEリクエストされた</li>
 </ul>
-<h2>ヘッダーを複数指定してDELETEリクエストを送信できる</h2>
+<h2>ヘッダーを複数指定</h2>
 <ul>
 <li>URL&quot;/&quot;にヘッダー&quot;content-type: application/json \r\n options: 1111,2222&quot;で、DELETEリクエストを送る</li>
 <li>API&quot;mockApi&quot;のURL&quot;/&quot;にヘッダー&quot;content-type: application/json&quot;で、DELETEリクエストされた</li>
 <li>API&quot;mockApi&quot;のURL&quot;/&quot;にヘッダー&quot;options: 1111,2222&quot;で、DELETEリクエストされた</li>
-<li>API&quot;mockApi&quot;のURL&quot;/&quot;にヘッダー&quot;content-type: application/json \r\n options: 1111,2222&quot;で、DELETEリクエストされた
-// 不要なヘッダーを付け加えたときには失敗する</li>
+<li>API&quot;mockApi&quot;のURL&quot;/&quot;にヘッダー&quot;content-type: application/json \r\n options: 1111,2222&quot;で、DELETEリクエストされた</li>
 </ul>
 <ul id="navigation"><center><li class="nav"><a href="../../index.html">=</a></li><li class="nav"><a href="./get.html">></a></li></center></article>

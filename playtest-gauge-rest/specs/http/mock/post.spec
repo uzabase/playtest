@@ -1,5 +1,4 @@
-# Mockに対するPOSTリクエストのテスト
-
+# Mockに対するPOSTリクエストをアサートできる
 tags: http-request-test
 
 ## ボディ（文字列）
@@ -25,3 +24,11 @@ tags: http-request-test
 ## ヘッダー（一部）
 * URL"/"にヘッダー"options: 1111,2222 \r\n options2: aaa"で、POSTリクエストを送る
 * API"mockApi"のURL"/"にヘッダー"options2":"aaa"を含むリクエストをされた
+
+## ボディ（ファイル一致）
+* URL"/"にボディ"{\"test\": \"post\"}"で、POSTリクエストを送る
+* API"mockApi"のURL"/"にボディ"/verifications/post.json"JSONファイルの内容でPOSTリクエストされた
+
+## ボディ（ファイル一致）とヘッダー
+* URL"/"にボディ"{\"test\": \"test\"}"、ヘッダー"content-type: application/json"で、POSTリクエストを送る
+* API"mockApi"のURL"/"にボディ"/verifications/postWithHeader.json"JSONファイルの内容、ヘッダー"content-type: application/json"で、POSTリクエストされた

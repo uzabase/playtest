@@ -1,11 +1,10 @@
-# Mockに対するDELETEリクエストのテスト
-
+# Mockに対するDELETEリクエストをアサートできる
 tags: http-request-test
 
-## MockされたAPIのDELETEリクエスト確認をする
+## リクエスト
 * URL"/"にDELETEリクエストを送る
 * API"mockApi"のURL"/"にDELETEリクエストされた
 
-## MockされたAPIのDELETEリクエストのヘッダー確認をする
+## ヘッダー
 * URL"/"にヘッダー"options: 1111,2222"で、DELETEリクエストを送る
 * API"mockApi"のURL"/"にヘッダー"options: 1111,2222"で、DELETEリクエストされた

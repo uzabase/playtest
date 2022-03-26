@@ -1,15 +1,9 @@
-# HTTP GET リクエストを送信するステップのテスト
+# GETリクエストを送信することができる
 tags: http-request-test
 
-## GETリクエストを送信できる
+## URLのみを指定
 * URL"/"にGETリクエストを送る
 * API"mockApi"のURL"/"にGETリクエストされた
-
-## GETリクエストに対するレスポンスをアサートできる
-* URL"/"にGETリクエストを送る
-* レスポンスステータスコードが"200"である
-* レスポンスヘッダーに"x-example-header"が存在し、その値が"example1"である
-* レスポンスのJSONの"$.message"が文字列の"Hello Playtest-Gauge-Rest!"である
 
 ## ヘッダーを指定してGETリクエストを送信できる
 * URL"/"にヘッダー"content-type: application/json"で、GETリクエストを送る

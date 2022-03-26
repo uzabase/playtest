@@ -1,0 +1,15 @@
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../../../style.css"><h1>レスポンスのJSONの真偽値をアサートできる</h1>
+<h2>JSON Path</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{ &quot;key1&quot;: true, &quot;key2&quot;: [ false ] }&quot;を保存する</li>
+<li>レスポンスのJSONの&quot;$.key1&quot;が真偽値の&quot;true&quot;である</li>
+<li>レスポンスのJSONの&quot;$.key1&quot;が真偽値のtrueである</li>
+<li>レスポンスのJSONの&quot;$.key2[0]&quot;が真偽値の&quot;false&quot;である</li>
+<li>レスポンスのJSONの&quot;$.key2[0]&quot;が真偽値のfalseである</li>
+</ul>
+<h2>配列内において存在（無）</h2>
+<ul>
+<li>レスポンスボディとしてシナリオデータストアに&quot;{&quot;key1&quot;:[{&quot;id&quot;:&quot;a&quot;,&quot;key3&quot;:false}, {&quot;id&quot;:&quot;b&quot;,&quot;key3&quot;: true }, {&quot;id&quot;:&quot;c&quot;,&quot;key3&quot;:true}]}&quot;を保存する</li>
+<li>レスポンスのJSONの&quot;$.key1&quot;の配列の、UniqueKey&quot;id&quot;の値が&quot;b&quot;である要素の&quot;key3&quot;が、真偽値の&quot;true&quot;である</li>
+</ul>
+<ul id="navigation"><center><li class="nav"><a href="arrays/order.html"><</a></li><li class="nav"><a href="../../../../index.html">=</a></li><li class="nav"><a href="./doubles.html">></a></li></center></article>

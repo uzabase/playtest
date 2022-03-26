@@ -1,24 +1,16 @@
-<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../style.css"><h1>HTTP POST リクエストを送信するステップのテスト</h1>
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../style.css"><h1>POSTリクエストを送信することができる</h1>
 <p>tags: http-request-test</p>
-<h2>POSTリクエストを送信できる</h2>
+<h2>URLのみを指定</h2>
 <ul>
 <li>URL&quot;/&quot;にPOSTリクエストを送る</li>
 <li>URL&quot;/&quot;にPOSTリクエストが送信された</li>
-<li>API&quot;mockApi&quot;のURL&quot;/&quot;にPOSTリクエストされた</li>
 </ul>
-<h2>POSTリクエストに対するレスポンスをアサートできる</h2>
-<ul>
-<li>URL&quot;/&quot;にPOSTリクエストを送る</li>
-<li>レスポンスステータスコードが&quot;200&quot;である</li>
-<li>レスポンスヘッダーに&quot;x-example-header&quot;が存在し、その値が&quot;example1&quot;である</li>
-<li>レスポンスのJSONの&quot;$.message&quot;が文字列の&quot;OK&quot;である</li>
-</ul>
-<h2>ヘッダーを指定してPOSTリクエストを送信して、リクエストされたか確認できる</h2>
+<h2>ヘッダーを指定</h2>
 <ul>
 <li>URL&quot;/&quot;にヘッダー&quot;content-type: application/json&quot;で、POSTリクエストを送る</li>
 <li>API&quot;mockApi&quot;のURL&quot;/&quot;にヘッダー&quot;content-type: application/json&quot;で、POSTリクエストされた</li>
 </ul>
-<h2>ヘッダーを複数指定してPOSTリクエストを送信して、リクエストされたか確認できる</h2>
+<h2>ヘッダーを複数指定</h2>
 <ul>
 <li>URL&quot;/&quot;にヘッダー&quot;content-type: application/json \r\n options: 1111,2222&quot;で、POSTリクエストを送る</li>
 <li>API&quot;mockApi&quot;のURL&quot;/&quot;にヘッダー&quot;content-type: application/json&quot;で、POSTリクエストされた</li>
@@ -27,12 +19,7 @@
 // 不要なヘッダーを付け加えたときには失敗する
 API&quot;mockApi&quot;のURL&quot;/&quot;にヘッダー&quot;content-type: application/json \r\n options: 1111,2222 \r\n x-unnecessary: hoge&quot;で、POSTリクエストされた</li>
 </ul>
-<h2>ボディを指定してPOSTリクエストを送信して、リクエストされたか確認できる</h2>
-<ul>
-<li>URL&quot;/&quot;にボディ&quot;{&quot;test&quot;: &quot;post&quot;}&quot;で、POSTリクエストを送る</li>
-<li>API&quot;mockApi&quot;のURL&quot;/&quot;にボディ&quot;/verifications/post.json&quot;JSONファイルの内容でPOSTリクエストされた</li>
-</ul>
-<h2>ボディとヘッダーを指定してPOSTリクエストを送信して、リクエストされたか確認できる</h2>
+<h2>ボディとヘッダーを指定</h2>
 <ul>
 <li>URL&quot;/&quot;にボディ&quot;{&quot;test&quot;: &quot;test&quot;}&quot;、ヘッダー&quot;content-type: application/json&quot;で、POSTリクエストを送る</li>
 <li>API&quot;mockApi&quot;のURL&quot;/&quot;にボディ&quot;/verifications/postWithHeader.json&quot;JSONファイルの内容、ヘッダー&quot;content-type: application/json&quot;で、POSTリクエストされた</li>
