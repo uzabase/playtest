@@ -128,7 +128,7 @@ class HttpStep {
 
     fun toHeaderMap(header: String): Map<String, String> {
         return header
-            .split("r\n")
+            .split("\n")
             .associate {
                 it.split(":")
                     .map { v -> v.trim() }
