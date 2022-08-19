@@ -5,6 +5,7 @@ import com.uzabase.playtest.gauge.rest.ConfigKeys
 import com.uzabase.playtest.gauge.rest.DataStore
 import com.uzabase.playtest.gauge.rest.GaugeRestConfig
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.*
 import java.net.URL
 
 class HttpStep {
@@ -105,25 +106,25 @@ class HttpStep {
 
     @Step("レスポンスステータスコードが<statusCode>である")
     fun assertStatusCodeEquals(statusCode: Int) {
-        Assertions.assertEquals(statusCode, DataStore.loadStatusCodeFromScenario())
+        assertEquals(statusCode, DataStore.loadStatusCodeFromScenario())
     }
 
     @Step("レスポンスヘッダーに<key>が存在し、その値が<value>である")
     fun assertResponseHeadersContain(key: String, value: String) {
         val headers = DataStore.loadResponseHeadersFromScenario()
         //headers shouldContain Pair(key, value)
-        Assertions.assertTrue(headers.getValue(key) == value)
+        assertTrue(headers.getValue(key) == value)
     }
 
     @Step("レスポンスボディが文字列<stringValue>である")
     fun assertResponseBodyStringEquals(stringValue: String) {
-        Assertions.assertEquals(DataStore.loadResponseBodyFromScenario().string, stringValue)
+        assertEquals(stringValue, DataStore.loadResponseBodyFromScenario().string)
     }
 
     @Step("レスポンスボディがバイナリ<path>である")
     fun assertResponseBodyBinaryEquals(path: String) {
         val byteArray = this.javaClass.getResourceAsStream(path).readAllBytes()
-        Assertions.assertArrayEquals(DataStore.loadResponseBodyFromScenario().byteArray, byteArray)
+        assertArrayEquals(byteArray, DataStore.loadResponseBodyFromScenario().byteArray)
     }
 
     fun toHeaderMap(header: String): Map<String, String> {

@@ -209,7 +209,7 @@ class MockVerifyStep {
     private inline fun <reified T> WireMock.verifyRequestWithJson(endpoint: String, jsonPath: String, value: T) {
         val test = this.find(RequestPatternBuilder.newRequestPattern().withUrl(endpoint)).first().bodyAsString
         val json = JsonNode.of(test)
-        assertEquals(json.get(jsonPath), value)
+        assertEquals(value, json.get(jsonPath))
     }
 
 }
