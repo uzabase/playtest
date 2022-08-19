@@ -41,7 +41,7 @@
     </distributionManagement>
 
     <properties>
-        <project.version>0.2.3</project.version>
+        <project.version>0.2.4</project.version>
         <kotlin.version>1.5.31</kotlin.version>
         <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
         <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
@@ -71,7 +71,7 @@
         <dependency>
             <groupId>com.uzabase</groupId>
             <artifactId>playtest-json</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
