@@ -3,10 +3,6 @@ package com.uzabase.playtest.gauge.db
 import com.thoughtworks.gauge.BeforeScenario
 import net.jcip.annotations.NotThreadSafe
 
-
-val dbChangesMap = GaugeDbConfig.getRecords().associateWith { DatabaseChanges(it) }
-
-
 @NotThreadSafe
 class DatabaseChangeRecordsSetup {
 
@@ -16,11 +12,6 @@ class DatabaseChangeRecordsSetup {
      */
     @BeforeScenario(tags = ["record-changes"])
     fun startRecord() {
-        dbChangesMap.forEach {
-            it.value.setup()
-        }
-        dbChangesMap.forEach {
-            it.value.startRecordOnce()
-        }
+        DatabasesChanges.startRecord()
     }
 }

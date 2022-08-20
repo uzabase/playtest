@@ -46,3 +46,8 @@ tags: record-changes
 tags: record-changes
 * [not-provide] test_dbのtodoテーブルにレコードを挿入する
 * DB"test_db"の"test"スキーマの"todos"テーブルで作成されたレコード数が"1"である
+
+## Stepによる記録開始タイミングの制御
+* start-record
+* [not-provide] test_dbのtodoテーブルのレコードをアップデートする
+* DB"test_db"の"test"スキーマの"todos"テーブルで変更されたレコード数が"1"である

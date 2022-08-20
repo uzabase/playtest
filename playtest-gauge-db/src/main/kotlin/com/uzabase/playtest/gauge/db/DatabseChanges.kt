@@ -41,8 +41,8 @@ data class DatabaseChanges(private val dbName: String) {
 
     fun get(): Changes = DataStore.loadFromScenario(keys.changesKey)
 
-    private fun isStarted() = DataStore.loadFromScenario(keys.isStartKey)
+    fun isStarted() = DataStore.loadFromScenario(keys.isStartKey)
 
-    private fun isEnded() = DataStore.loadFromScenario(keys.isEndKey)
+    fun isEnded() = DataStore.loadFromScenario(keys.isEndKey)
 }
 
