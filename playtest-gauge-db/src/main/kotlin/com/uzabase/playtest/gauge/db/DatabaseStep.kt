@@ -21,12 +21,24 @@ class DatabaseStep {
         valueColumn: String,
         value: String
     ) {
-        val config = GaugeDbConfig.get(dbName)
-        val source = Source(config.url, config.user, config.password)
-
+        val source = getSource(dbName, schemaName, tableName)
         val request = Request(source, "select * from $schemaName.$tableName where $whereColumn = $whereValue")
 
         assertThat(request).row().value(valueColumn).isEqualTo(value)
+    }
+
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>がNULLである")
+    fun assertNull(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        whereColumn: String,
+        whereValue: String,
+        valueColumn: String,
+    ) {
+        val source = getSource(dbName, schemaName, tableName)
+        val request = Request(source, "select * from $schemaName.$tableName where $whereColumn = $whereValue")
+        assertThat(request).row().value(valueColumn).isNull
     }
 
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>が日時の<value>である")
@@ -39,9 +51,7 @@ class DatabaseStep {
         valueColumn: String,
         value: String
     ) {
-        val config = GaugeDbConfig.get(dbName)
-        val source = Source(config.url, config.user, config.password)
-
+        val source = getSource(dbName, schemaName, tableName)
         val request = Request(source, "select * from $schemaName.$tableName where $whereColumn = $whereValue")
 
         assertThat(request).row().value(valueColumn).isEqualTo(DateTimeValue.parse(value))
@@ -60,9 +70,7 @@ class DatabaseStep {
         valueColumn: String,
         value: String
     ) {
-        val config = GaugeDbConfig.get(dbName)
-        val source = Source(config.url, config.user, config.password)
-
+        val source = getSource(dbName, schemaName, tableName)
         val request = Request(source, "select * from $schemaName.$tableName where $where")
 
         assertThat(request).row().value(valueColumn).isEqualTo(value)
@@ -77,9 +85,7 @@ class DatabaseStep {
         valueColumn: String,
         value: String
     ) {
-        val config = GaugeDbConfig.get(dbName)
-        val source = Source(config.url, config.user, config.password)
-
+        val source = getSource(dbName, schemaName, tableName)
         val request = Request(source, "select * from $schemaName.$tableName where $where")
 
         assertThat(request).row().value(valueColumn).isEqualTo(DateTimeValue.parse(value))
@@ -97,9 +103,7 @@ class DatabaseStep {
         month: Int,
         day: Int
     ) {
-        val config = GaugeDbConfig.get(dbName)
-        val source = Source(config.url, config.user, config.password)
-
+        val source = getSource(dbName, schemaName, tableName)
         val request = Request(source, "select * from $schemaName.$tableName where $whereColumn = $whereValue")
 
         assertThat(request).row().value(valueColumn).isEqualTo(DateValue.of(year, month, day))
@@ -116,12 +120,23 @@ class DatabaseStep {
         month: Int,
         day: Int
     ) {
-        val config = GaugeDbConfig.get(dbName)
-        val source = Source(config.url, config.user, config.password)
-
+        val source = getSource(dbName, schemaName, tableName)
         val request = Request(source, "select * from $schemaName.$tableName where $where")
 
         assertThat(request).row().value(valueColumn).isEqualTo(DateValue.of(year, month, day))
+    }
+
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、条件<where>で取得した一意の<valueColumn>がNULLである")
+    fun assertNull(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        where: String,
+        valueColumn: String,
+    ) {
+        val source = getSource(dbName, schemaName, tableName)
+        val request = Request(source, "select * from $schemaName.$tableName where $where")
+        assertThat(request).row().value(valueColumn).isNull
     }
 
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルのレコード数が<count>である")
@@ -131,8 +146,7 @@ class DatabaseStep {
         tableName: String,
         count: Int
     ) {
-        val config = GaugeDbConfig.get(dbName)
-        val source = Source(config.url, config.user, config.password)
+        val source = getSource(dbName, schemaName, tableName)
         val table = Table(source, "$schemaName.$tableName")
         assertThat(table).hasNumberOfRows(count)
     }
@@ -145,7 +159,8 @@ class DatabaseStep {
         count: Int
     ) {
         DatabasesChanges.stopRecords()
-        assertThat(DatabasesChanges.getChange(dbName)).onTable("$schemaName.$tableName").ofModification().hasNumberOfChanges(count)
+        assertThat(DatabasesChanges.getChange(dbName)).onTable("$schemaName.$tableName").ofModification()
+            .hasNumberOfChanges(count)
     }
 
 
@@ -157,7 +172,8 @@ class DatabaseStep {
         count: Int
     ) {
         DatabasesChanges.stopRecords()
-        assertThat(DatabasesChanges.getChange(dbName)).onTable("$schemaName.$tableName").ofDeletion().hasNumberOfChanges(count)
+        assertThat(DatabasesChanges.getChange(dbName)).onTable("$schemaName.$tableName").ofDeletion()
+            .hasNumberOfChanges(count)
     }
 
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルで作成されたレコード数が<count>である")
@@ -168,7 +184,8 @@ class DatabaseStep {
         count: Int
     ) {
         DatabasesChanges.stopRecords()
-        assertThat(DatabasesChanges.getChange(dbName)).onTable("$schemaName.$tableName").ofCreation().hasNumberOfChanges(count)
+        assertThat(DatabasesChanges.getChange(dbName)).onTable("$schemaName.$tableName").ofCreation()
+            .hasNumberOfChanges(count)
     }
 
     @Step("start-record")
@@ -179,5 +196,10 @@ class DatabaseStep {
     @Step("stop-record")
     fun endRecord() {
         DatabasesChanges.startRecord()
+    }
+
+    fun getSource(dbName: String, schemaName: String, tableName: String): Source {
+        val config = GaugeDbConfig.get(dbName)
+        return Source(config.url, config.user, config.password)
     }
 }

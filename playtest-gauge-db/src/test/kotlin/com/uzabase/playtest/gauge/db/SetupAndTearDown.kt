@@ -10,7 +10,6 @@ import java.io.File
 class SetupAndTearDown {
     private val db = GaugeDbConfig.get("test_db")
     private val database = Database(db.driverClass, db.url, db.user, db.password, db.schema)
-    private val testDbChanges = DatabaseChanges("test_db")
 
     @BeforeSuite()
     fun truncate() {
@@ -21,7 +20,7 @@ class SetupAndTearDown {
     fun setupDb() {
         val data = javaClass.getResource("/test-db")?.toURI()?.let { File(it) }
             ?: throw NotFoundException("/test-db not found")
-        database.cleanInsert(data)
+        database.cleanInsert(data, emptyToNull = true)
     }
 
     @BeforeScenario(tags = ["_truncate"])

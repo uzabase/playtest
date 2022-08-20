@@ -26,7 +26,7 @@ class DatabaseSetup {
     fun setupDatabase() {
         val data = javaClass.getResource("/test-db")?.toURI()?.let { File(it) }
             ?: throw NotFoundException("/test-db not found")
-        database.cleanInsert(data)
+        database.cleanInsert(data, emptyToNull = true)
     }
 
     @Step("[not-provide] test_dbのテーブルをtruncateする")
