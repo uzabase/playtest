@@ -4,6 +4,7 @@ import com.thoughtworks.gauge.Step
 import javassist.NotFoundException
 import org.assertj.db.api.Assertions.assertThat
 import org.assertj.db.type.*
+import javax.management.monitor.StringMonitor
 
 class DatabaseStep {
 
@@ -39,6 +40,19 @@ class DatabaseStep {
         val source = getSource(dbName, schemaName, tableName)
         val request = Request(source, "select * from $schemaName.$tableName where $whereColumn = $whereValue")
         assertThat(request).row().value(valueColumn).isNull
+    }
+
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルに、<whereColumn>が<whereValue>なレコードが存在しない")
+    fun assertNotExist(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        whereColumn: String,
+        whereValue: String
+    ) {
+        val source = getSource(dbName, schemaName, tableName)
+        val request = Request(source, "select * from $schemaName.$tableName where $whereColumn = $whereValue")
+        assertThat(request).hasNumberOfRows(0)
     }
 
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>が日時の<value>である")
@@ -137,6 +151,18 @@ class DatabaseStep {
         val source = getSource(dbName, schemaName, tableName)
         val request = Request(source, "select * from $schemaName.$tableName where $where")
         assertThat(request).row().value(valueColumn).isNull
+    }
+
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルに、条件<where>なレコードが存在しない")
+    fun assertNotExist(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        where: String,
+    ) {
+        val source = getSource(dbName, schemaName, tableName)
+        val request = Request(source, "select * from $schemaName.$tableName where $where")
+        assertThat(request).hasNumberOfRows(0)
     }
 
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルのレコード数が<count>である")
