@@ -1,7 +1,7 @@
 package com.uzabase.playtest.gauge.db
 
 import com.thoughtworks.gauge.BeforeScenario
-import net.jcip.annotations.NotThreadSafe
+import javax.annotation.concurrent.NotThreadSafe
 
 @NotThreadSafe
 class DatabaseChangeRecordsSetup {
