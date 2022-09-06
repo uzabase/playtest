@@ -220,4 +220,24 @@ internal class DatabaseTest {
         verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<MySqlDataTypeFactory>()) }
         verify { config.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, any<MySqlMetadataHandler>()) }
     }
+
+    @Test
+    fun DriverがMySQL8の場合MySQL用の設定を有効にする() {
+        val mysqlDb = Database(
+            driverClass = "com.mysql.cj.jdbc.Driver",
+            url = "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1",
+            username = "sa",
+            password = "",
+            schema = "test_schema"
+        )
+        val connection = mockk<IDatabaseConnection>()
+        val config = mockk<DatabaseConfig>()
+
+        every { connection.config } returns config
+        every { config.setProperty(any(), any()) } just runs
+        mysqlDb.setConfig(connection)
+
+        verify { config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, any<MySqlDataTypeFactory>()) }
+        verify { config.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, any<MySqlMetadataHandler>()) }
+    }
 }

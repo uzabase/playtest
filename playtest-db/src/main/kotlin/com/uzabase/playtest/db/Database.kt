@@ -68,7 +68,7 @@ open class Database(
         if (this.driverClass == "org.postgresql.Driver") {
             connection.config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, PostgresqlDataTypeFactory())
         }
-        if (this.driverClass == "com.mysql.jdbc.Driver") {
+        if (this.driverClass == "com.mysql.jdbc.Driver" || this.driverClass == "com.mysql.cj.jdbc.Driver") {
             connection.config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, MySqlDataTypeFactory())
             connection.config.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, MySqlMetadataHandler())
         }
