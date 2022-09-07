@@ -1,9 +1,9 @@
 package com.uzabase.playtest.gauge.db
 
-import from
-import javassist.NotFoundException
-import merge
-import java.util.*
+import com.natpryce.konfig.*
+import com.natpryce.konfig.ConfigurationProperties.Companion.systemProperties
+import com.uzabase.playtest.gauge.db.ConfigKeys.*
+import java.io.File
 
 enum class ConfigKeys(val key: String) {
     DRIVER_CLASS("driverClass"),
@@ -22,38 +22,33 @@ data class DatabaseInfo(
 )
 
 object GaugeDbConfig {
-    // TODO: システムプロパティから渡せるようにする
-    private val properties: Properties = javaClass.getResource("/playtest-gauge-db.default.properties")!!
-        .let { Properties().from(it.path) }
-        .let { properties ->
-            kotlin.runCatching { System.getenv("GAUGE_DB_CONFIG") }
-                .getOrNull()?.let { properties.merge(Properties().from(it)) } ?: properties
-        }
-//        .let { properties ->
-//            kotlin.runCatching { System.getProperty("gauge.rest.config") }
-//                .getOrNull()?.let { properties.mergePropertyFile(Properties().from(it)) } ?: properties
-//        }
 
-    fun get(databaseName: String, key: ConfigKeys): String {
-        val propertyKey = "db.$databaseName.${key.key}"
-        if (properties[propertyKey] == null) {
-            throw NotFoundException("$propertyKey is not found in properties.")
-        }
-        return properties[propertyKey].toString()
+    private val conf = systemProperties() overriding
+            envConfig() overriding
+            ConfigurationProperties.fromResource("playtest-gauge-db.default.properties")
+
+    private fun envConfig(): Configuration {
+        return System.getenv("GAUGE_DB_CONFIG")?.let {
+            ConfigurationProperties.fromFile(File(it))
+        } ?: EmptyConfiguration
     }
 
-    fun get(databaseName: String): DatabaseInfo = DatabaseInfo(
-        get(databaseName, ConfigKeys.DRIVER_CLASS),
-        get(databaseName, ConfigKeys.URL),
-        get(databaseName, ConfigKeys.USER),
-        get(databaseName, ConfigKeys.PASSWORD),
-        get(databaseName, ConfigKeys.SCHEMA)
-    )
-
     fun getRecords(): List<String> {
-        return this.properties
-            .filter { it.key.toString().contains("db.url") }
-            .map { it.key.toString() }
+        return conf.list().reversed()
+            .map { it.second }
+            .flatMap { it.toList() }
+            .associateBy { it.first }
+            .filter { it.key.contains("db.url") }
+            .map { it.key }
             .map { it.split(".")[1] }
+    }
+
+    fun get(databaseName: String): DatabaseInfo {
+        val driverClass = conf[Key("db.${databaseName}.${DRIVER_CLASS.key}", stringType)]
+        val url = conf[Key("db.${databaseName}.${URL.key}", stringType)]
+        val user = conf[Key("db.${databaseName}.${USER.key}", stringType)]
+        val password = conf[Key("db.${databaseName}.${PASSWORD.key}", stringType)]
+        val schema = conf[Key("db.${databaseName}.${SCHEMA.key}", stringType)]
+        return DatabaseInfo(driverClass, url, user, password, schema)
     }
 }

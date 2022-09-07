@@ -56,6 +56,7 @@
         <playtest_db.version>0.1.2</playtest_db.version>
         <gauge-maven-plugin.version>1.4.3</gauge-maven-plugin.version>
         <postgresql.version>42.4.1</postgresql.version>
+        <konfig.version>1.6.10.0</konfig.version>
     </properties>
     <repositories>
         <repository>
@@ -89,6 +90,11 @@
             <groupId>com.thoughtworks.gauge</groupId>
             <artifactId>gauge-java</artifactId>
             <version>${gauge.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.natpryce</groupId>
+            <artifactId>konfig</artifactId>
+            <version>${konfig.version}</version>
         </dependency>
         <dependency>
             <groupId>org.amshove.kluent</groupId>
