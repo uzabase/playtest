@@ -8,8 +8,9 @@ on:
         description: デプロイするモジュール
         options:
         - playtest-db
-        - playtest-gauge-browser
         - playtest-gauge-db
+        - playtest-browser
+        - playtest-gauge-browser
         - playtest-gauge-rest
         - playtest-json
 
