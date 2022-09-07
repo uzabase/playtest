@@ -41,7 +41,7 @@
     </distributionManagement>
 
     <properties>
-        <project.version>0.1.2</project.version>
+        <project.version>0.1.3</project.version>
         <kotlin.version>1.7.10</kotlin.version>
         <kluent.version>1.68</kluent.version>
         <mockk.version>1.12.5</mockk.version>
