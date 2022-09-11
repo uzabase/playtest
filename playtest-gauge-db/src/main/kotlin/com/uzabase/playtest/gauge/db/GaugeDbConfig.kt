@@ -38,7 +38,7 @@ object GaugeDbConfig {
             .map { it.second }
             .flatMap { it.toList() }
             .associateBy { it.first }
-            .filter { it.key.contains("db.url") }
+            .filter { it.key.matches(Regex("^db.*url$")) }
             .map { it.key }
             .map { it.split(".")[1] }
     }
