@@ -7,7 +7,8 @@ CREATE TABLE test.todos
     id UUID PRIMARY KEY,
     memo    VARCHAR(100),
     priority INTEGER,
-    progress_rate numeric,
-    registered_date date,
-    updated_date timestamp
+    progress_rate NUMERIC,
+    done BOOLEAN,
+    registered_date DATE,
+    updated_date TIMESTAMP
 );

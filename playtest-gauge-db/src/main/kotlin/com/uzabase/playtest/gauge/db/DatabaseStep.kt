@@ -28,6 +28,36 @@ class DatabaseStep {
         assertThat(request).row().value(valueColumn).isEqualTo(value)
     }
 
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>がtrueである")
+    fun assertUniqueRecordTrue(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        whereColumn: String,
+        whereValue: String,
+        valueColumn: String,
+    ) {
+        val source = getSource(dbName, schemaName, tableName)
+        val request = Request(source, "select * from $schemaName.$tableName where $whereColumn = $whereValue")
+
+        assertThat(request).row().value(valueColumn).isTrue
+    }
+
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>がfalseである")
+    fun assertUniqueRecordFalse(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        whereColumn: String,
+        whereValue: String,
+        valueColumn: String,
+    ) {
+        val source = getSource(dbName, schemaName, tableName)
+        val request = Request(source, "select * from $schemaName.$tableName where $whereColumn = $whereValue")
+
+        assertThat(request).row().value(valueColumn).isFalse
+    }
+
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、<whereColumn>を<whereValue>で取得した一意の<valueColumn>がNULLである")
     fun assertNull(
         dbName: String,
