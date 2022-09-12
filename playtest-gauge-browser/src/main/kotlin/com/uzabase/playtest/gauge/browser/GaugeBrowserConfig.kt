@@ -1,29 +1,32 @@
 package com.uzabase.playtest.gauge.browser
 
-import com.uzabase.playtest.gauge.browser.extension.from
-import com.uzabase.playtest.gauge.browser.extension.merge
-import java.util.*
+import com.natpryce.konfig.*
+import com.natpryce.konfig.ConfigurationProperties.Companion.systemProperties
+import java.io.File
 
-enum class ConfigKeys(val key: String) {
-    IS_DISPLAY_SCENARIO("browser.displayScenario")
+interface ConfigKey<T> {
+    val key: String
+    val type: PropertyType<T>
+}
+
+
+object IS_DISPLAY_SCENARIO : ConfigKey<Boolean> {
+    override val key = "browser.displayScenario"
+    override val type: PropertyType<Boolean> = booleanType
 }
 
 object GaugeBrowserConfig {
-    // TODO: システムプロパティから渡せるようにする
-    private val properties: Properties = javaClass.getResource("/playtest-gauge-browser.default.properties")!!
-        .let { Properties().from(it.path) }
-        .let { properties ->
-            kotlin.runCatching { System.getenv("GAUGE_BROWSER_CONFIG") }
-                .getOrNull()?.let { properties.merge(Properties().from(it)) } ?: properties
-        }
-//        .let { properties ->
-//            kotlin.runCatching { System.getProperty("gauge.rest.config") }
-//                .getOrNull()?.let { properties.mergePropertyFile(Properties().from(it)) } ?: properties
-//        }
+    private val conf = systemProperties() overriding
+            envConfig() overriding
+            ConfigurationProperties.fromResource("playtest-gauge-browser.default.properties")
 
-    fun get(key: ConfigKeys): String {
-        return properties[key.key].toString()
+    private fun envConfig(): Configuration {
+        return System.getenv("GAUGE_BROWSER_CONFIG")?.let {
+            ConfigurationProperties.fromFile(File(it))
+        } ?: EmptyConfiguration
     }
 
-    fun isDisplayScenario() = this.get(ConfigKeys.IS_DISPLAY_SCENARIO).toString() == "true"
+    fun <T> getOrNull(key: ConfigKey<T>) = conf.getOrNull(Key(key.key, key.type))
+
+    fun isDisplayScenario(): Boolean = this.getOrNull(IS_DISPLAY_SCENARIO) == true
 }

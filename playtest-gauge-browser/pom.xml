@@ -54,6 +54,7 @@
         <mockk.version>1.12.0</mockk.version>
         <wiremock.version>2.27.2</wiremock.version>
         <playtest_browser.version>0.2.0</playtest_browser.version>
+        <konfig.version>1.6.10.0</konfig.version>
     </properties>
     <repositories>
         <repository>
@@ -97,6 +98,11 @@
             <groupId>com.github.kittinunf.fuel</groupId>
             <artifactId>fuel</artifactId>
             <version>${fuel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.natpryce</groupId>
+            <artifactId>konfig</artifactId>
+            <version>${konfig.version}</version>
         </dependency>
         <dependency>
             <groupId>io.mockk</groupId>
