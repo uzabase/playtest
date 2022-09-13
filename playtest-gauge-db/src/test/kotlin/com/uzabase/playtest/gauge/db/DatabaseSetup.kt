@@ -15,7 +15,8 @@ data class Todo(
     val priority: Int,
     val progress_rate: Double,
     val registered_date: Date,
-    val updated_date: Timestamp
+    val updated_date: Timestamp,
+    val done: Boolean
 ) : Entity("todos")
 
 class DatabaseSetup {
@@ -42,7 +43,8 @@ class DatabaseSetup {
             10,
             0.5,
             Date.valueOf("2020-01-01"),
-            Timestamp.valueOf("2021-11-15 01:12:33")
+            Timestamp.valueOf("2021-11-15 01:12:33"),
+            true
         )
         database.insert(entity)
     }
@@ -55,7 +57,8 @@ class DatabaseSetup {
             10,
             0.5,
             Date.valueOf("2020-01-01"),
-            Timestamp.valueOf("2021-11-15 01:12:33")
+            Timestamp.valueOf("2021-11-15 01:12:33"),
+            true
         )
         database.delete(entity)
     }
