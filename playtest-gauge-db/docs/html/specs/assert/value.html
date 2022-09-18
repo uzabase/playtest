@@ -1,0 +1,56 @@
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../style.css"><h1>テーブルの値のアサート</h1>
+<p>tags: _setup</p>
+<h2>カラムの値を指定して、文字列をアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、&quot;id&quot;を&quot;'404e05a3-a34f-47d0-8997-968d90ba64ca'&quot;で取得した一意の&quot;memo&quot;が文字列の&quot;this is test&quot;である</li>
+</ul>
+<h2>カラムの値を指定して、整数をアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、&quot;id&quot;を&quot;'404e05a3-a34f-47d0-8997-968d90ba64ca'&quot;で取得した一意の&quot;priority&quot;が整数の&quot;1&quot;である</li>
+</ul>
+<h2>カラムの値を指定して、小数をアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、&quot;id&quot;を&quot;'404e05a3-a34f-47d0-8997-968d90ba64ca'&quot;で取得した一意の&quot;progress_rate&quot;が小数の&quot;0.1&quot;である</li>
+</ul>
+<h2>カラムの値を指定して、日付をアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、&quot;id&quot;を&quot;'404e05a3-a34f-47d0-8997-968d90ba64ca'&quot;で取得した一意の&quot;registered_date&quot;が&quot;2021&quot;年&quot;10&quot;月&quot;1&quot;日である</li>
+</ul>
+<h2>カラムの値を指定して、日時をアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、&quot;id&quot;を&quot;'404e05a3-a34f-47d0-8997-968d90ba64ca'&quot;で取得した一意の&quot;updated_date&quot;が日時の&quot;2021-11-15T01:12:33&quot;である</li>
+</ul>
+<h2>カラムの値を指定して、真偽値をアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、&quot;id&quot;を&quot;'304e05a3-a34f-47d0-8997-968d90ba64ca'&quot;で取得した一意の&quot;done&quot;がtrueである</li>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、&quot;id&quot;を&quot;'404e05a3-a34f-47d0-8997-968d90ba64ca'&quot;で取得した一意の&quot;done&quot;がfalseである</li>
+</ul>
+<h2>カラムの値を指定して、NULLをアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、&quot;id&quot;を&quot;'304e05a3-a34f-47d0-8997-968d90ba64ca'&quot;で取得した一意の&quot;memo&quot;がNULLである</li>
+</ul>
+<h2>条件文で取得したレコードの、文字列のフィールドをアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、条件&quot; id = '404e05a3-a34f-47d0-8997-968d90ba64ca' &quot;で取得した一意の&quot;memo&quot;が文字列の&quot;this is test&quot;である</li>
+</ul>
+<h2>条件文で取得したレコードの、整数のフィールドをアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、条件&quot; id = '404e05a3-a34f-47d0-8997-968d90ba64ca' &quot;で取得した一意の&quot;priority&quot;が整数の&quot;1&quot;である</li>
+</ul>
+<h2>条件文で取得したレコードの、小数のフィールドをアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、条件&quot; id = '404e05a3-a34f-47d0-8997-968d90ba64ca' &quot;で取得した一意の&quot;progress_rate&quot;が小数の&quot;0.1&quot;である</li>
+</ul>
+<h2>条件文で取得したレコードの、日付のフィールドをアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、条件&quot; id = '404e05a3-a34f-47d0-8997-968d90ba64ca' &quot;で取得した一意の&quot;registered_date&quot;が&quot;2021&quot;年&quot;10&quot;月&quot;1&quot;日である</li>
+</ul>
+<h2>条件文で取得したレコードの、日時のフィールドをアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、条件&quot; id = '404e05a3-a34f-47d0-8997-968d90ba64ca' &quot;で取得した一意の&quot;updated_date&quot;が日時の&quot;2021-11-15T01:12:33&quot;である</li>
+</ul>
+<h2>条件文で取得したレコードの、NULLのフィールドをアサートする</h2>
+<ul>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルの、条件&quot; id = '304e05a3-a34f-47d0-8997-968d90ba64ca' &quot;で取得した一意の&quot;memo&quot;がNULLである</li>
+</ul>
+<ul id="navigation"><center><li class="nav"><a href="./exist.html"><</a></li><li class="nav"><a href="../../index.html">=</a></li><li class="nav"><a href="../setup.html">></a></li></center></article>

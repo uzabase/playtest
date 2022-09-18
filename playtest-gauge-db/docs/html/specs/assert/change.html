@@ -1,0 +1,28 @@
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../style.css"><h1>変化したレコード数のアサート</h1>
+<p>tags:  _setup</p>
+<p>record-changesタグが付与されたシナリオは、シナリオが始まったタイミングから、1つ目の変化数のアサートのタイミングまでのDBの変化を記録する</p>
+<h2>指定したテーブルで変更されたレコード数をアサートする</h2>
+<p>tags: record-changes</p>
+<ul>
+<li>[not-provide] test_dbのtodoテーブルのレコードをアップデートする</li>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルで変更されたレコード数が&quot;1&quot;である</li>
+</ul>
+<h2>指定したテーブルで削除されたレコード数をアサートする</h2>
+<p>tags: record-changes</p>
+<ul>
+<li>[not-provide] test_dbのtodoテーブルのid&quot;404e05a3-a34f-47d0-8997-968d90ba64ca&quot;のレコードを削除する</li>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルで削除されたレコード数が&quot;1&quot;である</li>
+</ul>
+<h2>指定したテーブルで作成されたレコード数をアサートする</h2>
+<p>tags: record-changes</p>
+<ul>
+<li>[not-provide] test_dbのtodoテーブルにレコードを挿入する</li>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルで作成されたレコード数が&quot;1&quot;である</li>
+</ul>
+<h2>Stepによる記録開始タイミングの制御</h2>
+<ul>
+<li>start-record</li>
+<li>[not-provide] test_dbのtodoテーブルのレコードをアップデートする</li>
+<li>DB&quot;test_db&quot;の&quot;test&quot;スキーマの&quot;todos&quot;テーブルで変更されたレコード数が&quot;1&quot;である</li>
+</ul>
+<ul id="navigation"><center><li class="nav"><a href="../../index.html">=</a></li><li class="nav"><a href="./exist.html">></a></li></center></article>
