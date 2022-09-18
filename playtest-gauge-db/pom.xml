@@ -41,7 +41,7 @@
     </distributionManagement>
 
     <properties>
-        <project.version>0.2.5</project.version>
+        <project.version>0.2.6</project.version>
         <kotlin.version>1.7.10</kotlin.version>
         <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
         <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
@@ -57,6 +57,8 @@
         <gauge-maven-plugin.version>1.4.3</gauge-maven-plugin.version>
         <postgresql.version>42.4.1</postgresql.version>
         <konfig.version>1.6.10.0</konfig.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <nexus-staging-maven-plugin.nexusUrl>https://oss.sonatype.org/</nexus-staging-maven-plugin.nexusUrl>
     </properties>
     <repositories>
         <repository>
@@ -228,7 +230,17 @@
                     </dokkaPlugins>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>${nexus-staging-maven-plugin.nexusUrl}</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 </project>
