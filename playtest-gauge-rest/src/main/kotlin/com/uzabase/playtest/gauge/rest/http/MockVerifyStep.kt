@@ -32,7 +32,7 @@ class MockVerifyStep {
     }
 
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容でPOSTリクエストされた")
-    fun assertPostRequestExecutedWithBody(apiName: String, url: String, jsonFilePath: String) {
+    fun assertPostRequestExecutedWithJsonFile(apiName: String, url: String, jsonFilePath: String) {
         val client = getWireMock(apiName)
         client.verifyThat(
             1,
@@ -40,12 +40,26 @@ class MockVerifyStep {
         )
     }
 
+    @Step("API<apiName>のURL<url>にボディ<json>でPOSTリクエストされた")
+    fun assertPostRequestExecutedWithJson(apiName: String, url: String, json: String) {
+        val client = getWireMock(apiName)
+        client.verifyThat(1, postRequestedFor(urlEqualTo(url)).withRequestBody(equalToJson(json)))
+    }
+
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容、ヘッダー<header>で、POSTリクエストされた")
-    fun assertPostRequestExecuted(apiName: String, url: String, jsonFilePath: String, header: String) {
+    fun assertPostRequestExecutedWithJsonFile(apiName: String, url: String, jsonFilePath: String, header: String) {
         val client = getWireMock(apiName)
         val requested = postRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
         client.verifyThat(requested.withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
+    }
+
+    @Step("API<apiName>のURL<url>にボディ<json>、ヘッダー<header>で、POSTリクエストされた")
+    fun assertPostRequestExecutedWithJson(apiName: String, url: String, json: String, header: String) {
+        val client = getWireMock(apiName)
+        val requested = postRequestedFor(urlEqualTo(url))
+        headerBuilder(header, requested)
+        client.verifyThat(requested.withRequestBody(equalToJson(json)))
     }
 
     @Step("API<apiName>のURL<url>にヘッダー<header>で、POSTリクエストされた")
@@ -88,17 +102,31 @@ class MockVerifyStep {
     }
 
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容でPUTリクエストされた")
-    fun assertPutRequestExecutedWithBody(apiName: String, url: String, jsonFilePath: String) {
+    fun assertPutRequestExecutedWithJsonFile(apiName: String, url: String, jsonFilePath: String) {
         val client = getWireMock(apiName)
         client.verifyThat(1, putRequestedFor(urlEqualTo(url)).withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
     }
 
+    @Step("API<apiName>のURL<url>にボディ<json>でPUTリクエストされた")
+    fun assertPutRequestExecutedWithJson(apiName: String, url: String, json: String) {
+        val client = getWireMock(apiName)
+        client.verifyThat(1, putRequestedFor(urlEqualTo(url)).withRequestBody(equalToJson(json)))
+    }
+
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容、ヘッダー<header>で、PUTリクエストされた")
-    fun assertPutRequestExecuted(apiName: String, url: String, jsonFilePath: String, header: String) {
+    fun assertPutRequestExecutedWithJsonFile(apiName: String, url: String, jsonFilePath: String, header: String) {
         val client = getWireMock(apiName)
         val requested = putRequestedFor(urlEqualTo(url))
         headerBuilder(header, requested)
         client.verifyThat(requested.withRequestBody(readJsonFileToValuePattern(jsonFilePath)))
+    }
+
+    @Step("API<apiName>のURL<url>にボディ<json>、ヘッダー<header>で、PUTリクエストされた")
+    fun assertPutRequestExecutedWithJson(apiName: String, url: String, json: String, header: String) {
+        val client = getWireMock(apiName)
+        val requested = putRequestedFor(urlEqualTo(url))
+        headerBuilder(header, requested)
+        client.verifyThat(requested.withRequestBody(equalToJson(json)))
     }
 
     @Step("API<apiName>のURL<url>にヘッダー<header>で、PUTリクエストされた")
@@ -211,5 +239,4 @@ class MockVerifyStep {
         val json = JsonNode.of(test)
         assertEquals(value, json.get(jsonPath))
     }
-
 }
