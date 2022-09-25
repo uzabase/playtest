@@ -25,9 +25,7 @@ data class DatabaseChanges(private val dbName: String) {
 
     fun startRecordOnce() {
         if (isStarted()) return
-        val changes = GaugeDbConfig.get(dbName)
-            .let { Source(it.url, it.user, it.password) }
-            .let { Changes(it) }
+        val changes = initialChanges()
         changes.setStartPointNow()
         DataStore.storeToScenario(keys.changesKey, changes)
         DataStore.storeToScenario(keys.isStartKey, true)
@@ -39,10 +37,15 @@ data class DatabaseChanges(private val dbName: String) {
         DataStore.storeToScenario(keys.isEndKey, true)
     }
 
+    fun initialChanges(): Changes {
+        return GaugeDbConfig.get(dbName)
+            .let { Source(it.url, it.user, it.password) }
+            .let { Changes(it) }
+    }
+
     fun get(): Changes = DataStore.loadFromScenario(keys.changesKey)
 
     fun isStarted() = DataStore.loadFromScenario(keys.isStartKey)
 
     fun isEnded() = DataStore.loadFromScenario(keys.isEndKey)
 }
-

@@ -57,6 +57,8 @@
         <h2.version>1.4.200</h2.version>
         <dbunit.version>2.7.3</dbunit.version>
         <assertj-db.version>2.0.2</assertj-db.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <nexus-staging-maven-plugin.nexusUrl>https://oss.sonatype.org/</nexus-staging-maven-plugin.nexusUrl>
     </properties>
     <repositories>
         <repository>
@@ -201,7 +203,17 @@
                     </dokkaPlugins>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>${nexus-staging-maven-plugin.nexusUrl}</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 </project>
