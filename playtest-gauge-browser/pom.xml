@@ -55,6 +55,8 @@
         <wiremock.version>2.27.2</wiremock.version>
         <playtest_browser.version>0.2.0</playtest_browser.version>
         <konfig.version>1.6.10.0</konfig.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <nexus-staging-maven-plugin.nexusUrl>https://oss.sonatype.org/</nexus-staging-maven-plugin.nexusUrl>
     </properties>
     <repositories>
         <repository>
@@ -220,7 +222,17 @@
                     </dokkaPlugins>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>${nexus-staging-maven-plugin.nexusUrl}</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 </project>
