@@ -5,11 +5,12 @@ import com.nfeld.jsonpathkt.JsonPath
 import com.nfeld.jsonpathkt.Token
 import com.nfeld.jsonpathkt.extension.read
 import com.nfeld.jsonpathkt.util.JacksonUtil
+import java.lang.IllegalArgumentException
 import com.fasterxml.jackson.databind.JsonNode as JN
 
 data class JsonNode(val json: JN) {
     companion object {
-        fun of(json: String) = JsonPath.parse(json)?.let(::JsonNode) ?: throw RuntimeException()
+        fun of(json: String) = JsonPath.parse(json)?.let(::JsonNode) ?: throw IllegalArgumentException("This json string can't pars.\n $json")
     }
 
     inline fun <reified T : Any> get(path: String): T? = json.read(path)

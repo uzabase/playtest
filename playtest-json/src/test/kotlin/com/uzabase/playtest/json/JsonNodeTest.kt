@@ -1,14 +1,31 @@
 package com.uzabase.playtest.json
 
-import org.amshove.kluent.AnyException
-import org.amshove.kluent.invoking
-import org.amshove.kluent.shouldBeEqualTo
-import org.amshove.kluent.shouldThrow
+import org.amshove.kluent.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class JsonNodeTest {
+    @Nested
+    @DisplayName("of()のテスト")
+    inner class OfTest {
+        @Test
+        fun 正常にパースできる() {
+            val jsonString = """ {"key1": "value1"} """.trimIndent()
+            invoking {
+                JsonNode.of(jsonString)
+            } shouldNotThrow AnyException
+        }
+
+        @Test
+        fun パースできない時例外をスローする() {
+            val jsonString = """ {"key1": "value1" """.trimIndent()
+            invoking {
+                JsonNode.of(jsonString)
+            } shouldThrow IllegalArgumentException::class
+        }
+    }
+
     @Nested
     @DisplayName("get()でのテスト")
     inner class GetTest {
