@@ -41,8 +41,8 @@
     </distributionManagement>
 
     <properties>
-        <project.version>0.2.5</project.version>
-        <kotlin.version>1.5.31</kotlin.version>
+        <project.version>0.2.6</project.version>
+        <kotlin.version>1.7.10</kotlin.version>
         <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
         <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
         <maven_assembly_plugin.version>3.3.0</maven_assembly_plugin.version>
@@ -54,6 +54,8 @@
         <kluent.version>1.68</kluent.version>
         <mockk.version>1.12.0</mockk.version>
         <wiremock.version>2.31.0</wiremock.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <nexus-staging-maven-plugin.nexusUrl>https://oss.sonatype.org/</nexus-staging-maven-plugin.nexusUrl>
     </properties>
     <repositories>
         <repository>
@@ -71,7 +73,7 @@
         <dependency>
             <groupId>com.uzabase</groupId>
             <artifactId>playtest-json</artifactId>
-            <version>1.0.1</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -217,6 +219,17 @@
                             <version>${kotlin_as_java_plugin.version}</version>
                         </plugin>
                     </dokkaPlugins>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>${nexus-staging-maven-plugin.nexusUrl}</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>
