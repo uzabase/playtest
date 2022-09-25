@@ -53,6 +53,10 @@
         <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
         <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
         <maven_gpg_plugin.version>3.0.1</maven_gpg_plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <nexus-staging-maven-plugin.nexusUrl>https://oss.sonatype.org/</nexus-staging-maven-plugin.nexusUrl>
+        <dokka.version>1.5.31</dokka.version>
+        <kotlin_as_java_plugin.version>1.5.31</kotlin_as_java_plugin.version>
     </properties>
 
     <dependencies>
@@ -151,12 +155,14 @@
             <plugin>
                 <groupId>org.jetbrains.dokka</groupId>
                 <artifactId>dokka-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
+                <version>${dokka.version}</version>
                 <executions>
                     <execution>
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>dokka</goal>
+                            <goal>javadoc</goal>
+                            <goal>javadocJar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -165,12 +171,22 @@
                         <plugin>
                             <groupId>org.jetbrains.dokka</groupId>
                             <artifactId>kotlin-as-java-plugin</artifactId>
-                            <version>${kotlin.version}</version>
+                            <version>${kotlin_as_java_plugin.version}</version>
                         </plugin>
                     </dokkaPlugins>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>${nexus-staging-maven-plugin.nexusUrl}</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 </project>
