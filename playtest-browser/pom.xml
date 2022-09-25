@@ -44,6 +44,8 @@
         <dokka.version>1.5.31</dokka.version>
         <kotlin_as_java_plugin.version>1.5.31</kotlin_as_java_plugin.version>
         <selenide.version>6.7.4</selenide.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <nexus-staging-maven-plugin.nexusUrl>https://oss.sonatype.org/</nexus-staging-maven-plugin.nexusUrl>
     </properties>
     <distributionManagement>
         <snapshotRepository>
@@ -173,6 +175,17 @@
                             <version>${kotlin_as_java_plugin.version}</version>
                         </plugin>
                     </dokkaPlugins>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>${nexus-staging-maven-plugin.nexusUrl}</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>
