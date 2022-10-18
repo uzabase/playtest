@@ -9,13 +9,15 @@ tags: http-request-test
 * URL"/"にヘッダー"content-type: application/json"で、POSTリクエストを送る
 * API"mockApi"のURL"/"にヘッダー"content-type: application/json"で、POSTリクエストされた
 
+## ヘッダーのフィールド名は大文字小文字を区別しない
+* URL"/"にヘッダー"content-type: application/json"で、POSTリクエストを送る
+* API"mockApi"のURL"/"にヘッダー"Content-Type: application/json"で、POSTリクエストされた
+
 ## ヘッダーを複数指定
-* URL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、POSTリクエストを送る
+* URL"/"にヘッダー"content-type: application/json \n options: 1111,2222"で、POSTリクエストを送る
 * API"mockApi"のURL"/"にヘッダー"content-type: application/json"で、POSTリクエストされた
 * API"mockApi"のURL"/"にヘッダー"options: 1111,2222"で、POSTリクエストされた
-* API"mockApi"のURL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222"で、POSTリクエストされた
-// 不要なヘッダーを付け加えたときには失敗する
-API"mockApi"のURL"/"にヘッダー"content-type: application/json \r\n options: 1111,2222 \r\n x-unnecessary: hoge"で、POSTリクエストされた
+* API"mockApi"のURL"/"にヘッダー"content-type: application/json \n options: 1111,2222"で、POSTリクエストされた
 
 ## ボディとヘッダーを指定
 * URL"/"にボディ"{\"test\": \"test\"}"、ヘッダー"content-type: application/json"で、POSTリクエストを送る

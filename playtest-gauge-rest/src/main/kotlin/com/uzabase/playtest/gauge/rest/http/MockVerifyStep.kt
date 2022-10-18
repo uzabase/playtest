@@ -215,7 +215,7 @@ class MockVerifyStep {
         requested: RequestPatternBuilder
     ) {
         HttpStep().toHeaderMap(header).entries.forEach {
-            requested.withHeader(it.key, equalTo(it.value))
+            requested.withHeader(it.key.value, equalTo(it.value.joinToString(", ")))
         }
     }
 

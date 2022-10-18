@@ -14,9 +14,6 @@ import java.io.File
 
 typealias Url = String
 typealias StatusCode = Int
-typealias Headers = Map<HeaderKey, HeaderValue>
-typealias HeaderKey = String
-typealias HeaderValue = String
 
 typealias MilliSecond = Int
 
@@ -24,7 +21,7 @@ class HttpClient(
     private val autoRedirect: Boolean = false,
     private val connectTimeout: MilliSecond = 30000,
     private val readTimeout: MilliSecond = 30000,
-    private val defaultHeaders: Headers = mapOf(
+    private val defaultHeaders: Headers = headersFrom(
         "Content-Type" to "application/json; charset=UTF-8"
     )
 ) {
@@ -63,9 +60,11 @@ class HttpClient(
     fun executeDelete(url: Url, requestBody: ByteArray, headers: Headers = emptyMap()) =
         url.httpDelete().exec(requestBody, headers)
 
+    private fun Headers.toRequestHeader() = mapKeys { (k, _) -> k.value }
+
     private fun Request.exec(headers: Headers): HttpResponse {
         val (_, response, result) = this
-            .header(defaultHeaders + headers)
+            .header((defaultHeaders + headers).toRequestHeader())
             .authentication()
             .allowRedirects(autoRedirect)
             .response()
@@ -76,7 +75,7 @@ class HttpClient(
     private fun Request.exec(requestBody: String, headers: Headers): HttpResponse {
         val (_, response, result) = this
             .body(requestBody)
-            .header(defaultHeaders + headers)
+            .header((defaultHeaders + headers).toRequestHeader())
             .authentication()
             .allowRedirects(autoRedirect)
             .response()
@@ -87,7 +86,7 @@ class HttpClient(
     private fun Request.exec(requestBody: ByteArray, headers: Headers): HttpResponse {
         val (_, response, result) = this
             .body(requestBody)
-            .header(defaultHeaders + headers)
+            .header((defaultHeaders + headers).toRequestHeader())
             .authentication()
             .allowRedirects(autoRedirect)
             .response()
@@ -97,7 +96,7 @@ class HttpClient(
 
     private fun createResponse(response: Response, result: Result<ByteArray, FuelError>): HttpResponse {
         val statusCode = response.statusCode
-        val hs = response.headers.toMap().mapValues { it.value.joinToString(separator = ", ") }
+        val hs = response.headers.mapKeys { (k, _) -> FieldName(k) }
         val body = when (result) {
             is Result.Success -> ResponseBody(String(result.value), result.value)
             is Result.Failure -> ResponseBody(String(result.error.errorData), result.error.errorData)

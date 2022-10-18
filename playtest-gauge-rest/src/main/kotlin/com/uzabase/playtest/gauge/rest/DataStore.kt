@@ -1,7 +1,9 @@
 package com.uzabase.playtest.gauge.rest
 
 import com.thoughtworks.gauge.datastore.ScenarioDataStore
-import com.uzabase.playtest.gauge.rest.http.*
+import com.uzabase.playtest.gauge.rest.http.Headers
+import com.uzabase.playtest.gauge.rest.http.ResponseBody
+import com.uzabase.playtest.gauge.rest.http.StatusCode
 
 object DataStore {
     private const val statusCodeKey = "statusCode"
@@ -30,11 +32,11 @@ object DataStore {
 
     fun loadStatusCodeFromScenario(): Int = loadFromScenario(statusCodeKey)
 
-    fun storeResponseHeadersToScenario(headers: Map<HeaderKey, HeaderValue>) {
+    fun storeResponseHeadersToScenario(headers: Headers) {
         storeToScenario(responseHeadersKey, headers)
     }
 
-    fun loadResponseHeadersFromScenario(): Map<HeaderKey, HeaderValue> = loadFromScenario(responseHeadersKey)
+    fun loadResponseHeadersFromScenario(): Headers = loadFromScenario(responseHeadersKey)
 
     fun storeResponseBodyToScenario(body: ResponseBody) {
         storeToScenario(responseBodyKey, body)

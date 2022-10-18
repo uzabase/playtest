@@ -1,5 +1,7 @@
 package com.uzabase.playtest.gauge.rest.http
 
+import com.thoughtworks.gauge.BeforeStep
+import com.thoughtworks.gauge.ExecutionContext
 import com.thoughtworks.gauge.Step
 import com.uzabase.playtest.gauge.rest.ConfigKeys
 import com.uzabase.playtest.gauge.rest.DataStore
@@ -112,8 +114,7 @@ class HttpStep {
     @Step("レスポンスヘッダーに<key>が存在し、その値が<value>である")
     fun assertResponseHeadersContain(key: String, value: String) {
         val headers = DataStore.loadResponseHeadersFromScenario()
-        //headers shouldContain Pair(key, value)
-        assertTrue(headers.getValue(key) == value)
+        assertTrue(headers[FieldName(key)]?.contains(value) ?: false)
     }
 
     @Step("レスポンスボディが文字列<stringValue>である")
@@ -127,14 +128,17 @@ class HttpStep {
         assertArrayEquals(byteArray, DataStore.loadResponseBodyFromScenario().byteArray)
     }
 
-    fun toHeaderMap(header: String): Map<String, String> {
+    fun toHeaderMap(header: String): Headers {
         return header
             .split("\n")
-            .associate {
-                it.split(":")
-                    .map { v -> v.trim() }
-                    .let { h -> h[0] to h[1] }
+            .map { line ->
+                line.split(":", limit = 2)
+                    .let {
+                        it[0].trimStart() to it[1].trim()
+                    }
             }
+            .toTypedArray()
+            .let(::headersFrom)
     }
 
     private fun generateEndpoint(url: String) = URL(URL(getBaseUrl()), url)
