@@ -25,6 +25,23 @@ class MockVerifyStep {
         client.verifyThat(requested)
     }
 
+    @Step("API<apiName>のURLパス<urlPath>にクエリパラメータ<queryParameterName>が<queryParameterValue>でGETリクエストされた")
+    fun assertGetRequestExecutedWithQueryParameter(
+        apiName: String,
+        urlPath: String,
+        queryParameterName: String,
+        queryParameterValue: String
+    ) {
+        getWireMock(apiName).run {
+            verifyThat(
+                getRequestedFor(urlPathEqualTo(urlPath)).withQueryParam(
+                    queryParameterName,
+                    equalTo(queryParameterValue)
+                )
+            )
+        }
+    }
+
     @Step("API<apiName>のURL<url>にPOSTリクエストされた")
     fun assertPostRequestExecutedWithBody(apiName: String, url: String) {
         val client = getWireMock(apiName)

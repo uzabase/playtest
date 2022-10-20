@@ -18,3 +18,21 @@ tags: http-request-test
 * API"mockApi"のURL"/"にヘッダー"content-type: application/json"で、GETリクエストされた
 * API"mockApi"のURL"/"にヘッダー"options: 1111,2222"で、GETリクエストされた
 * API"mockApi"のURL"/"にヘッダー"content-type: application/json \n options: 1111,2222"で、GETリクエストされた
+
+## クエリパラメータ付きURLとしてアサーションできる
+* URL"/?name=value"にGETリクエストを送る
+* API"mockApi"のURL"/?name=value"にGETリクエストされた
+
+## クエリパラメータを個別でアサーションできる
+* URL"/?name=value"にGETリクエストを送る
+* API"mockApi"のURLパス"/"にクエリパラメータ"name"が"value"でGETリクエストされた
+
+## 複数のクエリパラメータを個別でアサーションできる (順不同)
+* URL"/?name1=value1&name2=value2"にGETリクエストを送る
+* API"mockApi"のURLパス"/"にクエリパラメータ"name2"が"value2"でGETリクエストされた
+* API"mockApi"のURLパス"/"にクエリパラメータ"name1"が"value1"でGETリクエストされた
+
+## 複数のクエリパラメータを個別でアサーションできる (同一のクエリパラメータ名を指定)
+* URL"/?name=value1&name=value2"にGETリクエストを送る
+* API"mockApi"のURLパス"/"にクエリパラメータ"name"が"value2"でGETリクエストされた
+* API"mockApi"のURLパス"/"にクエリパラメータ"name"が"value1"でGETリクエストされた
