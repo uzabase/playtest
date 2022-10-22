@@ -1,10 +1,10 @@
 package com.uzabase.playtest.gauge.db
 
 import com.thoughtworks.gauge.Step
-import javassist.NotFoundException
+import org.assertj.core.api.Condition
+import org.assertj.db.api.*
 import org.assertj.db.api.Assertions.assertThat
 import org.assertj.db.type.*
-import javax.management.monitor.StringMonitor
 
 class DatabaseStep {
 
@@ -181,6 +181,24 @@ class DatabaseStep {
         val source = getSource(dbName, schemaName, tableName)
         val request = Request(source, "select * from $schemaName.$tableName where $where")
         assertThat(request).row().value(valueColumn).isNull
+    }
+
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、条件<where>で取得した一意の<valueColumn>文字列が正規表現の<regexPattern>に全体マッチする")
+    fun assertUniqueRecordValueMatchRegexPattern(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        where: String,
+        valueColumn: String,
+        regexPattern: String
+    ) {
+        val regex = Regex(regexPattern)
+        getSource(dbName, schemaName, tableName)
+            .let { Request(it, "select * from $schemaName.$tableName where $where") }
+            .run {
+                assertThat(this).row().value(valueColumn)
+                    .`is`(Condition({ v: String -> regex.matches(v) }, """match with "%s"""".format(regex)))
+            }
     }
 
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルに、条件<where>なレコードが存在しない")
