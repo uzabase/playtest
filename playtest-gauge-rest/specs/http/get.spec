@@ -33,6 +33,9 @@ tags: http-request-test
 * API"mockApi"のURLパス"/"にクエリパラメータ"name1"が"value1"でGETリクエストされた
 
 ## 複数のクエリパラメータを個別でアサーションできる (同一のクエリパラメータ名を指定)
-* URL"/?name=value1&name=value2"にGETリクエストを送る
-* API"mockApi"のURLパス"/"にクエリパラメータ"name"が"value2"でGETリクエストされた
-* API"mockApi"のURLパス"/"にクエリパラメータ"name"が"value1"でGETリクエストされた
+* URL"/?name1=value1-1&name2=value2-1&name1=value1-2&name3=value3-1&name3=value3-2"にGETリクエストを送る
+* API"mockApi"のURLパス"/"にクエリパラメータ"name1"が"value1-2"でGETリクエストされた
+* API"mockApi"のURLパス"/"にクエリパラメータ"name1"が"value1-1"でGETリクエストされた
+* API"mockApi"のURLパス"/"にクエリパラメータ"name2"が"value2-1"でGETリクエストされた
+* API"mockApi"のURLパス"/"にクエリパラメータ"name3"が"value3-1"でGETリクエストされた
+* API"mockApi"のURLパス"/"にクエリパラメータ"name3"が"value3-2"でGETリクエストされた
