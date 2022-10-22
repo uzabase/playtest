@@ -197,7 +197,7 @@ class DatabaseStep {
             .let { Request(it, "select * from $schemaName.$tableName where $where") }
             .run {
                 assertThat(this).row().value(valueColumn)
-                    .`is`(Condition({ v: String -> regex.matches(v) }, """match with "%s"""".format(regex)))
+                    .`is`(Condition({ v: String -> regex.matches(v) }, """match with "$regex""""))
             }
     }
 
