@@ -40,7 +40,7 @@ class JsonNodeTest {
         fun `JSONPathで指定したKeyの値がnullだった場合をnullを返す`() {
             val jsonString = """ {"key1": null} """.trimIndent()
             val jsonNode = JsonNode.of(jsonString)
-            jsonNode.getValue<String>("$.key1") shouldBeEqualTo null
+            jsonNode.get<String>("$.key1") shouldBeEqualTo null
         }
 
         @Test
