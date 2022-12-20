@@ -1,0 +1,35 @@
+name: Feature Request
+description: New feature or request
+title: "[:+1:feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        以下のフォームに沿って機能リクエストをよろしくお願いいたします!
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module
+      description: どのライブラリについてですか?
+      options:
+        - playtest-gauge-browser
+        - playtest-gauge-rest
+        - playtest-gauge-db
+        - playtest-browser
+        - playtest-json
+        - playtest-db
+        - example
+        - README
+    validations:
+      required: true
+  - type: textarea
+    id: what-feature
+    attributes:
+      label: 具体的にどのような機能ですか?
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        報告いただきありがとうございました!
