@@ -1,26 +1,25 @@
 name: Feature Request
 description: New feature or request
-title: "[:+1:feature]: "
+title: ":sparkles:: <ここにタイトルを記入してください>"
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
         以下のフォームに沿って機能リクエストをよろしくお願いいたします!
-  - type: dropdown
-    id: module
+  - type: checkboxes
+    id: directory
     attributes:
-      label: Module
-      description: どのライブラリについてですか?
+      label: どのディレクトリについてですか?
       options:
-        - playtest-gauge-browser
-        - playtest-gauge-rest
-        - playtest-gauge-db
-        - playtest-browser
-        - playtest-json
-        - playtest-db
-        - example
-        - README
+        - label: playtest-gauge-browser
+        - label: playtest-gauge-rest
+        - label: playtest-gauge-db
+        - label: playtest-browser
+        - label: playtest-json
+        - label: playtest-db
+        - label: e2e
+        - label: README
     validations:
       required: true
   - type: textarea
@@ -32,4 +31,4 @@ body:
   - type: markdown
     attributes:
       value: |
-        報告いただきありがとうございました!
+        報告いただきありがとうございます!

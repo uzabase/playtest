@@ -1,26 +1,25 @@
 name: Bug Report
 description: File a bug report
-title: "[:bug:Bug]: "
+title: ":bug:: <ここにタイトルを記入してください>"
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
         以下のフォームに沿ってバグ報告をよろしくお願いいたします!
-  - type: dropdown
-    id: module
+  - type: checkboxes
+    id: directory
     attributes:
-      label: Module
-      description: どのライブラリの問題ですか?
+      label: どのディレクトリの問題ですか?
       options:
-        - playtest-gauge-browser
-        - playtest-gauge-rest
-        - playtest-gauge-db
-        - playtest-browser
-        - playtest-json
-        - playtest-db
-        - example
-        - README
+        - label: playtest-gauge-browser
+        - label: playtest-gauge-rest
+        - label: playtest-gauge-db
+        - label: playtest-browser
+        - label: playtest-json
+        - label: playtest-db
+        - label: e2e
+        - label: README
     validations:
       required: true
   - type: textarea
@@ -32,4 +31,4 @@ body:
   - type: markdown
     attributes:
       value: |
-        報告いただきありがとうございました!
+        報告いただきありがとうございます!
