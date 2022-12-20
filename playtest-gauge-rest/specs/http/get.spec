@@ -19,6 +19,12 @@ tags: http-request-test
 * API"mockApi"のURL"/"にヘッダー"options: 1111,2222"で、GETリクエストされた
 * API"mockApi"のURL"/"にヘッダー"content-type: application/json \n options: 1111,2222"で、GETリクエストされた
 
+## ヘッダーを複数指定してGETリクエストを送信できる(ファイル経由)
+* URL"/"にヘッダー<file:fixtrues/requests/multiple_headers.txt>で、GETリクエストを送る
+* API"mockApi"のURL"/"にヘッダー"content-Type: application/json"で、GETリクエストされた
+* API"mockApi"のURL"/"にヘッダー"options: 1111,2222"で、GETリクエストされた
+* API"mockApi"のURL"/"にヘッダー"content-type: application/json \n options: 1111,2222"で、GETリクエストされた
+
 ## クエリパラメータ付きURLとしてアサーションできる
 * URL"/?name=value"にGETリクエストを送る
 * API"mockApi"のURL"/?name=value"にGETリクエストされた
