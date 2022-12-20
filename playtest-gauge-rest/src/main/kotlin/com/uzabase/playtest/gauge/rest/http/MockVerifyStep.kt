@@ -8,6 +8,7 @@ import com.uzabase.playtest.gauge.rest.ConfigKeys
 import com.uzabase.playtest.gauge.rest.GaugeRestConfig
 import com.uzabase.playtest.json.JsonNode
 import java.lang.RuntimeException
+import java.net.URL
 import kotlin.test.assertEquals
 
 class MockVerifyStep {
@@ -244,12 +245,10 @@ class MockVerifyStep {
         }
     )
 
-    private fun getWireMock(apiName: String): WireMock {
-        val config = GaugeRestConfig.get(apiName, ConfigKeys.BASE_URL)
-        val host = config.split(":")[1].removePrefix("//")
-        val port = config.split(":")[2].toInt()
-        return WireMock(host, port)
-    }
+    private fun getWireMock(apiName: String): WireMock =
+        GaugeRestConfig.get(apiName, ConfigKeys.BASE_URL)
+            .let(::URL)
+            .let { WireMock(it.host, it.port) }
 
     private inline fun <reified T> WireMock.verifyRequestWithJson(endpoint: String, jsonPath: String, value: T) {
         val test = this.find(RequestPatternBuilder.newRequestPattern().withUrl(endpoint)).first().bodyAsString
