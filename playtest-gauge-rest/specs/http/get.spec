@@ -3,7 +3,7 @@ tags: http-request-test
 
 ## URLのみを指定
 * URL"/"にGETリクエストを送る
-* API"mockApi"のURL"/"にGETリクエストされた
+* API"mockApi"のURL"/"に"1"回GETリクエストされた
 
 ## ヘッダーを指定してGETリクエストを送信できる
 * URL"/"にヘッダー"content-type: application/json"で、GETリクエストを送る
@@ -21,7 +21,7 @@ tags: http-request-test
 
 ## クエリパラメータ付きURLとしてアサーションできる
 * URL"/?name=value"にGETリクエストを送る
-* API"mockApi"のURL"/?name=value"にGETリクエストされた
+* API"mockApi"のURL"/?name=value"に"1"回GETリクエストされた
 
 ## クエリパラメータを個別でアサーションできる
 * URL"/?name=value"にGETリクエストを送る

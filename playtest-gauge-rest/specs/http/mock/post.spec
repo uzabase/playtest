@@ -1,6 +1,17 @@
 # Mockに対するPOSTリクエストをアサートできる
 tags: http-request-test
 
+## リクエスト
+* URL"/"にPOSTリクエストを送る
+* API"mockApi"のURL"/"に"1"回POSTリクエストされた
+
+## リクエストされた(言い換え)
+* URL"/"にPOSTリクエストを送る
+* API"mockApi"のURL"/"にPOSTリクエストされた
+
+## リクエストされていない
+* API"mockApi"のURL"/"にPOSTリクエストされていない
+
 ## ボディ（文字列）
 * URL"/"にボディ"{\"key1\": \"post\", \"key2\": \"value1\"}"で、POSTリクエストを送る
 * API"mockApi"のURL"/"にパス"key1"に文字列"post"を持つJSONでPOSTリクエストされた

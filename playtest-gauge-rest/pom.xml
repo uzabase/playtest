@@ -4,7 +4,7 @@
 
     <groupId>com.uzabase</groupId>
     <artifactId>playtest-gauge-rest</artifactId>
-    <version>${project.version}</version>
+    <version>0.2.10-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>playtest-gauge-rest</name>
     <description>Gauge support library for playing test.</description>
@@ -41,7 +41,6 @@
     </distributionManagement>
 
     <properties>
-        <project.version>0.2.9</project.version>
         <kotlin.version>1.7.10</kotlin.version>
         <maven_surefire_plugin.version>2.22.2</maven_surefire_plugin.version>
         <maven_source_plugin.version>3.2.1</maven_source_plugin.version>
