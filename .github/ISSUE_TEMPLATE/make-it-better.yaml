@@ -1,7 +1,7 @@
 name: Make It Better
 description: 機能改善のリクエストはこちら
 title: ":+1:: <タイトルを記入してください>"
-labels: ["enhancement"]
+labels: ["+1"]
 body:
   - type: markdown
     attributes:
