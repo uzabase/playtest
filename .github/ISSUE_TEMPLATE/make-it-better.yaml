@@ -1,0 +1,32 @@
+name: Make It Better
+description: 機能改善のリクエストはこちら
+title: ":+1:: <タイトルを記入してください>"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        以下のフォームに沿って機能改善のリクエストをよろしくお願いいたします!
+  - type: markdown
+    attributes:
+      value: |
+        **Labelsから改善したいモジュールのラベル選択をお願いします。(複数選択可)**
+  - type: textarea
+    id: what-feature
+    attributes:
+      label: what?
+      description: 具体的にどのような改善ですか?
+    validations:
+      required: true
+  - type: textarea
+    id: why-feature
+    attributes:
+      label: why?
+      description: その改善によってどのような効果がありますか?
+      placeholder: テストが失敗した原因が明確になる
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        報告いただきありがとうございます!

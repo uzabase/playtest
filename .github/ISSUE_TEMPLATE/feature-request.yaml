@@ -1,31 +1,29 @@
 name: Feature Request
-description: New feature or request
-title: ":sparkles:: <ここにタイトルを記入してください>"
+description: 機能追加のリクエストはこちら
+title: ":sparkles:: <タイトルを記入してください>"
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
         以下のフォームに沿って機能リクエストをよろしくお願いいたします!
-  - type: checkboxes
-    id: directory
+  - type: markdown
     attributes:
-      label: どのディレクトリについてですか?
-      options:
-        - label: playtest-gauge-browser
-        - label: playtest-gauge-rest
-        - label: playtest-gauge-db
-        - label: playtest-browser
-        - label: playtest-json
-        - label: playtest-db
-        - label: e2e
-        - label: README
-    validations:
-      required: true
+      value: |
+        **Labelsから問題のあるモジュールのラベル選択をお願いします。(複数選択可)**
   - type: textarea
     id: what-feature
     attributes:
-      label: 具体的にどのような機能ですか?
+      label: what?
+      description: 具体的にどのような機能ですか?
+    validations:
+      required: true
+  - type: textarea
+    id: why-feature
+    attributes:
+      label: why?
+      description: なぜその機能がほしいですか?
+      placeholder: xxxのテストができないため
     validations:
       required: true
   - type: markdown
