@@ -1,0 +1,32 @@
+name: Feature Request
+description: 機能追加のリクエストはこちら
+title: ":sparkles:: <タイトルを記入してください>"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        以下のフォームに沿って機能リクエストをよろしくお願いいたします!
+  - type: markdown
+    attributes:
+      value: |
+        **Labelsから問題のあるモジュールのラベル選択をお願いします。(複数選択可)**
+  - type: textarea
+    id: what-feature
+    attributes:
+      label: what?
+      description: 具体的にどのような機能ですか?
+    validations:
+      required: true
+  - type: textarea
+    id: why-feature
+    attributes:
+      label: why?
+      description: なぜその機能がほしいですか?
+      placeholder: xxxのテストができないため
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        報告いただきありがとうございます!

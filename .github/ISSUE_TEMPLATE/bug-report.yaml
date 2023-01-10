@@ -1,0 +1,71 @@
+name: Bug Report
+description: バグ報告はこちら
+title: ":bug:: <タイトルを記入してください>"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        以下のフォームに沿ってバグ報告をよろしくお願いいたします!
+  - type: markdown
+    attributes:
+      value: |
+        **Labelsから、問題のあるモジュールのラベル選択をお願いします。(複数選択可)**
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 問題
+      description: 具体的にどのような問題がありましたか?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 再現手順
+      description: 再現手順を教えてください
+      placeholder: |
+        1. DBにxxxのレコードをセットする
+        2. Step"xxx"を実行する
+        3. 期待値"xxx"に対し、"yyy"という実行結果が返る
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: スクリーンショット
+      description: スクリーンショットがあれば貼り付けをお願いします
+      placeholder: |
+        ![DESCRIPTION](LINK.png)
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: logs
+      description: ログがあれば貼り付けをお願いします
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: version
+      description: 問題があったライブラリバージョンを教えてください
+      placeholder: 2.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: os
+      description: 問題がおきたOSを教えてください
+      multiple: true
+      options:
+        - Windows
+        - Linux
+        - Mac
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        報告いただきありがとうございます!
