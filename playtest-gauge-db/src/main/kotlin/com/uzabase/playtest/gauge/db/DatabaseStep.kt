@@ -213,6 +213,21 @@ class DatabaseStep {
         assertThat(request).hasNumberOfRows(0)
     }
 
+    @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルの、条件<where>なレコード数が<count>である")
+    fun assertSelectRecordCount(
+        dbName: String,
+        schemaName: String,
+        tableName: String,
+        where: String,
+        count: Int
+    ) {
+        getSource(dbName, schemaName, tableName).let {
+            Request(it, "select * from $schemaName.$tableName where $where")
+        }.run {
+            assertThat(this).hasNumberOfRows(count)
+        }
+    }
+
     @Step("DB<dbName>の<schemaName>スキーマの<tableName>テーブルのレコード数が<count>である")
     fun assertRecordCount(
         dbName: String,
