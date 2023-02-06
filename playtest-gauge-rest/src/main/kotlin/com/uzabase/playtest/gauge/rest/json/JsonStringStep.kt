@@ -13,6 +13,13 @@ class JsonStringStep {
         assertEquals(expected, actual)
     }
 
+    @Step("レスポンスのJSONの<jsonPath>が文字列の<expected>でない")
+    fun assertNotEquals(jsonPath: String, expected: String) {
+        val json = DataStore.loadResponseBodyFromScenario().string
+        val actual = JsonNode.of(json).get<String>(jsonPath)
+        assertNotEquals(expected, actual)
+    }
+
     @Step("レスポンスのJSONの<jsonPath>の配列の、UniqueKey<uniqueKey>の値が<filterValue>である要素の<key>が、文字列の<expected>である")
     fun assertEqualsInUniqueObject(jsonPath: String, uniqueKey: String, filterValue: String, key: String, expected: String) {
         val json = DataStore.loadResponseBodyFromScenario().string
