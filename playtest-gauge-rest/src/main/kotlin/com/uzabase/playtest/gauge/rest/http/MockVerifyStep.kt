@@ -18,6 +18,12 @@ class MockVerifyStep {
         client.verifyThat(1, getRequestedFor(urlEqualTo(url)))
     }
 
+    @Step("API<apiName>の正規表現で全体マッチするURL<url>にGETリクエストされた")
+    fun assertGetRequestExecutedWithRegex(apiName: String, regex: String) {
+        val client = getWireMock(apiName)
+        client.verifyThat(1, getRequestedFor(urlMatching(regex)))
+    }
+
     @Step("API<apiName>のURL<url>にヘッダー<header>で、GETリクエストされた")
     fun assertGetRequestExecuted(apiName: String, url: String, header: String) {
         val client = getWireMock(apiName)
