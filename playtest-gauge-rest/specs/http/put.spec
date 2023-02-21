@@ -32,3 +32,7 @@ tags: http-request-test
 * URL"/"にボディ"{\"test\": \"test\"}"、ヘッダー"content-type: application/json"で、PUTリクエストを送る
 * URL"/"にボディ"{\"test\": \"test\"}"、ヘッダー"content-type: application/json"で、PUTリクエストが送信された
 * API"mockApi"のURL"/"にボディ"/verifications/putWithHeader.json"JSONファイルの内容、ヘッダー"content-type: application/json"で、PUTリクエストされた
+
+## URL を正規表現でアサーションできる
+* URL"/test/212952b3-7333-4c0b-9e55-3be465c59a99"にPUTリクエストを送る
+* API"mockApi"の正規表現で全体マッチするURL"/test/([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})"にPUTリクエストされた

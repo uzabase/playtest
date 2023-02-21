@@ -22,3 +22,7 @@ tags: http-request-test
 ## ボディとヘッダーを指定
 * URL"/"にボディ"{\"test\": \"test\"}"、ヘッダー"content-type: application/json"で、POSTリクエストを送る
 * API"mockApi"のURL"/"にボディ"/verifications/postWithHeader.json"JSONファイルの内容、ヘッダー"content-type: application/json"で、POSTリクエストされた
+
+## URL を正規表現でアサーションできる
+* URL"/test/212952b3-7333-4c0b-9e55-3be465c59a99"にPOSTリクエストを送る
+* API"mockApi"の正規表現で全体マッチするURL"/test/([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})"にPOSTリクエストされた

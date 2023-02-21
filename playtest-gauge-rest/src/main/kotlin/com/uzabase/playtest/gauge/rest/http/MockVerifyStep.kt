@@ -55,6 +55,12 @@ class MockVerifyStep {
         client.verifyThat(1, postRequestedFor(urlEqualTo(url)))
     }
 
+    @Step("API<apiName>の正規表現で全体マッチするURL<url>にPOSTリクエストされた")
+    fun assertPostRequestExecutedWithRegex(apiName: String, regex: String) {
+        val client = getWireMock(apiName)
+        client.verifyThat(1, postRequestedFor(urlMatching(regex)))
+    }
+
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容でPOSTリクエストされた")
     fun assertPostRequestExecutedWithJsonFile(apiName: String, url: String, jsonFilePath: String) {
         val client = getWireMock(apiName)
@@ -125,6 +131,12 @@ class MockVerifyStep {
         client.verifyThat(1, putRequestedFor(urlEqualTo(url)))
     }
 
+    @Step("API<apiName>の正規表現で全体マッチするURL<url>にPUTリクエストされた")
+    fun assertPutRequestExecutedWithRegex(apiName: String, regex: String) {
+        val client = getWireMock(apiName)
+        client.verifyThat(1, putRequestedFor(urlMatching(regex)))
+    }
+
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容でPUTリクエストされた")
     fun assertPutRequestExecutedWithJsonFile(apiName: String, url: String, jsonFilePath: String) {
         val client = getWireMock(apiName)
@@ -189,6 +201,12 @@ class MockVerifyStep {
     fun assertDeleteRequestExecutedWithBody(apiName: String, url: String) {
         val client = getWireMock(apiName)
         client.verifyThat(1, deleteRequestedFor(urlEqualTo(url)))
+    }
+
+    @Step("API<apiName>の正規表現で全体マッチするURL<url>にDELETEリクエストされた")
+    fun assertDeleteRequestExecutedWithRegex(apiName: String, regex: String) {
+        val client = getWireMock(apiName)
+        client.verifyThat(1, deleteRequestedFor(urlMatching(regex)))
     }
 
     @Step("API<apiName>のURL<url>にヘッダー<header>で、DELETEリクエストされた")
