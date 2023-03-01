@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  webpage:
+    image: wiremock/wiremock:2.32.0
+    restart: always
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./stubs:/home/wiremock
