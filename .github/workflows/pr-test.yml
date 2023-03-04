@@ -1,0 +1,39 @@
+name: Test for Pull Request & Merge branches
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  test_for_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Gauge install
+        run: |
+          curl -SsL https://downloads.gauge.org/stable | sh
+          gauge install java --version 0.7.15
+          gauge install screenshot
+          gauge install html-report
+          gauge version
+      - name: Start Database
+        run: |
+          cd  playtest-gauge-db/docker/db/postgresql/
+          docker-compose up -d
+      - name: Build with Maven
+        run: |
+          for MVN_PROJ in playtest-gauge-browser playtest-browser playtest-db playtest-gauge-db playtest-gauge-rest playtest-json; do
+            pushd $MVN_PROJ
+            gauge config runner_connection_timeout 180000
+            gauge config runner_request_timeout 180000
+            mvn test 
+            popd
+          done
