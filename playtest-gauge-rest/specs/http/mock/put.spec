@@ -1,6 +1,17 @@
 # Mockに対するPUTリクエストをアサートできる
 tags: http-request-test
 
+## リクエスト
+* URL"/"にPUTリクエストを送る
+* API"mockApi"のURL"/"に"1"回PUTリクエストされた
+
+## リクエストされた(言い換え)
+* URL"/"にPUTリクエストを送る
+* API"mockApi"のURL"/"にPUTリクエストされた
+
+## リクエストされていない
+* API"mockApi"のURL"/"にPUTリクエストされていない
+
 ## ボディ（文字列）
 * URL"/"にボディ"{\"key1\": \"put\", \"key2\": \"value1\"}"で、PUTリクエストを送る
 * API"mockApi"のURL"/"にパス"key1"に文字列"put"を持つJSONでPUTリクエストされた

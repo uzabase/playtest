@@ -7,16 +7,35 @@ import com.thoughtworks.gauge.Step
 import com.uzabase.playtest.gauge.rest.ConfigKeys
 import com.uzabase.playtest.gauge.rest.GaugeRestConfig
 import com.uzabase.playtest.json.JsonNode
-import java.lang.RuntimeException
 import java.net.URL
 import kotlin.test.assertEquals
 
 class MockVerifyStep {
-    @Step("API<apiName>のURL<url>にGETリクエストされた")
-    fun assertGetRequestExecutedWithBody(apiName: String, url: String) {
+    @Step("API<apiName>のURL<url>に<callCount>回GETリクエストされた")
+    fun assertCallCountOfGetRequest(apiName: String, url: String, callCount: Int) {
         val client = getWireMock(apiName)
-        client.verifyThat(1, getRequestedFor(urlEqualTo(url)))
+        client.verifyThat(callCount, getRequestedFor(urlEqualTo(url)))
     }
+
+    @Step("API<apiName>のURL<url>に<callCount>回POSTリクエストされた")
+    fun assertCallCountOfPostRequest(apiName: String, url: String, callCount: Int) {
+        val client = getWireMock(apiName)
+        client.verifyThat(callCount, postRequestedFor(urlEqualTo(url)))
+    }
+
+    @Step("API<apiName>のURL<url>に<callCount>回PUTリクエストされた")
+    fun assertCallCountOfPutRequest(apiName: String, url: String, callCount: Int) {
+        val client = getWireMock(apiName)
+        client.verifyThat(callCount, putRequestedFor(urlEqualTo(url)))
+    }
+
+    @Step("API<apiName>のURL<url>に<callCount>回DELETEリクエストされた")
+    fun assertCallCountOfDeleteRequest(apiName: String, url: String, callCount: Int) {
+        val client = getWireMock(apiName)
+        client.verifyThat(callCount, deleteRequestedFor(urlEqualTo(url)))
+    }
+
+//    rewriting bellow
 
     @Step("API<apiName>のURL<url>にヘッダー<header>で、GETリクエストされた")
     fun assertGetRequestExecuted(apiName: String, url: String, header: String) {
@@ -41,12 +60,6 @@ class MockVerifyStep {
                 )
             )
         }
-    }
-
-    @Step("API<apiName>のURL<url>にPOSTリクエストされた")
-    fun assertPostRequestExecutedWithBody(apiName: String, url: String) {
-        val client = getWireMock(apiName)
-        client.verifyThat(1, postRequestedFor(urlEqualTo(url)))
     }
 
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容でPOSTリクエストされた")
@@ -113,12 +126,6 @@ class MockVerifyStep {
         client.verifyRequestWithJson(url, jsonPath, value)
     }
 
-    @Step("API<apiName>のURL<url>にPUTリクエストされた")
-    fun assertPutRequestExecutedWithBody(apiName: String, url: String) {
-        val client = getWireMock(apiName)
-        client.verifyThat(1, putRequestedFor(urlEqualTo(url)))
-    }
-
     @Step("API<apiName>のURL<url>にボディ<jsonFilePath>JSONファイルの内容でPUTリクエストされた")
     fun assertPutRequestExecutedWithJsonFile(apiName: String, url: String, jsonFilePath: String) {
         val client = getWireMock(apiName)
@@ -179,12 +186,6 @@ class MockVerifyStep {
         client.verifyRequestWithJson(url, jsonPath, value)
     }
 
-    @Step("API<apiName>のURL<url>にDELETEリクエストされた")
-    fun assertDeleteRequestExecutedWithBody(apiName: String, url: String) {
-        val client = getWireMock(apiName)
-        client.verifyThat(1, deleteRequestedFor(urlEqualTo(url)))
-    }
-
     @Step("API<apiName>のURL<url>にヘッダー<header>で、DELETEリクエストされた")
     fun assertDeleteRequestExecuted(apiName: String, url: String, header: String) {
         val client = getWireMock(apiName)
@@ -237,6 +238,7 @@ class MockVerifyStep {
         }
     }
 
+    @Deprecated("Should use special parameters")
     private fun readJsonFileToValuePattern(jsonFilePath: String) = equalToJson(
         try {
             javaClass.getResourceAsStream(jsonFilePath).bufferedReader().readLines().joinToString("\n")
