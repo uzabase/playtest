@@ -1,5 +1,6 @@
 # Visual Regression Testができる
 * [not-provide] ページ"/page"を開く
+* [not-provide] Hello Worldが表示されている
 
 ## 画像が存在しないとき、新規に画像が保存される
 * [not-provide] 画像"images/new.png"が存在しない
@@ -10,7 +11,7 @@
 * [not-provide] 画像"images/new.png"が存在する
 * ページの見た目が"images/success.png"と一致する
 
-## 保存されている画像とHTMLの見た目が一致しないとき（5%以上の差異）、エラーとなり比較画像が保存される
+## 保存されている画像とHTMLの見た目が一致しないとき（4%以上の差異）、エラーとなり比較画像が保存される
 * [not-provide] 「ページの見た目が"images/failure.png"と一致する」を実行するとエラーになる
 * [not-provide] 画像"logs/vrresults/images/failure.png"が存在する
 

@@ -1,3 +1,4 @@
+import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Selenide.`$`
 import com.thoughtworks.gauge.Step
 import com.uzabase.playtest.browser.attributeContains
@@ -25,4 +26,10 @@ class TestStep {
     fun assertCss(selector: String, css: String, value: String) {
         `$`(selector).shouldHave(css(css, value))
     }
+    @Step("[not-provide] Hello Worldが表示されている")
+    fun shouldShowHelloWorld() {
+        `$`("h1").shouldHave(exactText("Hello world"))
+    }
+
+
 }

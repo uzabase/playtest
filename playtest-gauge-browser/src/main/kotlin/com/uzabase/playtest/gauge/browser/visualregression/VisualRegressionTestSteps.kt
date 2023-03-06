@@ -18,7 +18,6 @@ class VisualRegressionTestSteps {
     @Step("[not-provide] ページ<url>を開く")
     fun open(path: String) {
         Selenide.open(path)
-        `$`("h1").shouldHave(exactText("Hello world"))
     }
 
     @Step("ページの見た目が<imagePath>と一致する")
@@ -28,7 +27,7 @@ class VisualRegressionTestSteps {
             .let(ImageIO::read)
         val expectedShot = runCatching { ImageIO.read(File(imagePath)) }.getOrNull()
 
-        // 画像がなければ新規に保存する
+        // save image if image not exist.
         if (expectedShot == null) {
             ImageComparisonUtil.saveImage(File(imagePath), actualShot)
             return
@@ -42,7 +41,7 @@ class VisualRegressionTestSteps {
                 val logFile = File("logs/vrresults/$imagePath")
                 ImageComparisonUtil.saveImage(logFile, comparisonResult.result)
                 throw RuntimeException("""
-                    Comparison failure!
+                    Comparison failure! There was a ${comparisonResult.differencePercent * 100.0}% difference in the compared images.
                     Result: ${logFile.absolutePath}
                     """.trimIndent())
             }
