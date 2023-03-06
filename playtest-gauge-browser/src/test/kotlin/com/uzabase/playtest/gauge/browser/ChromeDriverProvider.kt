@@ -5,9 +5,11 @@ import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.Capabilities
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
 
 class ChromeDriverProvider: WebDriverProvider {
     override fun createDriver(p0: Capabilities): WebDriver {
-        return ChromeDriver()
+        WebDriverManager.chromedriver().setup()
+        return ChromeDriver(ChromeOptions().addArguments("--force-device-scale-factor=1"))
     }
 }
