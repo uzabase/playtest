@@ -1,5 +1,5 @@
 # Visual Regression Testができる
-* [not-provide] ページ"http://localhost:8080/page"を開く
+* [not-provide] ページ"/page"を開く
 
 ## 画像が存在しないとき、新規に画像が保存される
 * [not-provide] 画像"images/new.png"が存在しない
