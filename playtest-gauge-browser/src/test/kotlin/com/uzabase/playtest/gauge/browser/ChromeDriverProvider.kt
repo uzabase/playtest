@@ -9,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeOptions
 
 class ChromeDriverProvider: WebDriverProvider {
     override fun createDriver(p0: Capabilities): WebDriver {
-        WebDriverManager.chromedriver().setup()
-        return ChromeDriver(ChromeOptions().addArguments("--force-device-scale-factor=1"))
+        return ChromeDriver()
     }
 }
