@@ -20,7 +20,7 @@ jobs:
       - name: Gauge install
         run: |
           curl -SsL https://downloads.gauge.org/stable | sh
-          gauge install java --version 0.7.15
+          gauge install java --version 0.9.1
           gauge install screenshot
           gauge install html-report
           gauge version
