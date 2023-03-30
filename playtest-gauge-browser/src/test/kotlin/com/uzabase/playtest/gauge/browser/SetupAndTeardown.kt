@@ -10,7 +10,7 @@ class SetupAndTeardown {
     @BeforeSuite()
     fun setup() {
         System.setProperty("selenide.baseUrl", "http://localhost:${TestConfig.getInt(TestConfig.wiremockPort)}")
-        Configuration.browser = CHROME
+        Configuration.browser = "com.uzabase.playtest.gauge.browser.ChromeDriverProvider"
         Configuration.headless = true
     }
 
