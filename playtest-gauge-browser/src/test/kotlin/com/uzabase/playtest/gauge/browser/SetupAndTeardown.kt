@@ -9,6 +9,7 @@ import com.thoughtworks.gauge.BeforeSuite
 class SetupAndTeardown {
     @BeforeSuite()
     fun setup() {
+        System.setProperty("webdriver.http.factory", "jdk-http-client");
         System.setProperty("selenide.baseUrl", "http://localhost:${TestConfig.getInt(TestConfig.wiremockPort)}")
         Configuration.browser = "com.uzabase.playtest.gauge.browser.ChromeDriverProvider"
         Configuration.headless = true
