@@ -18,3 +18,7 @@ tags: http-request-test
 * API"mockApi"のURL"/"にヘッダー"content-type: application/json"で、DELETEリクエストされた
 * API"mockApi"のURL"/"にヘッダー"options: 1111,2222"で、DELETEリクエストされた
 * API"mockApi"のURL"/"にヘッダー"content-type: application/json \n options: 1111,2222"で、DELETEリクエストされた
+
+## URL を正規表現でアサーションできる
+* URL"/test/212952b3-7333-4c0b-9e55-3be465c59a99"にDELETEリクエストを送る
+* API"mockApi"の正規表現で全体マッチするURL"/test/([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})"にDELETEリクエストされた

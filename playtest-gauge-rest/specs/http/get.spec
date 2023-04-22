@@ -45,3 +45,7 @@ tags: http-request-test
 * API"mockApi"のURLパス"/"にクエリパラメータ"name2"が"value2-1"でGETリクエストされた
 * API"mockApi"のURLパス"/"にクエリパラメータ"name3"が"value3-1"でGETリクエストされた
 * API"mockApi"のURLパス"/"にクエリパラメータ"name3"が"value3-2"でGETリクエストされた
+
+## URL を正規表現でアサーションできる
+* URL"/test/212952b3-7333-4c0b-9e55-3be465c59a99"にGETリクエストを送る
+* API"mockApi"の正規表現で全体マッチするURL"/test/([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})"にGETリクエストされた
