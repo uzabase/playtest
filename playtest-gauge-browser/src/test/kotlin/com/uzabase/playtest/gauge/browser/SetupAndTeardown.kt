@@ -13,9 +13,4 @@ class SetupAndTeardown {
         Configuration.browser = CHROME
         Configuration.headless = true
     }
-
-    @BeforeScenario()
-    fun setupScenario() {
-        Selenide.open("/test")
-    }
 }

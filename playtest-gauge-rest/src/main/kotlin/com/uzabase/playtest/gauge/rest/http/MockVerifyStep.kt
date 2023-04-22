@@ -7,15 +7,14 @@ import com.thoughtworks.gauge.Step
 import com.uzabase.playtest.gauge.rest.ConfigKeys
 import com.uzabase.playtest.gauge.rest.GaugeRestConfig
 import com.uzabase.playtest.json.JsonNode
-import java.lang.RuntimeException
 import java.net.URL
 import kotlin.test.assertEquals
 
 class MockVerifyStep {
-    @Step("API<apiName>のURL<url>にGETリクエストされた")
-    fun assertGetRequestExecutedWithBody(apiName: String, url: String) {
+    @Step("API<apiName>のURL<url>に<callCount>回GETリクエストされた")
+    fun assertCallCountOfGetRequest(apiName: String, url: String, callCount: Int) {
         val client = getWireMock(apiName)
-        client.verifyThat(1, getRequestedFor(urlEqualTo(url)))
+        client.verifyThat(callCount, getRequestedFor(urlEqualTo(url)))
     }
 
     @Step("API<apiName>の正規表現で全体マッチするURL<url>にGETリクエストされた")
@@ -23,6 +22,26 @@ class MockVerifyStep {
         val client = getWireMock(apiName)
         client.verifyThat(1, getRequestedFor(urlMatching(regex)))
     }
+
+    @Step("API<apiName>のURL<url>に<callCount>回POSTリクエストされた")
+    fun assertCallCountOfPostRequest(apiName: String, url: String, callCount: Int) {
+        val client = getWireMock(apiName)
+        client.verifyThat(callCount, postRequestedFor(urlEqualTo(url)))
+    }
+
+    @Step("API<apiName>のURL<url>に<callCount>回PUTリクエストされた")
+    fun assertCallCountOfPutRequest(apiName: String, url: String, callCount: Int) {
+        val client = getWireMock(apiName)
+        client.verifyThat(callCount, putRequestedFor(urlEqualTo(url)))
+    }
+
+    @Step("API<apiName>のURL<url>に<callCount>回DELETEリクエストされた")
+    fun assertCallCountOfDeleteRequest(apiName: String, url: String, callCount: Int) {
+        val client = getWireMock(apiName)
+        client.verifyThat(callCount, deleteRequestedFor(urlEqualTo(url)))
+    }
+
+//    rewriting bellow
 
     @Step("API<apiName>のURL<url>にヘッダー<header>で、GETリクエストされた")
     fun assertGetRequestExecuted(apiName: String, url: String, header: String) {
@@ -261,6 +280,7 @@ class MockVerifyStep {
         }
     }
 
+    @Deprecated("Should use special parameters")
     private fun readJsonFileToValuePattern(jsonFilePath: String) = equalToJson(
         try {
             javaClass.getResourceAsStream(jsonFilePath).bufferedReader().readLines().joinToString("\n")
