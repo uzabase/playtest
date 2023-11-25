@@ -4,7 +4,7 @@ on:
   push:
     {}
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened ]
 
 jobs:
   test_for_pr:
@@ -40,7 +40,7 @@ jobs:
         run: |
           gauge config runner_connection_timeout 180000
           gauge config runner_request_timeout 180000
-          for MVN_PROJ in playtest-gauge-browser playtest-browser playtest-db playtest-gauge-db playtest-gauge-rest playtest-json
+          for MVN_PROJ in playtest-browser playtest-db playtest-gauge-db playtest-gauge-rest playtest-json 
           do
             pushd $MVN_PROJ
             mvn test
