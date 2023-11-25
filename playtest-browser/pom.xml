@@ -43,7 +43,7 @@
         <maven_gpg_plugin.version>3.0.1</maven_gpg_plugin.version>
         <dokka.version>1.5.31</dokka.version>
         <kotlin_as_java_plugin.version>1.5.31</kotlin_as_java_plugin.version>
-        <selenide.version>6.7.4</selenide.version>
+        <selenide.version>7.0.2</selenide.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <nexus-staging-maven-plugin.nexusUrl>https://oss.sonatype.org/</nexus-staging-maven-plugin.nexusUrl>
     </properties>
