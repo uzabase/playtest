@@ -4,7 +4,7 @@ on:
   push:
     {}
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened ]
 
 jobs:
   test_for_pr:
@@ -17,11 +17,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Setup chromedriver
+#          curl -sL -o chromedriver-linux64.zip  $(curl 'https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json' | jq -r '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url')
+      - uses: logikal-io/run-logikal-playbook@v1
+        with:
+          roles: chrome,chromedriver
+          vars: '{"_chrome_version": "119.0.6045.105", "_chromedriver_version": "119.0.6045.105"}'
+      - name: Confirm chromedriver version
         run: |
-          curl -sL -o chromedriver-linux64.zip  $(curl 'https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json' | jq -r '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url')
-          unzip chromedriver-linux64.zip
-          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
+          chromedriver --version
       - name: Gauge install
         run: |
           curl -SsL https://downloads.gauge.org/stable | sh
@@ -37,7 +40,7 @@ jobs:
         run: |
           gauge config runner_connection_timeout 180000
           gauge config runner_request_timeout 180000
-          for MVN_PROJ in playtest-gauge-browser playtest-browser playtest-db playtest-gauge-db playtest-gauge-rest playtest-json
+          for MVN_PROJ in playtest-browser playtest-db playtest-gauge-db playtest-gauge-rest playtest-json 
           do
             pushd $MVN_PROJ
             mvn test
