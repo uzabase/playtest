@@ -17,6 +17,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      - name: Setup chromedriver
+        run: |
+          curl -sL -o chromedriver-linux64.zip  $(curl 'https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json' | jq -r '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url')
+          unzip chromedriver-linux64.zip
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
       - name: Gauge install
         run: |
           curl -SsL https://downloads.gauge.org/stable | sh
@@ -28,7 +33,7 @@ jobs:
         run: |
           cd playtest-gauge-db/docker/db/postgresql/
           docker compose up -d
-      - name: Test
+      - name: Run test
         run: |
           gauge config runner_connection_timeout 180000
           gauge config runner_request_timeout 180000
