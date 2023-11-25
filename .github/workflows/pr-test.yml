@@ -10,11 +10,11 @@ jobs:
   test_for_pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 11
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
           cache: maven
       - name: Gauge install
@@ -26,14 +26,15 @@ jobs:
           gauge version
       - name: Start Database
         run: |
-          cd  playtest-gauge-db/docker/db/postgresql/
-          docker-compose up -d
-      - name: Build with Maven
+          cd playtest-gauge-db/docker/db/postgresql/
+          docker compose up -d
+      - name: Test
         run: |
-          for MVN_PROJ in playtest-gauge-browser playtest-browser playtest-db playtest-gauge-db playtest-gauge-rest playtest-json; do
+          gauge config runner_connection_timeout 180000
+          gauge config runner_request_timeout 180000
+          for MVN_PROJ in playtest-gauge-browser playtest-browser playtest-db playtest-gauge-db playtest-gauge-rest playtest-json
+          do
             pushd $MVN_PROJ
-            gauge config runner_connection_timeout 180000
-            gauge config runner_request_timeout 180000
-            mvn test 
+            mvn test
             popd
           done
