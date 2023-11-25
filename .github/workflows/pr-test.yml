@@ -17,14 +17,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - uses: nanasess/setup-chromedriver@v2
-        with:
-          chromedriver-version: '119.0.6045.105'
-#      - name: Setup chromedriver
-#        run: |
 #          curl -sL -o chromedriver-linux64.zip  $(curl 'https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json' | jq -r '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url')
-#          unzip chromedriver-linux64.zip
-#          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
+      - uses: logikal-io/run-logikal-playbook@v1
+        with:
+          roles: chrome,chromedriver
+          vars: '{"_chrome_version": "119.0.6045.105", "_chromedriver_version": "119.0.6045.105"}'
+      - name: Confirm chromedriver version
+        run: |
+          chromedriver --version
       - name: Gauge install
         run: |
           curl -SsL https://downloads.gauge.org/stable | sh
