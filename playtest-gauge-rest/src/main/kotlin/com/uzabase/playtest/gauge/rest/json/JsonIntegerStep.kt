@@ -13,6 +13,13 @@ class JsonIntegerStep {
         assertEquals(expected, actual)
     }
 
+    @Step("レスポンスのJSONの<jsonPath>が整数の<expected>でない")
+    fun assertNotEquals(jsonPath: String, expected: Int) {
+        val json = DataStore.loadResponseBodyFromScenario().string
+        val actual = JsonNode.of(json).get<Int>(jsonPath)
+        assertNotEquals(expected, actual)
+    }
+
     @Step("レスポンスのJSONの<jsonPath>の配列の、UniqueKey<uniqueKey>の値が<filterValue>である要素の<key>が、整数値の<expected>である")
     fun assertEqualsInUniqueObject(jsonPath: String, uniqueKey: String, filterValue: String, key: String, expected: Int) {
         val json = DataStore.loadResponseBodyFromScenario().string

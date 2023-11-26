@@ -13,6 +13,13 @@ class JsonDoubleStep {
         assertEquals(expected, actual)
     }
 
+    @Step("レスポンスのJSONの<jsonPath>が小数の<expected>でない")
+    fun assertNotEquals(jsonPath: String, expected: Double) {
+        val json = DataStore.loadResponseBodyFromScenario().string
+        val actual = JsonNode.of(json).get<Double>(jsonPath)
+        assertNotEquals(expected, actual)
+    }
+
     @Step("レスポンスのJSONの<jsonPath>の配列の、UniqueKey<uniqueKey>の値が<filterValue>である要素の<key>が、小数値の<expected>である")
     fun assertEqualsInUniqueObject(jsonPath: String, uniqueKey: String, filterValue: String, key: String, expected: Double) {
         val json = DataStore.loadResponseBodyFromScenario().string
