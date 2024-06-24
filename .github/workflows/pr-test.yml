@@ -1,6 +1,7 @@
 name: Test for Pull Request & Merge branches
 
 on:
+  workflow_dispatch:
   push:
     {}
   pull_request:
