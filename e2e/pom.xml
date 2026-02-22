@@ -6,7 +6,7 @@
     <artifactId>gauge-test</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <kotlin.version>1.5.0</kotlin.version>
+        <kotlin.version>1.6.0</kotlin.version>
         <kluent.version>1.68</kluent.version>
     </properties>
     <repositories>
